@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (require component)
+# --
+[com.stuartsierra.component :as component]

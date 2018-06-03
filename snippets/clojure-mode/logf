@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (log/fatal ...)
+# --
+(log/fatal $0)

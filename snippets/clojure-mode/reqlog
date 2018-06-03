@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (require timbre)
+# --
+[taoensso.timbre $0 :as log]

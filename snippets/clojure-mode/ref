@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (... :refer [...])
+# --
+[$1 :refer [$0]]

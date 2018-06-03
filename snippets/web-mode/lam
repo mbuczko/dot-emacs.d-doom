@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal.buczko@gmail.com>
+#name : => { ... }
+# --
+($1) => { $0 }

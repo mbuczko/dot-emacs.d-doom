@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (... :as ...)
+# --
+[$1 :as $0]

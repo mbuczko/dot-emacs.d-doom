@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (for ...)
+# --
+(for [[${1:k v}] ${2:(map)}] $0)

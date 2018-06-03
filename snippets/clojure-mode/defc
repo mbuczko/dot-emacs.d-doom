@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (def const ...)
+# --
+(def ^:const $1 $0)

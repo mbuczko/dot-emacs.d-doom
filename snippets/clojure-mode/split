@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (split ... #' ')
+# --
+(${1:clojure.string}/split ${2:string} ${3:#' '}$0)

@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (require cheshire)
+# --
+[cheshire.core :refer [generate-string parse-string parse-stream]]

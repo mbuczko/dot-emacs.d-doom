@@ -1,0 +1,28 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (system ...)
+# --
+$0(:require [clojure.tools.namespace.repl :as tn]
+          [mount.core :refer [defstate] :as mount])
+
+(defn go []
+  (mount/start))
+
+(defn stop []
+  (mount/stop))
+
+(defn reset []
+  (stop)
+  (tn/refresh :after '${1:ns.}system/go))
+
+(defn refresh []
+  (stop)
+  (tn/refresh))
+
+(defn refresh-all []
+  (stop)
+  (tn/refresh-all))
+
+(defn reset
+  []
+  (stop)
+  (tn/refresh :after '$1system/go))

@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (join ... ...)
+# --
+(${1:clojure.string}/join "${2:with}" ${3:left} ${4:right})

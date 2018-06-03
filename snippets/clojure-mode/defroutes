@@ -1,0 +1,5 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (defroutes ...)
+# --
+(defroutes ${1:name}
+(${2:GET} "${3:/path}" [${4:param}] (${5:handler}))$0)

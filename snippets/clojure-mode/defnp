@@ -1,0 +1,5 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (defn private ...)
+# --
+(defn ^:private $1 [$2]
+$0)

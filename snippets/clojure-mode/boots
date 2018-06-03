@@ -1,0 +1,48 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (boots ...)
+# --
+(set-env!
+ :source-paths   #{"src" "test"}
+ :resource-paths #{"resources"}
+ :dependencies '[[org.clojure/clojure "1.8.0" :scope "provided"]
+                 [org.clojure/tools.namespace "0.3.0-alpha3" :scope "provided"]
+                 [org.clojure/tools.logging "0.4.0"]
+                 [ch.qos.logback/logback-classic "1.2.3"]
+                 [metosin/boot-alt-test "0.3.2" :scope "test"]
+                 [mount "0.1.11"]])
+
+;; to check the newest versions:
+;; boot -d boot-deps ancient
+
+(def +version+ "${1:0.0.1}")
+
+(require
+ '[metosin.boot-alt-test :refer [alt-test]]
+ '[clojure.tools.namespace.repl]
+ '[${2:ns}.system :as system])
+
+;; which source dirs should be monitored for changes when resetting app?
+(apply clojure.tools.namespace.repl/set-refresh-dirs (get-env :source-paths))
+
+(deftask reset
+  []
+  (system/reset))
+
+(deftask go
+  []
+  (system/go))
+
+(deftask dev
+  "Bunch of tasks making things easier in development mode."
+  []
+  (comp (watch)
+        (alt-test)))
+
+(task-options! aot {:all ${3:true}}
+               pom {:project '${4:defunkt}/${5:foo}
+                    :version +version+
+                    :description "${6:my awesome app}"
+                    :url "https://github.com/mbuczko/$5"
+                    :scm {:url "https://github.com/mbuczko/$5"}})
+
+$0

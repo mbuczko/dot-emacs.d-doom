@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (def dynamic ...)
+# --
+(def ^:dynamic *$0*)

@@ -1,0 +1,12 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : (defrecord ...)
+# --
+(defrecord ${1:Component} [$2]
+component/Lifecycle
+
+(start [this]
+(log/info "-> Starting $3 component")
+$0)
+    
+(stop [this]
+(log/info "-> Stopping $3 component")))

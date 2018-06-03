@@ -1,0 +1,17 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name: main
+# --
+(ns ${1:namespace}
+  (:gen-class)
+  (:require [clojure.tools.cli :refer [parse-opts]]))
+
+(def cli-options
+  ;; An option with a required argument
+  [["-p" "--port PORT" "Port number"
+    :default 2104
+    :parse-fn #(Integer/parseInt %)
+    :validate [#(< 1024 % 0x10000) "Must be a number between 1024 and 65536"]]])
+
+(defn -main [& args]
+  (let [{:keys [port]} (:options (parse-opts args cli-options))]
+    $0))
