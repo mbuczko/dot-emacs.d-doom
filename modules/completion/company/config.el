@@ -66,7 +66,6 @@ MODES should be one major-mode symbol or a list of them."
       (setq company-dict-minor-mode-list (delq mode company-dict-minor-mode-list))))
   (add-hook 'doom-project-hook #'+company|enable-project-dicts))
 
-
 ;;
 ;; Autoloads
 ;;

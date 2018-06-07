@@ -91,18 +91,18 @@ base by `doom!' and for calculating how many packages exist.")
       package-user-dir (expand-file-name "elpa" doom-packages-dir)
       package-enable-at-startup nil
       package-archives
-      '(("gnu"   . "https://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/"))
+      '(("gnu"   . "http://elpa.gnu.org/packages/")
+        ("melpa" . "http://melpa.org/packages/"))
       ;; I omit Marmalade because its packages are manually submitted rather
       ;; than pulled, so packages are often out of date with upstream.
 
       ;; security settings
-      gnutls-verify-error (not (getenv "INSECURE")) ; you shouldn't use this
-      tls-checktrust gnutls-verify-error
-      tls-program (list "gnutls-cli --x509cafile %t -p %p %h"
-                        ;; compatibility fallbacks
-                        "gnutls-cli -p %p %h"
-                        "openssl s_client -connect %h:%p -no_ssl2 -no_ssl3 -ign_eof")
+      ; gnutls-verify-error (not (getenv "INSECURE")) ; you shouldn't use this
+      ;; tls-checktrust gnutls-verify-error
+      ;; tls-program (list "gnutls-cli --x509cafile %t -p %p %h"
+      ;;                   ;; compatibility fallbacks
+      ;;                   "gnutls-cli -p %p %h"
+      ;;                   "openssl s_client -connect %h:%p -no_ssl2 -no_ssl3 -ign_eof")
 
       use-package-verbose doom-debug-mode
       use-package-minimum-reported-time (if doom-debug-mode 0 0.1)
