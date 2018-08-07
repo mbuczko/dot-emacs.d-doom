@@ -7,9 +7,9 @@
  :dependencies   '[[org.clojure/clojure "1.9.0"]
                    [org.clojure/tools.namespace "0.3.0-alpha4"]
                    [org.clojure/tools.logging "0.4.0"]
-                   [adzerk/bootlaces "0.1.13" :scope "test"]
                    [ch.qos.logback/logback-classic "1.2.3"]
-                   [metosin/boot-alt-test "0.3.2" :scope "test"]])
+                   [adzerk/bootlaces "0.1.13" :scope "test"]
+                   [metosin/bat-test "0.4.0" :scope "test"]])
 
 ;; to check the newest versions:
 ;; boot -d boot-deps ancient
@@ -19,7 +19,7 @@
 (require
  '[clojure.tools.namespace.repl]
  '[adzerk.bootlaces :refer :all]
- '[metosin.boot-alt-test :refer [alt-test]])
+ '[metosin.bat-test :refer [bat-test]])
 
 (bootlaces! +version+)
 
@@ -32,3 +32,5 @@
       :description "Foo bar bazz"
       :url "https://github.com/mbuczko/foo"
       :scm {:url "https://github.com/mbuczko/foo"}})
+
+$0

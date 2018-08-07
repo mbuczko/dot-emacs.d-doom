@@ -55,7 +55,6 @@ MODES should be one major-mode symbol or a list of them."
   (setq company-quickhelp-delay nil)
   (company-quickhelp-mode +1))
 
-
 (def-package! company-dict
   :commands company-dict
   :config

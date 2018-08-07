@@ -80,8 +80,8 @@
           (lambda ()
             (helm-adaptive-mode)
             (define-key helm-buffer-map (kbd "ESC") 'helm-keyboard-quit)
-            (define-key helm-M-x-map (kbd "ESC") 'helm-keyboard-quit)
-            (define-key helm-map (kbd "ESC") 'helm-keyboard-quit)))
+            (define-key helm-M-x-map (kbd "ESC")    'helm-keyboard-quit)
+            (define-key helm-map (kbd "ESC")        'helm-keyboard-quit)))
 
 (def-package! helm-locate
   :defer t
