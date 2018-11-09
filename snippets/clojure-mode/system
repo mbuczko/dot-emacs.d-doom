@@ -1,4 +1,3 @@
-#contributor : Michal Buczko <michal@buczko.pl>
 #name : (system ...)
 # --
 $0(:require [clojure.tools.namespace.repl :as tn]
@@ -12,7 +11,7 @@ $0(:require [clojure.tools.namespace.repl :as tn]
 
 (defn reset []
   (stop)
-  (tn/refresh :after '${1:ns.}system/go))
+  (tn/refresh :after '${1:ns}.system/go))
 
 (defn refresh []
   (stop)
@@ -25,4 +24,4 @@ $0(:require [clojure.tools.namespace.repl :as tn]
 (defn reset
   []
   (stop)
-  (tn/refresh :after '$1system/go))
+  (tn/refresh :after '$1.system/go))

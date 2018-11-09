@@ -1,4 +1,5 @@
-.local/
+.local/packages
+.local/cache
 .cask/
 var/
 /init.el

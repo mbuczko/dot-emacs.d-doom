@@ -1,0 +1,59 @@
+#name: revolt.edn
+# --
+{
+ ;; tasks
+
+ :revolt.task/info   {:name ${1:foo}
+                      :package ${2:ackme}.$1
+                      :version "0.0.1"
+                      :description "${3:description}"}
+
+ :revolt.task/test   {:report :pretty}
+
+ :revolt.task/sass   {:source-path "assets/styles"
+                      :output-dir "styles"}
+
+ :revolt.task/assets {:assets-paths ["assets"]
+                      :exclude-paths ["assets/styles"]
+                      :output-dir "assets"}
+
+ :revolt.task/codox  {:source-paths ["src/clj"]
+                      :source-uri "http://github.com/mbuczko/$2/blob/{version}/{filepath}#L{line}"
+                      :namespaces [$2.$1]}
+
+ :revolt.task/cljs   {:compiler {:output-dir "scripts/out"
+                                 :asset-path "scripts/out"
+                                 :preloads [devtools.preload]
+                                 :foreign-libs [{:file "assets/scripts/antd.inc.js"
+                                                 :file-min "assets/scripts/antd.min.inc.js"
+                                                 :provides ["cljsjs.antd"]
+                                                 :requires ["cljsjs.react"
+                                                            "cljsjs.react.dom"
+                                                            "cljsjs.moment"]}]}
+                      :builds [{:id "main"
+                                :source-paths ["src/cljs"]
+                                :compiler {:main "$2.main"
+                                           :output-to "scripts/main.js"}}]}
+
+ :revolt.task/capsule {:exclude-paths #{"test" "src/cljs"}
+                       :output-jar "dist/ackme.jar"
+                       :capsule-type :thin
+                       :main "ackme.main"
+                       :min-java-version "1.8.0"
+                       :jvm-args "-server"
+                       :system-properties "ENV=prod"
+                       :caplets {"MavenCapsule" [["Repositories" "central clojars(https://repo.clojars.org/)"]
+                                                 ["Allow-Snapshots" "true"]]}}
+
+ ;; plugins
+
+ :revolt.plugin/nrepl {:port 5600}
+
+ :revolt.plugin/rebel {:init-ns "$2.system"
+                       :init-banner "\n ***** Welcome to $2 *****\n\n Usage:  (go)    => runs edge system\n         (reset) => restarts the system\n"}
+
+ :revolt.plugin/watch {:on-change {:revolt.task/sass "glob:assets/styles/*.scss"
+                                   :revolt.task/test "glob:**/*.clj"}}
+
+ :revolt.plugin/figwheel {:client-print-to [:console]
+                          :builds ["main"]}}
