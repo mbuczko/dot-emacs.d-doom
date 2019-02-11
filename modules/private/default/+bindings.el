@@ -49,25 +49,27 @@
       "M-w M-d"   #'er/mark-defun
       "M-w i"     #'er/mark-inner-tag
       "M-w o"     #'er/mark-outer-tag
+      "M-w e"     #'mark-from-point-to-end-of-line
       "C-c d"     #'crux-duplicate-current-line-or-region
       "C-c m"     #'magit-status
       "C-x a"     #'helm-git-grep-at-point
       "C-x s"     #'helm-git-grep
+      "C-x p"     #'helm-multi-swoop-projectile
       "C-x i"     #'helm-imenu-in-all-buffers
       "C-x o"     #'helm-occur
       "C-x d"     #'dash-at-point
-      "C-x t"     #'cider-test-run-test
       "C-x w"     #'close-other
       "C-x q"     #'kill-this-buffer
       "C-x v d"   #'magit-diff-popup
-      "C-x v ="   #'magit-diff-current-buffer
+      "C-x v ="   #'magit-diff-buffer-file
       "C-x C-b"   #'projectile-ibuffer
       "C-x C-o"   #'avy-goto-char-timer
-      "C-x C-i"   #'helm-etags-select
+      "C-x C-i"   #'projectile-find-tag
       "C-x C-h"   #'helm-resume
       "C-x C-r"   #'helm-mini
       "C-x C-m"   #'bm-toggle
       "C-x C-l"   #'bm-show-all
+      "C-x C-t"   #'cider-eval-and-run-test
       "C-h r"     #'cljr-helm
       "C-S-h"     #'highlight-symbol-at-point
 

@@ -1,10 +1,6 @@
 ;;; feature/version-control/+git.el -*- lexical-binding: t; -*-
 ;;;###if (not (featurep! -git))
 
-(when (featurep! :feature evil)
-  (add-hook 'git-commit-mode-hook #'evil-insert-state))
-
-
 (def-package! gitconfig-mode
   :mode "/\\.?git/?config$"
   :mode "/\\.gitmodules$")
@@ -28,14 +24,6 @@
 
   ;; Update git-gutter on focus (in case I was using git externally)
   (add-hook 'focus-in-hook #'git-gutter:update-all-windows)
-
-  (after! evil
-    (defun +version-control|update-git-gutter ()
-      "Refresh git-gutter on ESC. Return nil to prevent shadowing other
-`+evil-esc-hook' hooks."
-      (when git-gutter-mode
-        (ignore (git-gutter))))
-    (add-hook '+evil-esc-hook #'+version-control|update-git-gutter t))
 
   (def-hydra! +version-control@git-gutter
     (:body-pre (git-gutter-mode 1) :hint nil)
@@ -76,16 +64,14 @@
 
 
 (def-package! magit
-  :commands (magit-status magit-blame)
-  :config
-  (set! :evil-state 'magit-status-mode 'emacs)
-  (after! evil
-    ;; Switch to emacs state only while in `magit-blame-mode', then back when
-    ;; its done (since it's a minor-mode).
-    (add-hook! 'magit-blame-mode-hook
-      (evil-local-mode (if magit-blame-mode -1 +1)))))
-
+  :commands (magit-status magit-blame))
 
 (def-package! git-link
   :commands (git-link git-link-commit git-link-homepage))
+
+;; (def-package! magithub
+;;   :after magit
+;;   :config
+;;   (magithub-feature-autoinject t)
+;;   (setq magithub-clone-default-directory "~/github"))
 

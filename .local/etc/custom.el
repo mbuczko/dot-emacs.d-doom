@@ -16,7 +16,8 @@
  '(cider-prompt-for-symbol nil)
  '(cider-repl-display-in-current-window t)
  '(cider-repl-history-file ".cider_history")
- '(cider-repl-pop-to-buffer-on-connect nil)
+ '(cider-repl-pop-to-buffer-on-connect t)
+ '(cider-repl-scroll-on-output nil)
  '(cider-repl-use-pretty-printing t)
  '(cljr-auto-clean-ns t)
  '(cljr-hotload-dependencies t)
@@ -36,7 +37,7 @@
  '(company-backends
    (quote
     (company-capf company-dabbrev company-dabbrev-code company-etags company-css company-files company-semantic company-abbrev)))
- '(company-idle-delay 0.2)
+ '(company-idle-delay 0.4)
  '(company-minimum-prefix-length 1)
  '(company-occurrence-weight-function (quote company-occurrence-prefer-closest-above))
  '(company-search-regexp-function (quote company-search-words-regexp))
@@ -76,14 +77,12 @@
     ("~$" "\\.o$" "\\.exe$" "\\.a$" "\\.elc$" ",v$" "\\.output$" "\\.$" "#$" "\\.class$" "tmp/")))
  '(gh-api-v3-authenticator (quote gh-oauth-authenticator))
  '(git-link-open-in-browser t)
+ '(global-flycheck-mode t)
  '(global-hl-line-mode t)
  '(gnus-asynchronous nil)
  '(gnus-make-format-preserve-properties nil)
  '(gnus-parameter-large-newsgroup-initial 700)
  '(gnus-use-correct-string-widths t)
- '(gnutls-trustfiles
-   (quote
-    ("/etc/ssl/certs/ca-certificates.crt" "/etc/pki/tls/certs/ca-bundle.crt" "/etc/ssl/ca-bundle.pem" "/usr/ssl/certs/ca-bundle.crt" "/usr/local/share/certs/ca-root-nss.crt")))
  '(golden-ratio-auto-scale nil)
  '(golden-ratio-exclude-buffer-names
    (quote
@@ -94,6 +93,7 @@
     ("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode" minimap-mode TERM)))
  '(helm-boring-buffer-regexp-list (quote ("\\*" "\\` " "TAGS")))
  '(helm-buffer-max-length 60)
+ '(helm-git-grep-pathspecs (quote ("*" ":!:*.inc.js" ":!:*yarn*")))
  '(helm-split-window-default-side (quote other))
  '(helm-split-window-inside-p t)
  '(highlight-symbol-idle-delay 1.1)
@@ -126,9 +126,10 @@
  '(org-tags-column -90)
  '(package-selected-packages
    (quote
-    (lorem-ipsum stylus-mode eyebrowse ripgrep cljr-helm comb clj-refactor cider groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point dired-filter dired-subtree flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep w3m window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree ssh-deploy smartparens smart-forward slime shrink-path shackle sass-mode rake rainbow-mode rainbow-delimiters quickrun quelpa nav-flash multi-term magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dumb-jump doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+    (helm-cider outshine company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor cider groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point dired-filter dired-subtree flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep w3m window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path shackle sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dumb-jump doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
  '(projectile-completion-system (quote helm))
  '(projectile-enable-caching t)
+ '(projectile-globally-ignored-buffers (quote ("TAGS" "^\\\\*")))
  '(projectile-globally-ignored-directories
    (quote
     (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "~/.emacs.d/.local/" ".sync" "build" "target" "dist")))
@@ -212,8 +213,8 @@
  '(yas-snippet-dirs
    (quote
     (emacs-snippets-dir +file-templates-dir "~/.emacs.d/snippets")))
- '(yas-wrap-around-region t)
- '(zencoding-preview-default nil))
+ '(yas-wrap-around-region t))
+'(zencoding-preview-default nil)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

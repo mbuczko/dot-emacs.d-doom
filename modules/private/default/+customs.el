@@ -21,7 +21,7 @@
       x-select-enable-primary nil
       mouse-drag-copy-region nil
 
-      default-frame-alist '((left . 40) (top . 40) (width . 120) (height . 40))
+      default-frame-alist '((left . 40) (top . 40) (width . 160) (height . 30))
 
       confirm-nonexistent-file-or-buffer nil
       tags-revert-without-query t
@@ -74,12 +74,9 @@
 (golden-ratio-mode)
 (window-numbering-mode)
 (global-highlight-parentheses-mode)
+(global-flycheck-mode)
 
 ;; a few handy functions to make life easier
-
-(defun magit-diff-current-buffer ()
-  (interactive)
-  (magit-diff-unstaged nil (list (buffer-file-name))))
 
 (defun magit-toggle-whitespace ()
   (interactive)
@@ -103,6 +100,12 @@
   (kill-buffer)
   (jump-to-register :magit-fullscreen))
 
+(defun mark-from-point-to-end-of-line ()
+  "Marks everything from point to end of line"
+  (interactive)
+  (set-mark (line-end-position))
+  (activate-mark))
+
 (defun comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
   (interactive)
@@ -114,7 +117,7 @@
 
 (defun find-tag-without-ns ()
   (interactive)
-  (xref-find-definitions (car (last (split-string (symbol-name (symbol-at-point)) "/")))))
+  (xref-find-apropos (car (last (split-string (symbol-name (symbol-at-point)) "/")))))
 
 (defun whack-whitespace ()
   (interactive)
@@ -127,6 +130,11 @@
   (if (string-match "cider-repl" (buffer-name) 1)
       (cider-switch-to-last-clojure-buffer)
     (cider-switch-to-repl-buffer)))
+
+(defun cider-eval-and-run-test ()
+  (interactive)
+  (cider-eval-defun-at-point)
+  (cider-test-run-test))
 
 (defun repl-reset ()
   "Sends (reset) to currently running repl"
@@ -170,9 +178,6 @@
       (clipboard-kill-region (region-beginning) (region-end) t)
     (clipboard-kill-region (line-beginning-position) (line-beginning-position 2))))
 
-
-;; github integration enabler
-;;(magithub-feature-autoinject t)
 
 ;; javascript mode for all *.js and *.vue files
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))

@@ -6,6 +6,7 @@
   :mode ("\\.cljs$" . clojurescript-mode)
   :config
   (require 'helm-clojuredocs)
+  (require 'flycheck-joker)
 
   ;; treat some-symbol as a single word for editing lispy sources
   (dolist (c (string-to-list ":_-/?!#*"))
@@ -47,11 +48,13 @@
   (define-key cider-repl-mode-map (kbd "M-r")     'cider-switch-repl))
 
 (def-package! cider-find
-  :commands (cider-find-resource cider-find-ns))
+  :commands (cider-find-resource cider-find-ns cider-find-var))
 
 (def-package! cider-scratch
   :commands (cider-scratch))
 
+(def-package! cider-apropos
+  :commands (cider-apropos))
+
 (def-package! cider-ns
   :commands (cider-ns-refresh))
-
