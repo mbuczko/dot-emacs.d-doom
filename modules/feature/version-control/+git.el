@@ -23,31 +23,7 @@
   (set! :popup "^\\*git-gutter.+\\*$" :regexp t :size 15 :noselect t)
 
   ;; Update git-gutter on focus (in case I was using git externally)
-  (add-hook 'focus-in-hook #'git-gutter:update-all-windows)
-
-  (def-hydra! +version-control@git-gutter
-    (:body-pre (git-gutter-mode 1) :hint nil)
-    "
-                                     ╭─────────────────┐
-  Movement   Hunk Actions     Misc.  │ gg: +%-4s(car (git-gutter:statistic))/ -%-3s(cdr (git-gutter:statistic)) │
-  ╭──────────────────────────────────┴─────────────────╯
-     ^_g_^       [_s_] stage        [_R_] set start Rev
-     ^_k_^       [_r_] revert
-     ^↑ ^      [_m_] mark
-     ^↓ ^      [_p_] popup          ╭──────────────────────
-     ^_j_^                          │[_q_] quit
-     ^_G_^                          │[_Q_] Quit and disable"
-    ("j" (progn (git-gutter:next-hunk 1) (recenter)))
-    ("k" (progn (git-gutter:previous-hunk 1) (recenter)))
-    ("g" (progn (goto-char (point-min)) (git-gutter:next-hunk 1)))
-    ("G" (progn (goto-char (point-min)) (git-gutter:previous-hunk 1)))
-    ("s" git-gutter:stage-hunk)
-    ("r" git-gutter:revert-hunk)
-    ("m" git-gutter:mark-hunk)
-    ("p" git-gutter:popup-hunk)
-    ("R" git-gutter:set-start-revision)
-    ("q" nil :color blue)
-    ("Q" (git-gutter-mode -1) :color blue)))
+  (add-hook 'focus-in-hook #'git-gutter:update-all-windows))
 
 
 (def-package! git-timemachine
@@ -64,14 +40,22 @@
 
 
 (def-package! magit
-  :commands (magit-status magit-blame))
+  :commands (magit-status magit-blame)
+  :config
+  (magit-todos-mode)
+  (defadvice magit-status (around magit-fullscreen activate)
+    "Full screen magit-status."
+    (window-configuration-to-register :magit-fullscreen)
+    ad-do-it
+    (delete-other-windows))
+
+  (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
+
+(def-package! magit-gitflow
+  :commands (turn-on-magit-gitflow))
+
+(def-package! magit-todos
+  :commands (magit-todos-mode))
 
 (def-package! git-link
-  :commands (git-link git-link-commit git-link-homepage))
-
-;; (def-package! magithub
-;;   :after magit
-;;   :config
-;;   (magithub-feature-autoinject t)
-;;   (setq magithub-clone-default-directory "~/github"))
-
+  :commands (git-link git-link-commit git-link-homepage git-link--exec))

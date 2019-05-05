@@ -1,107 +1,41 @@
 ;;; private/default/+customs.el -*- lexical-binding: t; -*-
 
+(require 'deadgrep)
+(require 'popup-kill-ring)
 (require 'helm-git-grep)
-(require 'magit-gitflow)
 (require 'golden-ratio)
 (require 'window-numbering)
 (require 'highlight-symbol)
 (require 'highlight-parentheses)
 (require 'dash-at-point)
 (require 'goto-last-change)
+(require 'ws-butler)
 
-(setq mac-option-key-is-meta nil
-      mac-command-key-is-meta t
-      mac-redisplay-dont-reset-vscroll t
-      mac-mouse-wheel-smooth-scroll nil
-      mouse-wheel-scroll-amount '(5 ((shift) . 2))  ; one line at a time
-      mouse-wheel-progressive-speed nil             ; don't accelerate scrolling
+;; global modes
 
-      ;; no copy-on-select!
-      x-select-enable-clipboard nil
-      x-select-enable-primary nil
-      mouse-drag-copy-region nil
-
-      default-frame-alist '((left . 40) (top . 40) (width . 160) (height . 30))
-
-      confirm-nonexistent-file-or-buffer nil
-      tags-revert-without-query t
-      auto-window-vscroll nil
-
-      ;; keep window splitting at sane proportions
-      ;; with golden-ratio switched on
-
-      split-width-threshold 0
-      split-height-threshold nil
-      window-min-width 30
-
-      ibuffer-expert t
-      ibuffer-show-empty-filter-groups nil
-      ibuffer-saved-filter-groups
-      '(("home"
-         ("emacs-config" (or (filename . ".emacs") (filename . ".gnus")))
-         ("Dired" (mode . dired-mode))
-         ("Ruby" (mode . ruby-mode))
-         ("CSS" (or (mode . scss-mode) (mode . css-mode)))
-         ("JS" (mode . js2-mode))
-         ("Clojure" (mode . clojure-mode))
-         ("EShell" (mode . eshell-mode))
-         ("Org" (or (mode . org-mode)))
-         ("Gnus" (or (mode . message-mode)
-                     (mode . bbdb-mode)
-                     (mode . mail-mode)
-                     (mode . gnus-group-mode)
-                     (mode . gnus-summary-mode)
-                     (mode . gnus-article-mode)))
-         ("REPL" (name . "*cider-repl*"))
-         ("ERB" (name ."*.erb*"))
-         ("Magit" (name . "\*magit"))
-         ("ERC" (mode . erc-mode))
-         ("Help" (or (name . "\*Help\*")
-                     (name . "\*Apropos\*")
-                     (name . "\*info\*")))))
-
-      ;; helm config
-      helm-dash-common-docsets '("Clojure/Clojure"
-                                 "Java_SE8/Java"
-                                 "jQuery/jQuery"
-                                 "Lo-Dash/Lo-Dash"
-                                 "D3JS/D3JS"
-                                 "JavaScript/JavaScript"))
-
-;; auto-enabled modes
-
-(company-mode)
-(golden-ratio-mode)
-(window-numbering-mode)
-(global-highlight-parentheses-mode)
+(global-company-mode)
 (global-flycheck-mode)
+(ws-butler-global-mode)
+
+;; turns ligatures on
+(mac-auto-operator-composition-mode)
+
+;; sane mouse clicks
+
+(define-key global-map (kbd "<S-down-mouse-1>") 'ignore)
+(define-key global-map (kbd "<S-mouse-1>") 'mouse-set-point)
+(put 'mouse-set-point 'CUA 'move)
+
+;; org-mode additions
+
+(setq
+ org-ditaa-jar-path "/usr/local/Cellar//ditaa/0.11.0/libexec/ditaa-0.11.0-standalone.jar"
+ org-plantuml-jar-path "/usr/local/Cellar//plantuml/1.2019.3/libexec/plantuml.jar")
 
 ;; a few handy functions to make life easier
 
-(defun magit-toggle-whitespace ()
-  (interactive)
-  (if (member "-w" magit-diff-arguments)
-      (magit-dont-ignore-whitespace)
-    (magit-ignore-whitespace)))
-
-(defun magit-ignore-whitespace ()
-  (interactive)
-  (add-to-list 'magit-diff-arguments "-w")
-  (magit-refresh))
-
-(defun magit-dont-ignore-whitespace ()
-  (interactive)
-  (setq magit-diff-arguments (remove "-w" magit-diff-arguments))
-  (magit-refresh))
-
-(defun magit-quit-session ()
-  "Restores the previous window configuration and kills the magit buffer"
-  (interactive)
-  (kill-buffer)
-  (jump-to-register :magit-fullscreen))
-
 (defun mark-from-point-to-end-of-line ()
-  "Marks everything from point to end of line"
+  "Mark everything from point to end of line."
   (interactive)
   (set-mark (line-end-position))
   (activate-mark))
@@ -117,7 +51,8 @@
 
 (defun find-tag-without-ns ()
   (interactive)
-  (xref-find-apropos (car (last (split-string (symbol-name (symbol-at-point)) "/")))))
+  (xref-find-apropos
+   (car (last (split-string (symbol-name (symbol-at-point)) "/")))))
 
 (defun whack-whitespace ()
   (interactive)
@@ -125,7 +60,7 @@
   (replace-match "" nil nil))
 
 (defun cider-switch-repl ()
-  "Switches between cider-repl and last active buffer"
+  "Switches between cider-repl and last active buffer."
   (interactive)
   (if (string-match "cider-repl" (buffer-name) 1)
       (cider-switch-to-last-clojure-buffer)
@@ -135,13 +70,6 @@
   (interactive)
   (cider-eval-defun-at-point)
   (cider-test-run-test))
-
-(defun repl-reset ()
-  "Sends (reset) to currently running repl"
-  (interactive)
-  (save-buffer)
-  (sleep-for 1)
-  (cider-interactive-eval "(boot.user/reset)"))
 
 (defun close-other ()
   (interactive)
@@ -158,59 +86,76 @@
   "Resizing windows automatically when selected by window-numbering shortcuts."
   (golden-ratio))
 
-(defadvice magit-status (around magit-fullscreen activate)
-  "Full screen magit-status."
-  (window-configuration-to-register :magit-fullscreen)
-  ad-do-it
-  (delete-other-windows))
-
 (defadvice clipboard-kill-ring-save (before slick-copy activate compile)
   "When called interactively with no active region, copy a single line instead."
   (interactive
    (if mark-active
        (list (region-beginning) (region-end))
-     (message "Copied line")
+     (+doom/blink-cursor)
      (list (line-beginning-position) (line-beginning-position 2)))))
 
 (defun clipboard-cut-line-or-region ()
+  "Cuts currently selected region or entire line if nothing was selected."
   (interactive)
   (if (use-region-p)
       (clipboard-kill-region (region-beginning) (region-end) t)
     (clipboard-kill-region (line-beginning-position) (line-beginning-position 2))))
 
+(defun github--get-issue-or-pr-at-point ()
+  (if-let ((iop (first (seq-filter
+                       (lambda (s) (string-prefix-p "#" s))
+                       (split-string (thing-at-point 'line t))))))
+      (progn
+        (string-match "[0-9]+" iop)
+        (match-string 0 iop))))
+
+(defun github--goto-issue-or-pr (id type)
+  "Opens a browser with issue or PR (denoted by TYPE) of given ID."
+  (let* ((origin-url (car (git-link--exec "config" "--get" "remote.origin.url")))
+         (repo-match (string-match "^git@github.com:\\([^\\.]+\\)" origin-url))
+         (repo-url   (concat "https://github.com/" (match-string 1 origin-url)))
+         (sub-path   (cond ((eq 'issue type) "/issues")
+                           ((eq 'pr type) "/pull"))))
+
+    (message (concat repo-url sub-path "/" id))
+    (browse-url
+     (concat repo-url sub-path "/" id))))
+
+(defun github--goto-issue (id)
+  "Opens in a browser issue with given ID or with a one found at current line."
+  (interactive
+   (let* ((at-point (github--get-issue-or-pr-at-point))
+          (default (if at-point (concat "Issue (" at-point ") #") "Issue #"))
+          (str (read-string default nil nil at-point)))
+     (list str)))
+  (github--goto-issue-or-pr id 'issue))
+
+(defun github--goto-pr (id)
+  "Opens in a browser pull request with given ID or with a one found at current line."
+  (interactive
+   (let* ((at-point (github--get-issue-or-pr-at-point))
+          (default (if at-point (concat "Pull-Request (" at-point ") #") "Pull-Request #"))
+          (str (read-string default nil nil at-point)))
+     (list str)))
+  (github--goto-issue-or-pr id 'pr))
 
 ;; javascript mode for all *.js and *.vue files
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
 
-(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
-
-(add-hook 'less-css-mode-hook
-          (lambda ()
-            (define-key less-css-mode-map (kbd "C-o") 'helm-css-scss)))
-
-(add-hook 'css-mode-hook
-          (lambda ()
-            (define-key css-mode-map (kbd "C-o") 'helm-css-scss)))
-
 (add-hook 'clojure-mode-hook
           (lambda ()
-            (require 'ws-butler)
-            (ws-butler-mode)
             (highlight-symbol-mode)
             (clj-refactor-mode)))
 
-(add-hook 'cider-repl-mode-hook
+(add-hook 'org-mode-hook
           (lambda ()
-            (turn-on-smartparens-strict-mode)))
-
-;; sane mouse clicks
-
-(define-key global-map (kbd "<S-down-mouse-1>") 'ignore)
-(define-key global-map (kbd "<S-mouse-1>") 'mouse-set-point)
-(put 'mouse-set-point 'CUA 'move)
+            (require 'org-bullets)
+            (org-bullets-mode 1)))
 
 ;; projectile default prefix
-
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+;; global abbrev mode with most frequently used phrases
+(setq-default abbrev-mode t)

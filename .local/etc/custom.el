@@ -1,6 +1,5 @@
 ;;; ../.local/etc/custom.el -*- lexical-binding: t; -*-
 
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -8,17 +7,16 @@
  ;; If there is more than one, they won't work right.
  '(ack-executable "/usr/local/bin/ack")
  '(auth-sources (quote ("~/.authinfo" "~/.authinfo.gpg")))
+ '(auto-window-vscroll nil t)
  '(bm-highlight-style (quote bm-highlight-line-and-fringe))
  '(canlock-password "65fd570ab0dff8c5eab2bf832f5e58157748881a")
  '(cider-default-repl-command "boot")
  '(cider-jack-in-default "boot")
  '(cider-preferred-build-tool "boot")
  '(cider-prompt-for-symbol nil)
+ '(cider-repl-display-help-banner nil)
  '(cider-repl-display-in-current-window t)
- '(cider-repl-history-file ".cider_history")
- '(cider-repl-pop-to-buffer-on-connect t)
- '(cider-repl-scroll-on-output nil)
- '(cider-repl-use-pretty-printing t)
+ '(cider-repl-pop-to-buffer-on-connect (quote display-only))
  '(cljr-auto-clean-ns t)
  '(cljr-hotload-dependencies t)
  '(cljr-suppress-middleware-warnings t)
@@ -49,10 +47,17 @@
  '(compilation-window-height 12)
  '(compile-auto-highlight t)
  '(confirm-kill-emacs nil)
+ '(confirm-nonexistent-file-or-buffer nil)
  '(css-indent-offset 2)
  '(cua-delete-selection t)
  '(cua-enable-cua-keys nil)
  '(cua-mode t nil (cua-base))
+ '(default-frame-alist
+    (quote
+     ((left . 40)
+      (top . 40)
+      (width . 160)
+      (height . 30))))
  '(dired-filter-group-saved-groups
    (quote
     (("((\"default\"
@@ -75,9 +80,11 @@
  '(file-cache-filter-regexps
    (quote
     ("~$" "\\.o$" "\\.exe$" "\\.a$" "\\.elc$" ",v$" "\\.output$" "\\.$" "#$" "\\.class$" "tmp/")))
+ '(flycheck-global-modes t)
  '(gh-api-v3-authenticator (quote gh-oauth-authenticator))
  '(git-link-open-in-browser t)
  '(global-flycheck-mode t)
+ '(global-highlight-parentheses-mode t)
  '(global-hl-line-mode t)
  '(gnus-asynchronous nil)
  '(gnus-make-format-preserve-properties nil)
@@ -91,17 +98,75 @@
  '(golden-ratio-exclude-modes
    (quote
     ("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode" minimap-mode TERM)))
+ '(golden-ratio-mode t)
  '(helm-boring-buffer-regexp-list (quote ("\\*" "\\` " "TAGS")))
  '(helm-buffer-max-length 60)
- '(helm-git-grep-pathspecs (quote ("*" ":!:*.inc.js" ":!:*yarn*")))
+ '(helm-git-grep-pathspecs (quote ("*" ":!:*.inc.js" ":!:*yarn*" ":!:*.min.*")))
+ '(helm-prevent-escaping-from-minibuffer t)
  '(helm-split-window-default-side (quote other))
  '(helm-split-window-inside-p t)
  '(highlight-symbol-idle-delay 1.1)
  '(hl-paren-colors (quote ("#aff" "#acf" "#a9f" "#a6f")))
+ '(horizontal-scroll-bar-mode nil)
  '(ibuffer-always-compile-formats nil)
  '(ibuffer-display-summary nil)
+ '(ibuffer-expert t)
  '(ibuffer-never-show-predicates (quote (".newsrc*" "*.*" "TAGS")) nil (ibuf-ext))
+ '(ibuffer-saved-filter-groups
+   (quote
+    (("home"
+      ("emacs-config"
+       (or
+        (filename . ".emacs")
+        (filename . ".gnus")))
+      ("Dired"
+       (mode . dired-mode))
+      ("Ruby"
+       (mode . ruby-mode))
+      ("CSS"
+       (or
+        (mode . scss-mode)
+        (mode . css-mode)))
+      ("JS"
+       (mode . js2-mode))
+      ("Clojure"
+       (mode . clojure-mode))
+      ("EShell"
+       (mode . eshell-mode))
+      ("Org"
+       (or
+        (mode . org-mode)))
+      ("Gnus"
+       (or
+        (mode . message-mode)
+        (mode . bbdb-mode)
+        (mode . mail-mode)
+        (mode . gnus-group-mode)
+        (mode . gnus-summary-mode)
+        (mode . gnus-article-mode)))
+      ("REPL"
+       (name . "*cider-repl*"))
+      ("ERB"
+       (name . "*.erb*"))
+      ("Magit"
+       (name . "*magit"))
+      ("ERC"
+       (mode . erc-mode))
+      ("Help"
+       (or
+        (name . "*Help*")
+        (name . "*Apropos*")
+        (name . "*info*")))))))
+ '(ibuffer-show-empty-filter-groups nil)
  '(ibuffer-use-header-line nil)
+ '(jabber-account-list
+   (quote
+    (("michal.buczko@gmail.com"
+      (:network-server . "talk.google.com")
+      (:port . 443)
+      (:connection-type . ssl)))))
+ '(jabber-roster-line-format " %c %-25n %u %-8s")
+ '(jabber-show-resources nil)
  '(js2-auto-indent-p t)
  '(js2-cleanup-whitespace t)
  '(js2-enter-indents-newline t)
@@ -115,18 +180,37 @@
  '(js2-include-node-externs t)
  '(js2-mirror-mode nil)
  '(js2-missing-semi-one-line-override t)
+ '(mac-command-key-is-meta t)
+ '(mac-option-key-is-meta nil)
  '(magit-commit-show-diff nil)
  '(magit-diff-auto-show (quote (stage-all log-oneline log-select blame-follow)))
  '(magit-process-connection-type nil)
  '(menu-bar-mode nil)
+ '(mouse-drag-copy-region nil)
+ '(mouse-wheel-progressive-speed nil)
  '(neo-smart-open t)
- '(org-agenda-current-time-string #("<- [ NOW ]" 0 2 (org-heading t)))
+ '(org-agenda-current-time-string #("<-now-" 0 2 (org-heading t)))
+ '(org-agenda-files (quote ("~/Dropbox/org/timesheet.org")))
  '(org-agenda-tags-column -80)
+ '(org-duration-format (quote ((special . h:mm))))
  '(org-email-link-description-format "Email %c: %s")
+ '(org-log-into-drawer nil)
+ '(org-log-state-notes-insert-after-drawers t)
  '(org-tags-column -90)
+ '(org-todo-keyword-faces
+   (quote
+    (("TODO" . "green")
+     ("BLOCKED" . "red")
+     ("" . "")
+     ("WAITING" . "yellow")
+     ("IN-PROGRESS" . "white"))))
+ '(org-todo-keywords
+   (quote
+    ((sequence "TODO" "IN-PROGRESS" "WAITING" "BLOCKED" "DONE"))))
  '(package-selected-packages
    (quote
-    (helm-cider outshine company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor cider groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point dired-filter dired-subtree flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep w3m window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path shackle sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dumb-jump doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+    (smooth-scrolling ox-hugo popup-kill-ring magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex helm-cider company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point dired-subtree flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep w3m window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path shackle sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dumb-jump doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+ '(popup-kill-ring-popup-width 80 t)
  '(projectile-completion-system (quote helm))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-buffers (quote ("TAGS" "^\\\\*")))
@@ -185,8 +269,12 @@
                  (concat
                   (projectile-project-root)
                   ".nrepl-history"))))))
- '(select-enable-clipboard t)
+ '(scroll-bar-mode nil)
+ '(scroll-preserve-screen-position 1)
+ '(select-enable-clipboard nil)
+ '(select-enable-primary nil)
  '(show-paren-mode t)
+ '(shr-color-visible-luminance-min 70)
  '(size-indication-mode t)
  '(smartparens-global-strict-mode t)
  '(smiley-style (quote medium))
@@ -203,18 +291,24 @@
      ("M-<left>" . sp-backward-sexp)
      ("M-C-<down>" . paxedit-transpose-forward)
      ("M-C-<up>" . paxedit-transpose-backward))))
+ '(split-height-threshold nil)
+ '(split-width-threshold 0)
  '(tab-width 4)
+ '(tags-add-tables nil)
+ '(tags-revert-without-query t)
+ '(tool-bar-mode nil)
  '(undo-tree-visualizer-diff t)
  '(web-mode-auto-close-style 2)
  '(web-mode-code-indent-offset 4)
  '(web-mode-enable-current-column-highlight t)
  '(web-mode-script-padding 0)
+ '(window-min-width 30)
+ '(window-numbering-mode t)
  '(yas-alias-to-yas/prefix-p nil)
  '(yas-snippet-dirs
    (quote
     (emacs-snippets-dir +file-templates-dir "~/.emacs.d/snippets")))
  '(yas-wrap-around-region t))
-'(zencoding-preview-default nil)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

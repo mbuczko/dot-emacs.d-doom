@@ -21,6 +21,7 @@
   ;; setup some extra namespace auto completion for great awesome
   (dolist (mapping '(("time"      . "clj-time.core")
                      ("try"       . "clj-try.core")
+                     ("r"         . "reagent.core")
                      ("rf"        . "re-frame.core")
                      ("log"       . "clojure.tools.logging")
                      ("str"       . "clojure.string")
@@ -32,7 +33,7 @@
                      ("liberator" . "liberator.core")
                      ("pp"        . "fipp.edn")))
     (add-to-list 'cljr-magic-require-namespaces mapping t))
-  (cljr-add-keybindings-with-prefix "M-l"))
+  (cljr-add-keybindings-with-prefix "M-m"))
 
 
 (def-package! cider
@@ -45,7 +46,10 @@
 
   (define-key cider-repl-mode-map (kbd "C-x C-d") 'helm-clojuredocs-at-point)
   (define-key cider-repl-mode-map (kbd "C-x C-p") 'cider-repl-previous-matching-input)
-  (define-key cider-repl-mode-map (kbd "M-r")     'cider-switch-repl))
+  (define-key cider-repl-mode-map (kbd "M-r")     'cider-switch-repl)
+  (define-key cider-repl-mode-map (kbd "C-b")     'cider-browse-ns)
+  (define-key cider-mode-map (kbd "C-b")          'cider-browse-ns)
+  (define-key cider-mode-map (kbd "C-x C-t")      'cider-eval-and-run-test))
 
 (def-package! cider-find
   :commands (cider-find-resource cider-find-ns cider-find-var))
@@ -58,3 +62,6 @@
 
 (def-package! cider-ns
   :commands (cider-ns-refresh))
+
+(def-package! cljr-helm
+  :commands (cljr-helm))

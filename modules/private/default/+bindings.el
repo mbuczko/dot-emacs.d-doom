@@ -19,10 +19,11 @@
       "M-v"       #'clipboard-yank
       "M-z"       #'undo
 
-      "M-s"       #'projectile-find-file
+      "M-l"       #'helm-buffers-list
       "M-a"       #'find-tag-without-ns
       "M-p"       #'indent-defn
       "M-q"       #'kill-buffer-and-window
+      "M-s"       #'projectile-find-file
       "M-t"       #'projectile-toggle-between-implementation-and-test
       "M-;"       #'comment-or-uncomment-region-or-line
       "M-("       #'wrap-round
@@ -54,10 +55,11 @@
       "C-c m"     #'magit-status
       "C-x a"     #'helm-git-grep-at-point
       "C-x s"     #'helm-git-grep
-      "C-x p"     #'helm-multi-swoop-projectile
       "C-x i"     #'helm-imenu-in-all-buffers
       "C-x o"     #'helm-occur
+      "C-x p"     #'popup-kill-ring
       "C-x d"     #'dash-at-point
+      "C-x f"     #'deadgrep
       "C-x w"     #'close-other
       "C-x q"     #'kill-this-buffer
       "C-x v d"   #'magit-diff-popup
@@ -69,7 +71,6 @@
       "C-x C-r"   #'helm-mini
       "C-x C-m"   #'bm-toggle
       "C-x C-l"   #'bm-show-all
-      "C-x C-t"   #'cider-eval-and-run-test
       "C-h r"     #'cljr-helm
       "C-S-h"     #'highlight-symbol-at-point
 
@@ -80,20 +81,18 @@
       [(backtab)]       'helm-buffers-list
       [(control ?.)]    'goto-last-change
       [(control ?,)]    'goto-last-change-reverse
-      [(C-backspace)]   'backward-kill-word
-
-      (:map magit-status-mode-map
-        "q"       'magit-quit-session)
-
-      (:map dired-mode-map
-        "f"       'dired-filter-map
-        [M-left]  'dired-subtree-remove
-        [M-right] 'dired-subtree-insert
-        [M-down]  'dired-subtree-down
-        [M-up]    'dired-up-directory)
 
       (:map company-active-map
-        "\e"      'company-abort)
+        "\e" 'company-abort)
+
+      (:after helm
+        (:map helm-map
+           "ESC" nil
+           "C-s" #'helm-minibuffer-history
+           "C-u" #'helm-delete-minibuffer-contents
+           "M-r" #'next-history-element
+           "M-n" #'previous-history-element
+           [escape] #'helm-keyboard-quit))
 
       ;; --- Built-in plugins -----------------------------
       (:after comint
