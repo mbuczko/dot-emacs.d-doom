@@ -30,6 +30,7 @@
       "M-["       #'wrap-square
       "M-{"       #'wrap-curly
       "M-/"       #'company-complete
+      "M-RET"     #'crux-smart-open-line
 
       "C-o"       #'helm-semantic-or-imenu
       "C-b"       #'helm-buffers-list
@@ -56,8 +57,9 @@
       "C-x a"     #'helm-git-grep-at-point
       "C-x s"     #'helm-git-grep
       "C-x i"     #'helm-imenu-in-all-buffers
+      "C-x k"     #'helm-mark-ring
       "C-x o"     #'helm-occur
-      "C-x p"     #'popup-kill-ring
+      "C-x p"     #'helm-show-kill-ring
       "C-x d"     #'dash-at-point
       "C-x f"     #'deadgrep
       "C-x w"     #'close-other
@@ -99,10 +101,13 @@
         ;; TAB auto-completion in term buffers
         :map comint-mode-map [tab] #'company-complete))
 
-(smartrep-define-key
-    global-map "C-x v"
+(smartrep-define-key global-map "C-x v"
   '(("]"   . git-gutter:next-hunk)
     ("["   . git-gutter:previous-hunk)
     ("|"   . git-gutter:stage-hunk)
     ("\\"  . git-gutter:revert-hunk)))
 
+(smartrep-define-key global-map "C-x \\"
+  '(("]" . highlight-symbol-next)
+    ("[" . highlight-symbol-prev)
+    ("=" . er/expand-region)))

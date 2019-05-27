@@ -8,6 +8,9 @@
   (require 'helm-clojuredocs)
   (require 'flycheck-joker)
 
+  ;; get docstrings colored correctly with defn-spec
+  (put 'defn-spec 'clojure-doc-string-elt 3)
+
   ;; treat some-symbol as a single word for editing lispy sources
   (dolist (c (string-to-list ":_-/?!#*"))
     (modify-syntax-entry c "w" clojure-mode-syntax-table))
@@ -47,8 +50,6 @@
   (define-key cider-repl-mode-map (kbd "C-x C-d") 'helm-clojuredocs-at-point)
   (define-key cider-repl-mode-map (kbd "C-x C-p") 'cider-repl-previous-matching-input)
   (define-key cider-repl-mode-map (kbd "M-r")     'cider-switch-repl)
-  (define-key cider-repl-mode-map (kbd "C-b")     'cider-browse-ns)
-  (define-key cider-mode-map (kbd "C-b")          'cider-browse-ns)
   (define-key cider-mode-map (kbd "C-x C-t")      'cider-eval-and-run-test))
 
 (def-package! cider-find

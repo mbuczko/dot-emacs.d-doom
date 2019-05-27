@@ -190,8 +190,10 @@
  '(mouse-wheel-progressive-speed nil)
  '(neo-smart-open t)
  '(org-agenda-current-time-string #("<-now-" 0 2 (org-heading t)))
- '(org-agenda-files (quote ("~/Dropbox/org/timesheet.org")))
+ '(org-agenda-files nil)
  '(org-agenda-tags-column -80)
+ '(org-catch-invisible-edits (quote smart))
+ '(org-cycle-separator-lines 0)
  '(org-duration-format (quote ((special . h:mm))))
  '(org-email-link-description-format "Email %c: %s")
  '(org-log-into-drawer nil)
@@ -209,8 +211,8 @@
     ((sequence "TODO" "IN-PROGRESS" "WAITING" "BLOCKED" "DONE"))))
  '(package-selected-packages
    (quote
-    (smooth-scrolling ox-hugo popup-kill-ring magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex helm-cider company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point dired-subtree flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep w3m window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path shackle sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dumb-jump doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
- '(popup-kill-ring-popup-width 80 t)
+    (poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex helm-cider company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point dired-subtree flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep w3m window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path shackle sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dumb-jump doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+ '(popup-kill-ring-popup-width 50 t)
  '(projectile-completion-system (quote helm))
  '(projectile-enable-caching t)
  '(projectile-globally-ignored-buffers (quote ("TAGS" "^\\\\*")))
@@ -230,7 +232,7 @@
              (projectile-project-name)))))
  '(projectile-project-root-files
    (quote
-    ("rebar.config" "project.clj" "build.boot" "SConstruct" "pom.xml" "build.sbt" ".ensime" "Gemfile" "requirements.txt" "setup.py" "tox.ini" "composer.json" "Cargo.toml" "mix.exs" "stack.yaml" "info.rkt" "DESCRIPTION" "TAGS" "GTAGS")))
+    ("rebar.config" "project.clj" "build.boot" "pom.xml" "build.sbt" "Gemfile" "setup.py" "TAGS" "GTAGS")))
  '(projectile-require-project-root t)
  '(rainbow-delimiters-outermost-only-face-count 2)
  '(recentf-exclude
@@ -315,7 +317,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka" :foundry "nil" :slant normal :weight light :height 140 :width normal))))
+ '(default ((t (:family "Iosevka" :foundry "nil" :slant normal :weight light :height 141 :width normal))))
  '(doom-modeline-buffer-file ((t (:inherit mode-line-buffer-id))))
  '(doom-modeline-buffer-major-mode ((t (:inherit mode-line-emphasis))))
  '(doom-modeline-buffer-modified ((t (:inherit error))))

@@ -1,7 +1,6 @@
 ;;; private/default/+customs.el -*- lexical-binding: t; -*-
 
 (require 'deadgrep)
-(require 'popup-kill-ring)
 (require 'helm-git-grep)
 (require 'golden-ratio)
 (require 'window-numbering)
