@@ -1,25 +1,26 @@
 ;;; lang/org/+babel.el -*- lexical-binding: t; -*-
 
 (defvar +org-babel-languages
-  '(calc
+  '(;calc
     css
     emacs-lisp
-    haskell
+    ;haskell
     js
     latex
-    ledger
-    lilypond
+    ;ledger
+    ;lilypond
     lisp
-    matlab
+    ;matlab
     plantuml
-    python
-    restclient ; ob-restclient
-    ruby
-    rust       ; ob-rust
-    shell
-    sqlite
-    sql-mode   ; ob-sql-mode
-    translate) ; ob-translate
+    ;python
+    ;restclient ; ob-restclient
+    ;ruby
+    ;rust       ; ob-rust
+    ;shell
+    ;sqlite
+    ;sql-mode   ; ob-sql-mode
+    ;translate   ; ob-translate
+    )
   "A list of org-babel languages to load.")
 
 
@@ -37,6 +38,12 @@
 
   ;; I prefer C-c C-c for confirming over the default C-c '
   (map! :map org-src-mode-map "C-c C-c" #'org-edit-src-exit)
+
+  ;; To update and redraw diagrams
+  (map! :map org-mode-map "C-c C-p" (lambda ()
+                                      (interactive)
+                                      (org-ctrl-c-ctrl-c)
+                                      (org-redisplay-inline-images)))
 
   ;; In a recent update, `org-babel-get-header' was removed from org-mode, which
   ;; is something a fair number of babel plugins use. So until those plugins

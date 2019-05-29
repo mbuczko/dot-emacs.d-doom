@@ -1,6 +1,6 @@
 ;;; lang/org/config.el -*- lexical-binding: t; -*-
 
-(defvar +org-dir (expand-file-name "~/work/org/")
+(defvar +org-dir (expand-file-name "~/Dropbox/org")
   "The directory where org files are kept.")
 
 ;; Ensure ELPA org is prioritized above built-in org.

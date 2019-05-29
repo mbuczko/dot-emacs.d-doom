@@ -23,8 +23,8 @@
       "M-a"       #'find-tag-without-ns
       "M-p"       #'indent-defn
       "M-q"       #'kill-buffer-and-window
-      "M-s"       #'projectile-find-file
       "M-t"       #'projectile-toggle-between-implementation-and-test
+      "M-s"       #'projectile-find-file
       "M-;"       #'comment-or-uncomment-region-or-line
       "M-("       #'wrap-round
       "M-["       #'wrap-square
@@ -73,13 +73,12 @@
       "C-x C-r"   #'helm-mini
       "C-x C-m"   #'bm-toggle
       "C-x C-l"   #'bm-show-all
-      "C-h r"     #'cljr-helm
       "C-S-h"     #'highlight-symbol-at-point
 
       [C-S-down]        'highlight-symbol-next
       [C-S-up]          'highlight-symbol-prev
       [(C-backspace)]   'backward-kill-word
-      [(C-M-return)]    'er/expand-region
+      [(C-S-return)]    'er/expand-region
       [(backtab)]       'helm-buffers-list
       [(control ?.)]    'goto-last-change
       [(control ?,)]    'goto-last-change-reverse

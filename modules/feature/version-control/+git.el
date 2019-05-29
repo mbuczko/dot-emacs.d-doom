@@ -40,7 +40,7 @@
 
 
 (def-package! magit
-  :commands (magit-status magit-blame)
+  :commands (magit-status magit-blame magit-diff-buffer-file)
   :config
   (magit-todos-mode)
   (defadvice magit-status (around magit-fullscreen activate)

@@ -26,10 +26,11 @@
 (put 'mouse-set-point 'CUA 'move)
 
 ;; org-mode additions
-
 (setq
- org-ditaa-jar-path "/usr/local/Cellar//ditaa/0.11.0/libexec/ditaa-0.11.0-standalone.jar"
- org-plantuml-jar-path "/usr/local/Cellar//plantuml/1.2019.3/libexec/plantuml.jar")
+ org-display-inline-images t
+ org-startup-with-inline-images "inlineimages"
+ org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.11.0/libexec/ditaa-0.11.0-standalone.jar"
+ org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2019.5/libexec/plantuml.jar")
 
 ;; a few handy functions to make life easier
 
