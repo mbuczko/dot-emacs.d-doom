@@ -5,7 +5,7 @@
 ;;
 (setq vc-make-backup-files nil)
 
-(defvar +vcs-auto-hydra-smerge t
+(defvar +vcs-auto-hydra-smerge nil
   "When entering `smerge-mode' automatically open associated hydra.")
 
 (after! vc-annotate

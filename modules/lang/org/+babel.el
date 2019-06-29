@@ -13,7 +13,7 @@
     ;matlab
     plantuml
     ;python
-    ;restclient ; ob-restclient
+    restclient ; ob-restclient
     ;ruby
     ;rust       ; ob-rust
     ;shell
@@ -29,7 +29,11 @@
         org-src-preserve-indentation t  ; use native major-mode indentation
         org-src-tab-acts-natively t
         org-src-window-setup 'current-window
-        org-confirm-babel-evaluate nil) ; you don't need my permission
+        org-confirm-babel-evaluate nil
+        org-display-inline-images t
+        org-startup-with-inline-images "inlineimages"
+        org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.11.0/libexec/ditaa-0.11.0-standalone.jar"
+        org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2019.6/libexec/plantuml.jar")
 
   (org-babel-do-load-languages
    'org-babel-load-languages

@@ -35,7 +35,7 @@
  '(company-backends
    (quote
     (company-capf company-dabbrev company-dabbrev-code company-etags company-css company-files company-semantic company-abbrev)))
- '(company-idle-delay 0.4)
+ '(company-idle-delay 0.6)
  '(company-minimum-prefix-length 1)
  '(company-occurrence-weight-function (quote company-occurrence-prefer-closest-above))
  '(company-search-regexp-function (quote company-search-words-regexp))
@@ -80,9 +80,10 @@
  '(file-cache-filter-regexps
    (quote
     ("~$" "\\.o$" "\\.exe$" "\\.a$" "\\.elc$" ",v$" "\\.output$" "\\.$" "#$" "\\.class$" "tmp/")))
- '(flycheck-global-modes t)
+ '(flycheck-global-modes (quote (not css-mode html-mode)))
  '(gh-api-v3-authenticator (quote gh-oauth-authenticator))
  '(git-link-open-in-browser t)
+ '(global-eldoc-mode t)
  '(global-flycheck-mode t)
  '(global-highlight-parentheses-mode t)
  '(global-hl-line-mode t)
@@ -93,8 +94,8 @@
  '(golden-ratio-auto-scale nil)
  '(golden-ratio-exclude-buffer-names
    (quote
-    ("*helm imenu*" "*helm etags*" "*Helm Swoop*" "*fzf*" "*Ediff Control Panel*" "*helm M-x*")))
- '(golden-ratio-exclude-buffer-regexp (quote ("undo")))
+    ("*helm imenu*" "*helm etags*" "*Helm Swoop*" "*fzf*" "*Ediff Control Panel*" "*helm M-x*" "*transient*")))
+ '(golden-ratio-exclude-buffer-regexp (quote ("undo" "transient")))
  '(golden-ratio-exclude-modes
    (quote
     ("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode" minimap-mode TERM)))
@@ -211,7 +212,7 @@
     ((sequence "TODO" "IN-PROGRESS" "WAITING" "BLOCKED" "DONE"))))
  '(package-selected-packages
    (quote
-    (ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex helm-cider company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point dired-subtree flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep w3m window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path shackle sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dumb-jump doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+    (rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex helm-cider company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point dired-subtree flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep w3m window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path shackle sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dumb-jump doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
  '(popup-kill-ring-popup-width 50 t)
  '(projectile-completion-system (quote helm))
  '(projectile-enable-caching t)
@@ -234,6 +235,7 @@
    (quote
     ("rebar.config" "project.clj" "build.boot" "pom.xml" "build.sbt" "Gemfile" "setup.py" "TAGS" "GTAGS")))
  '(projectile-require-project-root t)
+ '(projectile-tags-backend (quote auto))
  '(rainbow-delimiters-outermost-only-face-count 2)
  '(recentf-exclude
    (quote
@@ -243,27 +245,10 @@
     ((eval when
            (require
             (quote projectile))
-           (setq projectile-enable-idle-timer t projectile-project-name "cerber-roles" cider-repl-history-file
-                 (concat
-                  (projectile-project-root)
-                  ".nrepl-history")))
-     (eval when
-           (require
-            (quote projectile))
            (setq cider-repl-history-file
                  (concat
                   (projectile-project-root)
                   ".nrepl-history")))
-     (eval when
-           (require
-            (quote projectile))
-           (setq projectile-enable-idle-timer nil cider-repl-history-file
-                 (concat
-                  (projectile-project-root)
-                  ".nrepl-history")))
-     (eval progn
-           (pp-buffer)
-           (indent-buffer))
      (eval when
            (require
             (quote projectile))
@@ -287,6 +272,7 @@
     (("M-r" . cider-switch-repl)
      ("M-s" . projectile-find-file)
      ("M-x" . clipboard-cut-line-or-region)
+     ("C-S-w" . sp-copy-sexp)
      ("M-<up>" . sp-backward-up-sexp)
      ("M-<down>" . sp-down-sexp)
      ("M-<right>" . sp-forward-sexp)
@@ -299,6 +285,9 @@
  '(tags-add-tables nil)
  '(tags-revert-without-query t)
  '(tool-bar-mode nil)
+ '(transient-mode-line-format
+   (quote
+    ("%e" mode-line-front-space mode-line-buffer-identification)))
  '(undo-tree-visualizer-diff t)
  '(web-mode-auto-close-style 2)
  '(web-mode-code-indent-offset 4)

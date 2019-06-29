@@ -30,9 +30,16 @@
   (setq org-tags-exclude-from-inheritance '("crypt")
         org-crypt-key user-mail-address))
 
+(def-package! ox-extra ;org-plus-contrib
+   :commands (ox-extras-activate ignore-headlines)
+   :config
+   (ox-extras-activate '(ignore-headlines)))
+
 (def-package! org-bullets
   :commands org-bullets-mode)
 
+(def-package! poporg
+  :commands poporg-dwim)
 
 ;;
 ;; Bootstrap
@@ -48,7 +55,7 @@
 
   (org-crypt-use-before-save-magic)
   (+org-init-ui)
-  (+org-init-keybinds)
+  ;(+org-init-keybinds)
   (+org-hacks))
 
 (add-hook! org-mode
@@ -63,7 +70,8 @@
      +org|smartparens-compatibility-config
      +org|unfold-to-2nd-level-or-point
      +org|show-paren-mode-compatibility
-     ))
+
+     +org|colored-src-listings))
 
 
 ;;
@@ -114,8 +122,20 @@ unfold to point on startup."
 `org-indent-mode', so we simply turn off show-paren-mode altogether."
   (set (make-local-variable 'show-paren-mode) nil))
 
+(defun +org|colored-src-listings ()
+  "Make the listing colorful."
+  (setq
+   org-latex-listings 'minted
+   org-latex-packages-alist '(("" "minted"))
+   org-latex-pdf-process '("pdflatex -interaction nonstopmode -output-directory %o %f")
+   org-startup-with-latex-preview t
 
-;;
+   ;; org-mode math is now highlighted ;-)
+   org-highlight-latex-and-related '(latex)
+
+   ;; Hide the *,=,/ markers
+   org-hide-emphasis-markers t))
+
 (defun +org-init-ui ()
   "Configures the UI for `org-mode'."
   (setq-default

@@ -25,12 +25,7 @@
 (define-key global-map (kbd "<S-mouse-1>") 'mouse-set-point)
 (put 'mouse-set-point 'CUA 'move)
 
-;; org-mode additions
-(setq
- org-display-inline-images t
- org-startup-with-inline-images "inlineimages"
- org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.11.0/libexec/ditaa-0.11.0-standalone.jar"
- org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2019.5/libexec/plantuml.jar")
+(setq rfc-mode-directory (expand-file-name "~/Dropbox/rfc/"))
 
 ;; a few handy functions to make life easier
 
@@ -58,6 +53,39 @@
   (interactive)
   (re-search-forward "[ \t\n]+" nil t)
   (replace-match "" nil nil))
+
+(defun fixup-defun-whitespace ()
+  "Normalise all whitespace between forms in defun, and group closing parens.
+Does not affect strings/comments"
+  (interactive)
+  (let* ((bnds (bounds-of-thing-at-point 'defun))
+         (beg (car bnds)) (end (cdr bnds)))
+    (save-excursion
+      (goto-char end)
+      (while (> (point) beg)
+        (search-backward-regexp "[([{ \t\r\n]" beg)
+        (unless (or (nth 8 (syntax-ppss)) ;; in a string or comment
+                    (nth 4 (syntax-ppss)))
+          (let ((s (buffer-substring (point-at-bol) (point))))
+            (cond
+             ;; indentation, skip
+             ((string-match-p "^[ \t]*\\'" s)
+              (forward-line 0))
+             ;; closing paren on separate line
+             ((string-match-p "^[ \t]*[])}]" s)
+              (forward-line -1)
+              (end-of-line)
+              ;; don't join if prev line is a comment
+              (unless (nth 8 (syntax-ppss))
+                (delete-char 1)
+                (fixup-whitespace)
+                (forward-line 1)))
+             (t
+              (fixup-whitespace))))))
+      (goto-char beg)
+      (indent-sexp)
+      (when (derived-mode-p 'clojure-mode)
+        (call-interactively 'clojure-align)))))
 
 (defun cider-switch-repl ()
   "Switches between cider-repl and last active buffer."

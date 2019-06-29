@@ -52,6 +52,7 @@
   (map! :map cider-repl-mode-map "C-x C-d" #'helm-clojuredocs-at-point)
   (map! :map cider-repl-mode-map "C-x C-p" #'cider-repl-previous-matching-input)
   (map! :map cider-repl-mode-map "M-r"     #'cider-switch-repl)
+  (map! :map cider-mode-map "M-n"          #'cider-find-ns)
   (map! :map cider-mode-map "C-x C-t"      #'cider-eval-and-run-test))
 
 (def-package! cider-find
