@@ -8,30 +8,17 @@
     (after! solaire-mode
       (add-hook 'doom-init-ui-hook #'solaire-mode-swap-bg t)))
 
-  ;; Ensure `doom/reload-load-path' reloads common faces
-  (defun +doom|reload-theme () (load "doom-themes-common.el" nil t))
-  (add-hook 'doom-pre-reload-theme-hook #'+doom|reload-theme)
-
   ;; improve integration w/ org-mode
-  (add-hook 'doom-init-ui-hook #'doom-themes-org-config)
-
-  ;; more Atom-esque file icons for neotree
-  (add-hook 'doom-init-ui-hook #'doom-themes-neotree-config)
-  (setq doom-neotree-enable-variable-pitch t
-        doom-neotree-file-icons 'simple
-        doom-neotree-line-spacing 2)
-
-  ;; blink mode-line on errors
-  ;; FIXME Breaks modeline
-  ;; (add-hook 'doom-init-ui-hook #'doom-themes-visual-bell-config)
-
-  (after! neotree
-    (defun +doom|neotree-fix-popup ()
-      "Ensure the fringe settings are maintained on popup restore."
-      (neo-global--when-window
-       (doom--neotree-no-fringes)))
-    (add-hook 'doom-popup-mode-hook #'+doom|neotree-fix-popup)))
-
+  (add-hook 'doom-load-theme-hook #'doom-themes-org-config)
+  ;; more Atom-esque file icons for neotree/treemacs
+  (when (featurep! :ui neotree)
+    (add-hook 'doom-load-theme-hook #'doom-themes-neotree-config)
+    (setq doom-neotree-enable-variable-pitch t
+          doom-neotree-file-icons 'simple
+          doom-neotree-line-spacing 2))
+  (when (featurep! :ui treemacs)
+    (add-hook 'doom-load-theme-hook #'doom-themes-treemacs-config)
+    (setq doom-treemacs-enable-variable-pitch t)))
 
 (def-package! solaire-mode
   :hook (after-change-major-mode . turn-on-solaire-mode)
@@ -99,3 +86,28 @@
     "XX......"
     "XXX....."
     "XXXX...."))
+
+(def-package! centaur-tabs
+  :commands (centaur-tabs-mode)
+  :init
+  (setq centaur-tabs-set-modified-marker t
+        centaur-tabs-modified-marker "●"
+        centaur-tabs-cycle-scope 'tabs
+        centaur-tabs-height 24
+        centaur-tabs-set-bar 'over)
+  :config
+  (centaur-tabs-headline-match)
+  (centaur-tabs-group-by-projectile-project)
+  (defun centaur-tabs-hide-tab (x)
+    (let ((name (format "%s" x)))
+      (or
+       (string-prefix-p "TAGS" name)
+       (string-prefix-p "*Article" name)
+       (string-prefix-p "*Summary" name)
+       (string-prefix-p "*Group" name)
+       (string-prefix-p " *NeoTree*" name)
+       (string-prefix-p " *transient" name)
+       (string-prefix-p " *which" name)
+       (string-prefix-p "*helm" name)
+       (and (string-prefix-p "magit" name)
+            (not (file-name-extension name)))))))

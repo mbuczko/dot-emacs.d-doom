@@ -281,7 +281,7 @@ The body of the advice is in BODY."
   :commands (smartrep-define-key))
 
 (def-package! crux
-  :commands (crux-duplicate-current-line-or-region crux-cleanup-buffer-or-region))
+  :commands (crux-duplicate-current-line-or-region crux-cleanup-buffer-or-region crux-smart-open-line))
 
 (def-package! paxedit
   :commands (paxedit-delete paxedit-transpose-forward paxedit-transpose-backward))

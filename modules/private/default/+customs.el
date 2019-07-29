@@ -13,6 +13,7 @@
 ;; global modes
 
 (global-company-mode)
+(company-posframe-mode)
 (global-flycheck-mode)
 (ws-butler-global-mode)
 
@@ -20,15 +21,19 @@
 (mac-auto-operator-composition-mode)
 
 ;; sane mouse clicks
-
 (define-key global-map (kbd "<S-down-mouse-1>") 'ignore)
 (define-key global-map (kbd "<S-mouse-1>") 'mouse-set-point)
 (put 'mouse-set-point 'CUA 'move)
 
-(setq rfc-mode-directory (expand-file-name "~/Dropbox/rfc/"))
+;; global abbrev mode with most frequently used phrases
+(setq-default
+ abbrev-mode t
+ rfc-mode-directory (expand-file-name "~/Dropbox/rfc/"))
+
+;; projectile default prefix
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; a few handy functions to make life easier
-
 (defun mark-from-point-to-end-of-line ()
   "Mark everything from point to end of line."
   (interactive)
@@ -53,39 +58,6 @@
   (interactive)
   (re-search-forward "[ \t\n]+" nil t)
   (replace-match "" nil nil))
-
-(defun fixup-defun-whitespace ()
-  "Normalise all whitespace between forms in defun, and group closing parens.
-Does not affect strings/comments"
-  (interactive)
-  (let* ((bnds (bounds-of-thing-at-point 'defun))
-         (beg (car bnds)) (end (cdr bnds)))
-    (save-excursion
-      (goto-char end)
-      (while (> (point) beg)
-        (search-backward-regexp "[([{ \t\r\n]" beg)
-        (unless (or (nth 8 (syntax-ppss)) ;; in a string or comment
-                    (nth 4 (syntax-ppss)))
-          (let ((s (buffer-substring (point-at-bol) (point))))
-            (cond
-             ;; indentation, skip
-             ((string-match-p "^[ \t]*\\'" s)
-              (forward-line 0))
-             ;; closing paren on separate line
-             ((string-match-p "^[ \t]*[])}]" s)
-              (forward-line -1)
-              (end-of-line)
-              ;; don't join if prev line is a comment
-              (unless (nth 8 (syntax-ppss))
-                (delete-char 1)
-                (fixup-whitespace)
-                (forward-line 1)))
-             (t
-              (fixup-whitespace))))))
-      (goto-char beg)
-      (indent-sexp)
-      (when (derived-mode-p 'clojure-mode)
-        (call-interactively 'clojure-align)))))
 
 (defun cider-switch-repl ()
   "Switches between cider-repl and last active buffer."
@@ -182,8 +154,58 @@ Does not affect strings/comments"
             (require 'org-bullets)
             (org-bullets-mode 1)))
 
-;; projectile default prefix
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+;; pretty-hydra
+(defun with-faicon (icon str &optional height v-adjust)
+  (s-concat (all-the-icons-faicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
 
-;; global abbrev mode with most frequently used phrases
-(setq-default abbrev-mode t)
+(defun with-fileicon (icon str &optional height v-adjust)
+  (s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+
+(defun with-octicon (icon str &optional height v-adjust)
+  (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+
+(defun with-material (icon str &optional height v-adjust)
+  (s-concat (all-the-icons-material icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+
+(pretty-hydra-define global-toggles
+  (:color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Global switches") :separator "┄")
+  ("Basic"
+   (("n" linum-mode "line number" :toggle t)
+    ("w" whitespace-mode "whitespace" :toggle t)
+    ("W" ws-butler-mode "whitespace cleanup" :toggle t)
+    ("L" page-break-lines-mode "page break lines" :toggle t))
+   "Highlight"
+   (("l" hl-line-mode "line" :toggle t)
+    ("s" highlight-symbol-mode "symbol" :toggle t)
+    ("x" highlight-sexp-mode "sexp" :toggle t)
+    ("r" highlight-parentheses-mode "parens" :toggle t))
+   "UI"
+   (("t" centaur-tabs-mode "centaur tabs" :toggle t)
+    ("n" neotree-show "neotree" :color teal))
+   "Coding"
+   (("p" smartparens-mode "smartparens" :toggle t)
+    ("P" smartparens-strict-mode "smartparens strict" :toggle t)
+    ("S" show-smartparens-mode "show smartparens" :toggle t)
+    ("f" flycheck-mode "flycheck" :toggle t))
+   "Emacs"
+   (("D" toggle-debug-on-error "debug on error" :toggle (default-value 'debug-on-error))
+    ("X" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))))
+
+(pretty-hydra-define dev-actions
+  (:color pink :quit-key "q" :title (with-faicon "cog" "Dev helpers") :separator "┄")
+  ("Doc"
+   (("d" helm-clojuredocs-at-point "clojuredocs" :color teal)
+    ("c" cider-doc "cider doc" :color teal)
+    ("j" cider-javadoc "cider javadoc" :color teal)
+    ("h" dash-at-point "dash" :color teal))
+   "Git"
+   (("d" magit-diff-buffer-file "diff buffer" :color teal)
+    ("f" magit-file-dispatch "file..." :color teal)
+    ("h" git-timemachine "time machine" :color teal)
+    ("t" magit-todos-list "todos list" :color teal))
+   "Chunk"
+   (("a" git-gutter:stage-hunk "stage" :color teal)
+    ("r" git-gutter:revert-hunk "revert" :color teal)
+    ("n" git-gutter:next-hunk "next →" :toggle t)
+    ("p" git-gutter:previous-hunk "prev ←" :toggle t)
+    ("=" git-gutter:popup-hunk "popup" :color teal))))

@@ -38,6 +38,9 @@
   (require 'helm-projectile)
   (set-keymap-parent helm-projectile-find-file-map helm-map)
 
+  (define-key helm-map (kbd "<left>") 'helm-previous-source)
+  (define-key helm-map (kbd "<right>") 'helm-next-source)
+
   (require 'helm-command)
 
   ;; helm is too heavy for find-file-at-point
@@ -58,7 +61,9 @@
 
   (defun +helm*hide-header (&rest _)
     "Hide header-line & mode-line in helm windows."
-    (setq mode-line-format nil))
+    (setq mode-line-format nil)
+    (setq-local header-line-format nil))
+
   (advice-add #'helm-display-mode-line :override #'+helm*hide-header)
 
   (map! :map global-map

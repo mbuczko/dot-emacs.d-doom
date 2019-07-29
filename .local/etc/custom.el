@@ -102,12 +102,17 @@
  '(golden-ratio-mode t)
  '(helm-boring-buffer-regexp-list (quote ("\\*" "\\` " "TAGS")))
  '(helm-buffer-max-length 60)
+ '(helm-ff-lynx-style-map t)
  '(helm-git-grep-pathspecs (quote ("*" ":!:*.inc.js" ":!:*yarn*" ":!:*.min.*")))
+ '(helm-imenu-lynx-style-map t)
+ '(helm-occur-use-ioccur-style-keys t)
  '(helm-prevent-escaping-from-minibuffer t)
+ '(helm-semantic-lynx-style-map t)
  '(helm-split-window-default-side (quote other))
  '(helm-split-window-inside-p t)
  '(highlight-symbol-idle-delay 1.1)
  '(hl-paren-colors (quote ("#aff" "#acf" "#a9f" "#a6f")))
+ '(hl-sexp-background-color "#222222")
  '(horizontal-scroll-bar-mode nil)
  '(ibuffer-always-compile-formats nil)
  '(ibuffer-display-summary nil)
@@ -212,7 +217,7 @@
     ((sequence "TODO" "IN-PROGRESS" "WAITING" "BLOCKED" "DONE"))))
  '(package-selected-packages
    (quote
-    (rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex helm-cider company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point dired-subtree flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep w3m window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path shackle sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dumb-jump doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+    (pretty-hydra company-posframe centaur-tabs w3m rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex helm-cider company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point dired-subtree flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path shackle sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
  '(popup-kill-ring-popup-width 50 t)
  '(projectile-completion-system (quote helm))
  '(projectile-enable-caching t)
@@ -245,6 +250,13 @@
     ((eval when
            (require
             (quote projectile))
+           (setq projectile-enable-idle-timer t projectile-project-name "cerber-roles" cider-repl-history-file
+                 (concat
+                  (projectile-project-root)
+                  ".nrepl-history")))
+     (eval when
+           (require
+            (quote projectile))
            (setq cider-repl-history-file
                  (concat
                   (projectile-project-root)
@@ -258,7 +270,7 @@
                   ".nrepl-history"))))))
  '(scroll-bar-mode nil)
  '(scroll-preserve-screen-position 1)
- '(select-enable-clipboard nil)
+ '(select-enable-clipboard t)
  '(select-enable-primary nil)
  '(show-paren-mode t)
  '(shr-color-visible-luminance-min 70)
@@ -308,6 +320,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka" :foundry "nil" :slant normal :weight light :height 141 :width normal))))
+ '(centaur-tabs-default ((t (:inherit tabbar-default))))
+ '(centaur-tabs-selected ((t (:inherit tabbar-selected))))
+ '(centaur-tabs-selected-modified ((t (:inherit tabbar-selected-modified))))
+ '(centaur-tabs-unselected ((t (:inherit tabbar-unselected))))
+ '(centaur-tabs-unselected-modified ((t (:inherit tabbar-unselected-modified))))
  '(doom-modeline-buffer-file ((t (:inherit mode-line-buffer-id))))
  '(doom-modeline-buffer-major-mode ((t (:inherit mode-line-emphasis))))
  '(doom-modeline-buffer-modified ((t (:inherit error))))

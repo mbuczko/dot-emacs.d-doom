@@ -41,6 +41,9 @@ MODES should be one major-mode symbol or a list of them."
   (global-company-mode +1))
 
 
+(def-package! company-posframe
+  :commands (company-posframe-mode))
+
 (def-package! company-statistics
   :after company
   :config

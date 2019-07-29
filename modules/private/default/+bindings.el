@@ -52,8 +52,10 @@
       "M-w i"     #'er/mark-inner-tag
       "M-w o"     #'er/mark-outer-tag
       "M-w e"     #'mark-from-point-to-end-of-line
-      "C-c d"     #'crux-duplicate-current-line-or-region
       "C-c m"     #'magit-status
+      "C-c t"     #'global-toggles/body
+      "C-c d"     #'dev-actions/body
+      "C-x d"     #'crux-duplicate-current-line-or-region
       "C-x a"     #'helm-git-grep-at-point
       "C-x s"     #'helm-git-grep
       "C-x i"     #'helm-imenu-in-all-buffers
