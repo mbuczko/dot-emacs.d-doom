@@ -270,6 +270,9 @@ instead)."
 (def-package! highlight-indentation
   :commands (highlight-indentation-mode highlight-indentation-current-column-mode))
 
+(def-package! highlight-sexp
+  :commands (highlight-sexp-mode))
+
 ;; For modes with sub-par number fontification
 (def-package! highlight-numbers :commands highlight-numbers-mode)
 

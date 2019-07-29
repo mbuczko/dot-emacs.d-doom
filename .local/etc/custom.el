@@ -112,7 +112,7 @@
  '(helm-split-window-inside-p t)
  '(highlight-symbol-idle-delay 1.1)
  '(hl-paren-colors (quote ("#aff" "#acf" "#a9f" "#a6f")))
- '(hl-sexp-background-color "#222222")
+ '(hl-sexp-background-color "#442288")
  '(horizontal-scroll-bar-mode nil)
  '(ibuffer-always-compile-formats nil)
  '(ibuffer-display-summary nil)

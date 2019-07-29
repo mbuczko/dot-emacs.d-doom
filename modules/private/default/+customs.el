@@ -192,7 +192,7 @@
     ("X" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))))
 
 (pretty-hydra-define dev-actions
-  (:color pink :quit-key "q" :title (with-faicon "cog" "Dev helpers") :separator "┄")
+  (:color pink :quit-key "q" :title (with-faicon "cog" "Development toolbox") :separator "┄")
   ("Doc"
    (("d" helm-clojuredocs-at-point "clojuredocs" :color teal)
     ("c" cider-doc "cider doc" :color teal)
@@ -208,4 +208,7 @@
     ("r" git-gutter:revert-hunk "revert" :color teal)
     ("n" git-gutter:next-hunk "next →" :toggle t)
     ("p" git-gutter:previous-hunk "prev ←" :toggle t)
-    ("=" git-gutter:popup-hunk "popup" :color teal))))
+    ("=" git-gutter:popup-hunk "popup" :color teal))
+   "Search"
+   (("g" deadgrep "deadgrep" :color teal)
+    ("l" helm-projectile-grep "projectile grep" :color teal))))
