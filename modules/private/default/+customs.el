@@ -1,21 +1,19 @@
 ;;; private/default/+customs.el -*- lexical-binding: t; -*-
 
-(require 'deadgrep)
 (require 'helm-git-grep)
 (require 'golden-ratio)
 (require 'window-numbering)
 (require 'highlight-symbol)
 (require 'highlight-parentheses)
-(require 'dash-at-point)
-(require 'goto-last-change)
 (require 'ws-butler)
+(require 'engine-mode)
 
 ;; global modes
 
 (global-company-mode)
-(company-posframe-mode)
 (global-flycheck-mode)
 (ws-butler-global-mode)
+(engine-mode)
 
 ;; turns ligatures on
 (mac-auto-operator-composition-mode)
@@ -29,6 +27,22 @@
 (setq-default
  abbrev-mode t
  rfc-mode-directory (expand-file-name "~/Dropbox/rfc/"))
+
+;; solve performance problems
+(put 'minibuffer-history 'history-length 50)
+(put 'kill-ring 'history-length 25)
+
+;; search engines!
+(defengine duckduckgo "https://duckduckgo.com/?q=%s" :keybinding "d")
+(defengine google "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s" :keybinding "g")
+(defengine stack-overflow "https://stackoverflow.com/search?q=%s" :keybinding "s")
+(defengine twitter "https://twitter.com/search?q=%s" :keybinding "t")
+
+(def-package! powerthesaurus
+  :commands (powerthesaurus-lookup-word))
+
+(def-package! github-stars
+  :commands (github-stars-browse-url))
 
 ;; projectile default prefix
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -52,7 +66,8 @@
 (defun find-tag-without-ns ()
   (interactive)
   (xref-find-apropos
-   (car (last (split-string (symbol-name (symbol-at-point)) "/")))))
+   (car (last (split-string (symbol-name (symbol-at-point)) "/"))))
+  (recenter))
 
 (defun whack-whitespace ()
   (interactive)
@@ -102,9 +117,9 @@
     (clipboard-kill-region (line-beginning-position) (line-beginning-position 2))))
 
 (defun github--get-issue-or-pr-at-point ()
-  (if-let ((iop (first (seq-filter
-                       (lambda (s) (string-prefix-p "#" s))
-                       (split-string (thing-at-point 'line t))))))
+  (if-let ((iop (car (seq-filter
+                      (lambda (s) (string-prefix-p "#" s))
+                      (split-string (thing-at-point 'line t))))))
       (progn
         (string-match "[0-9]+" iop)
         (match-string 0 iop))))
@@ -192,23 +207,47 @@
     ("X" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))))
 
 (pretty-hydra-define dev-actions
-  (:color pink :quit-key "q" :title (with-faicon "cog" "Development toolbox") :separator "┄")
+  (:color pink :quit-key "q" :separator "┄")
   ("Doc"
    (("d" helm-clojuredocs-at-point "clojuredocs" :color teal)
     ("c" cider-doc "cider doc" :color teal)
     ("j" cider-javadoc "cider javadoc" :color teal)
-    ("h" dash-at-point "dash" :color teal))
+    ("a" dash-at-point "dash" :color teal))
    "Git"
-   (("d" magit-diff-buffer-file "diff buffer" :color teal)
-    ("f" magit-file-dispatch "file..." :color teal)
+   (("f" magit-file-dispatch "file..." :color teal)
+    ("b" magit-diff-buffer-file "diff buffer" :color teal)
     ("h" git-timemachine "time machine" :color teal)
-    ("t" magit-todos-list "todos list" :color teal))
+    ("l" magit-todos-list "todos list" :color teal))
+   "GitHub"
+   (("S" github-stars-browse-url "stars..." :color teal)
+    ("G" gist-list "gists..." :color teal)
+    ("P" github--goto-pr "goto PR" :color teal)
+    ("I" github--goto-issue "goto ISSUE" :color teal))
    "Chunk"
-   (("a" git-gutter:stage-hunk "stage" :color teal)
+   (("s" git-gutter:stage-hunk "stage" :color teal)
     ("r" git-gutter:revert-hunk "revert" :color teal)
     ("n" git-gutter:next-hunk "next →" :toggle t)
     ("p" git-gutter:previous-hunk "prev ←" :toggle t)
     ("=" git-gutter:popup-hunk "popup" :color teal))
    "Search"
    (("g" deadgrep "deadgrep" :color teal)
-    ("l" helm-projectile-grep "projectile grep" :color teal))))
+    ("m" helm-projectile-grep "projectile grep" :color teal))
+   "Tags"
+   (("t" helm-etags-select "etags select" :color teal)
+    ("o" projectile-find-tag "projectile tags" :color teal))
+   "Thesaurus"
+   (("u" powerthesaurus-lookup-word "powerthesaurus" :color teal))))
+
+(pretty-hydra-define clj-actions
+  (:color pink :quit-key "q" :separator "┄")
+  ("Clojure"
+   (("s" helm-cider-spec "spec..." :color teal)
+    ("n" cider-find-ns "find namespace..." :color teal))
+   "REPL"
+   (("d" cider-insert-defun-in-repl "insert defn to REPL" :color teal)
+    ("i" cider-insert-region-in-repl "insert region to REPL" :color teal)
+    ("j" cider-refresh "reload code" :color teal)
+    ("h" helm-cider-repl-history "REPL history..." :color teal))
+   "Format"
+   (("z" zprint "zprint formatter" :color teal)
+    ("e" cider-format-edn-region "format EDN region" :color teal))))

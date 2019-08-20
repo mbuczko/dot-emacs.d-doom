@@ -101,6 +101,7 @@
   (defun centaur-tabs-hide-tab (x)
     (let ((name (format "%s" x)))
       (or
+       (string-suffix-p "TAGS" name)
        (string-prefix-p "TAGS" name)
        (string-prefix-p "*Article" name)
        (string-prefix-p "*Summary" name)
@@ -109,5 +110,6 @@
        (string-prefix-p " *transient" name)
        (string-prefix-p " *which" name)
        (string-prefix-p "*helm" name)
+       (string-prefix-p "*cider" name)
        (and (string-prefix-p "magit" name)
             (not (file-name-extension name)))))))

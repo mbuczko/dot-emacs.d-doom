@@ -16,12 +16,13 @@
 
              mac-redisplay-dont-reset-vscroll t
              mac-mouse-wheel-smooth-scroll nil
-             mouse-wheel-scroll-amount '(5 ((shift) . 2))  ; one line at a time
-             mouse-wheel-progressive-speed nil             ; don't accelerate scrolling
+             mouse-wheel-scroll-amount '(1) ; '(5 ((shift) . 2))
+             mouse-wheel-progressive-speed nil
 
              ;; Curse Lion and its sudden but inevitable fullscreen mode!
              ;; NOTE Meaningless to railwaycat's emacs-mac build
              ns-use-native-fullscreen nil
+
              ;; Don't open files from the workspace in a new frame
              ns-pop-up-frames nil)
 

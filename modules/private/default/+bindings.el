@@ -5,7 +5,7 @@
       [remap sp-splice-sexp-killing-backward] #'paxedit-delete
 
       "M-w"       nil
-      "M-e"       #'execute-extended-command
+      "M-e"       #'helm-M-x
       "M-:"       #'eval-expression
 
       ;; Text-scaling
@@ -54,6 +54,7 @@
       "M-w e"     #'mark-from-point-to-end-of-line
       "C-c m"     #'magit-status
       "C-c t"     #'global-toggles/body
+      "C-c c"     #'clj-actions/body
       "C-c d"     #'dev-actions/body
       "C-x d"     #'crux-duplicate-current-line-or-region
       "C-x a"     #'helm-git-grep-at-point
@@ -62,7 +63,6 @@
       "C-x k"     #'helm-mark-ring
       "C-x o"     #'helm-occur
       "C-x p"     #'helm-show-kill-ring
-      "C-x d"     #'dash-at-point
       "C-x f"     #'deadgrep
       "C-x w"     #'close-other
       "C-x q"     #'kill-this-buffer

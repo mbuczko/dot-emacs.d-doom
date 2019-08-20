@@ -49,10 +49,15 @@
   ;; settings for cider repl as a popup (prevent it from being closed on escape, especially.)
   (set! :popup "^\\*cider" :regexp t :noselect t :noesc t)
 
+  (defadvice cider-jump-to (after cider-jump activate)
+    "Auto re-centers screen after jump"
+    (recenter))
+
   (map! :map cider-repl-mode-map "C-x C-d" #'helm-clojuredocs-at-point)
   (map! :map cider-repl-mode-map "C-x C-p" #'cider-repl-previous-matching-input)
   (map! :map cider-repl-mode-map "M-r"     #'cider-switch-repl)
-  (map! :map cider-mode-map "M-n"          #'cider-find-ns)
+  (map! :map cider-repl-mode-map "C-c n"   #'cider-find-ns)
+  (map! :map cider-mode-map "C-c n"        #'cider-find-ns)
   (map! :map cider-mode-map "C-x C-t"      #'cider-eval-and-run-test))
 
 (def-package! cider-find
@@ -69,3 +74,9 @@
 
 (def-package! cljr-helm
   :commands (cljr-helm))
+
+(def-package! helm-cider
+  :commands (helm-cider-spec helm-cider-repl-history))
+
+(def-package! zprint-mode
+  :commands (zprint))

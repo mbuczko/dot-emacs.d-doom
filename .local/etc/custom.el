@@ -10,11 +10,7 @@
  '(auto-window-vscroll nil t)
  '(bm-highlight-style (quote bm-highlight-line-and-fringe))
  '(canlock-password "65fd570ab0dff8c5eab2bf832f5e58157748881a")
- '(cider-default-repl-command "boot")
- '(cider-jack-in-default "boot")
- '(cider-preferred-build-tool "boot")
  '(cider-prompt-for-symbol nil)
- '(cider-repl-display-help-banner nil)
  '(cider-repl-display-in-current-window t)
  '(cider-repl-pop-to-buffer-on-connect (quote display-only))
  '(cljr-auto-clean-ns t)
@@ -102,6 +98,7 @@
  '(golden-ratio-mode t)
  '(helm-boring-buffer-regexp-list (quote ("\\*" "\\` " "TAGS")))
  '(helm-buffer-max-length 60)
+ '(helm-candidate-separator "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
  '(helm-ff-lynx-style-map t)
  '(helm-git-grep-pathspecs (quote ("*" ":!:*.inc.js" ":!:*yarn*" ":!:*.min.*")))
  '(helm-imenu-lynx-style-map t)
@@ -111,6 +108,7 @@
  '(helm-split-window-default-side (quote other))
  '(helm-split-window-inside-p t)
  '(highlight-symbol-idle-delay 1.1)
+ '(history-length 100)
  '(hl-paren-colors (quote ("#aff" "#acf" "#a9f" "#a6f")))
  '(hl-sexp-background-color "#442288")
  '(horizontal-scroll-bar-mode nil)
@@ -217,7 +215,7 @@
     ((sequence "TODO" "IN-PROGRESS" "WAITING" "BLOCKED" "DONE"))))
  '(package-selected-packages
    (quote
-    (pretty-hydra company-posframe centaur-tabs w3m rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex helm-cider company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point dired-subtree flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path shackle sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+    (helm-cider github-stars powerthesaurus engine-mode pretty-hydra centaur-tabs w3m rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
  '(popup-kill-ring-popup-width 50 t)
  '(projectile-completion-system (quote helm))
  '(projectile-enable-caching t)
@@ -238,7 +236,7 @@
              (projectile-project-name)))))
  '(projectile-project-root-files
    (quote
-    ("rebar.config" "project.clj" "build.boot" "pom.xml" "build.sbt" "Gemfile" "setup.py" "TAGS" "GTAGS")))
+    ("project.clj" "build.boot" "pom.xml" "build.sbt" "Gemfile" "setup.py" "TAGS" "GTAGS")))
  '(projectile-require-project-root t)
  '(projectile-tags-backend (quote auto))
  '(rainbow-delimiters-outermost-only-face-count 2)
@@ -251,13 +249,6 @@
            (require
             (quote projectile))
            (setq projectile-enable-idle-timer t projectile-project-name "cerber-roles" cider-repl-history-file
-                 (concat
-                  (projectile-project-root)
-                  ".nrepl-history")))
-     (eval when
-           (require
-            (quote projectile))
-           (setq cider-repl-history-file
                  (concat
                   (projectile-project-root)
                   ".nrepl-history")))
@@ -320,6 +311,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka" :foundry "nil" :slant normal :weight light :height 141 :width normal))))
+ '(bm-face ((t (:background "dark magenta" :foreground "tomato" :box (:line-width 1 :color "dark violet" :style released-button)))))
+ '(bm-fringe-face ((t (:background "dark magenta" :foreground "Black"))))
  '(centaur-tabs-default ((t (:inherit tabbar-default))))
  '(centaur-tabs-selected ((t (:inherit tabbar-selected))))
  '(centaur-tabs-selected-modified ((t (:inherit tabbar-selected-modified))))
@@ -334,6 +327,7 @@
  '(doom-modeline-warning ((t (:inherit warning))))
  '(gnus-summary-normal-ancient ((t (:inherit nil :foreground "#5B6268"))))
  '(gnus-summary-normal-unread ((t (:inherit medium :foreground "#98be65"))))
+ '(helm-separator ((t (:foreground "gray20"))))
  '(helm-source-header ((t (:background "#202328" :foreground "#5B6268" :height 0.8))))
  '(highlight-symbol-face ((t (:underline t))))
  '(magit-diff-added-highlight ((t (:background "#3e493d" :foreground "#98be65" :weight normal))))
