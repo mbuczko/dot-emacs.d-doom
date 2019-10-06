@@ -11,6 +11,7 @@
  '(bm-highlight-style (quote bm-highlight-line-and-fringe))
  '(canlock-password "65fd570ab0dff8c5eab2bf832f5e58157748881a")
  '(cider-prompt-for-symbol nil)
+ '(cider-repl-display-help-banner nil)
  '(cider-repl-display-in-current-window t)
  '(cider-repl-pop-to-buffer-on-connect (quote display-only))
  '(cljr-auto-clean-ns t)
@@ -27,14 +28,22 @@
  '(comment-start "/** " t)
  '(comment-start-skip "/\\*\\*" t)
  '(company-abort-manual-when-too-short t)
- '(company-auto-complete-chars (quote (41 46 47)))
+ '(company-auto-complete-chars (quote (40 46 47)))
  '(company-backends
    (quote
     (company-capf company-dabbrev company-dabbrev-code company-etags company-css company-files company-semantic company-abbrev)))
+ '(company-frontends
+   (quote
+    (company-echo-metadata-frontend company-pseudo-tooltip-frontend)))
  '(company-idle-delay 0.6)
- '(company-minimum-prefix-length 1)
+ '(company-minimum-prefix-length 3)
  '(company-occurrence-weight-function (quote company-occurrence-prefer-closest-above))
  '(company-search-regexp-function (quote company-search-words-regexp))
+ '(company-tooltip-idle-delay nil)
+ '(company-tooltip-limit 8)
+ '(company-tooltip-margin 2)
+ '(company-tooltip-minimum-width 30)
+ '(company-tooltip-offset-display (quote scrollbar))
  '(compilation-ask-about-save nil)
  '(compilation-auto-jump-to-first-error t)
  '(compilation-process-setup-function nil t)
@@ -66,6 +75,7 @@
   (\"Archives\"
    (extension \"zip\" \"rar\" \"gz\" \"bz2\" \"tar\"))))"))))
  '(dired-use-ls-dired nil)
+ '(eldoc-idle-delay 0.8)
  '(electric-indent-mode nil)
  '(epg-debug t)
  '(epg-gpg-program "/usr/local/MacGPG2/bin/gpg2")
@@ -82,7 +92,8 @@
  '(global-eldoc-mode t)
  '(global-flycheck-mode t)
  '(global-highlight-parentheses-mode t)
- '(global-hl-line-mode t)
+ '(global-hl-line-mode nil)
+ '(global-so-long-mode t)
  '(gnus-asynchronous nil)
  '(gnus-make-format-preserve-properties nil)
  '(gnus-parameter-large-newsgroup-initial 700)
@@ -215,7 +226,7 @@
     ((sequence "TODO" "IN-PROGRESS" "WAITING" "BLOCKED" "DONE"))))
  '(package-selected-packages
    (quote
-    (helm-cider github-stars powerthesaurus engine-mode pretty-hydra centaur-tabs w3m rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+    (perspective inf-ruby cargo company-racer racer flycheck-rust rust-mode toml-mode deft w3m centaur-tabs shackle helm-cider github-stars powerthesaurus engine-mode pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
  '(popup-kill-ring-popup-width 50 t)
  '(projectile-completion-system (quote helm))
  '(projectile-enable-caching t)
@@ -239,6 +250,7 @@
     ("project.clj" "build.boot" "pom.xml" "build.sbt" "Gemfile" "setup.py" "TAGS" "GTAGS")))
  '(projectile-require-project-root t)
  '(projectile-tags-backend (quote auto))
+ '(racer-command-timeout 3)
  '(rainbow-delimiters-outermost-only-face-count 2)
  '(recentf-exclude
    (quote
@@ -313,11 +325,7 @@
  '(default ((t (:family "Iosevka" :foundry "nil" :slant normal :weight light :height 141 :width normal))))
  '(bm-face ((t (:background "dark magenta" :foreground "tomato" :box (:line-width 1 :color "dark violet" :style released-button)))))
  '(bm-fringe-face ((t (:background "dark magenta" :foreground "Black"))))
- '(centaur-tabs-default ((t (:inherit tabbar-default))))
- '(centaur-tabs-selected ((t (:inherit tabbar-selected))))
- '(centaur-tabs-selected-modified ((t (:inherit tabbar-selected-modified))))
- '(centaur-tabs-unselected ((t (:inherit tabbar-unselected))))
- '(centaur-tabs-unselected-modified ((t (:inherit tabbar-unselected-modified))))
+ '(company-tooltip-mouse ((t (:background "gray8" :foreground "#282c34"))))
  '(doom-modeline-buffer-file ((t (:inherit mode-line-buffer-id))))
  '(doom-modeline-buffer-major-mode ((t (:inherit mode-line-emphasis))))
  '(doom-modeline-buffer-modified ((t (:inherit error))))

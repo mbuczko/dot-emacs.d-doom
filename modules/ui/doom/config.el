@@ -87,6 +87,11 @@
     "XXX....."
     "XXXX...."))
 
+(def-package! perspective
+  :commands (persp-mode persp-switch persp-rename)
+  :init
+  (persp-mode))
+
 (def-package! centaur-tabs
   :commands (centaur-tabs-mode)
   :init
@@ -97,7 +102,7 @@
         centaur-tabs-set-bar 'over)
   :config
   (centaur-tabs-headline-match)
-  (centaur-tabs-group-by-projectile-project)
+  ;(centaur-tabs-group-by-projectile-project)
   (defun centaur-tabs-hide-tab (x)
     (let ((name (format "%s" x)))
       (or

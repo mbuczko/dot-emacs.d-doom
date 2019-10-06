@@ -1,0 +1,4 @@
+#contributor : Michal Buczko <michal@buczko.pl>
+#name : go
+# --
+(ns $1.system) (go)$0

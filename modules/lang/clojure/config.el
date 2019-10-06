@@ -32,9 +32,7 @@
                      ("csrf"      . "ring.util.anti-forgery")
                      ("selmer"    . "selmer.parser")
                      ("response"  . "ring.util.response")
-                     ("compojure" . "compojure.core")
-                     ("liberator" . "liberator.core")
-                     ("pp"        . "fipp.edn")))
+                     ("compojure" . "compojure.core")))
     (add-to-list 'cljr-magic-require-namespaces mapping t))
 
   (map! :map cider-mode-map "C-h r" #'cljr-helm)
@@ -42,7 +40,7 @@
 
 
 (def-package! cider
-  :commands (cider-jack-in cider-mode cider-jack-in-clojurescript)
+  :commands (cider-jack-in cider-mode cider-jack-in-clojurescript cider-refresh)
   :config
   (setq nrepl-hide-special-buffers t)
 

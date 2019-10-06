@@ -16,6 +16,14 @@ tramp
 smex-items
 network-security.data
 helm-adaptive-history
+hackernews
+jabber-avatar-cache
+request
+transient
+elpa
+TAGS
+
+.gnus
 
 # compiled files
 *.elc

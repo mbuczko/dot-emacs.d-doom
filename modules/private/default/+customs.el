@@ -164,6 +164,12 @@
             (highlight-symbol-mode)
             (clj-refactor-mode)))
 
+(add-hook 'cider-repl-mode-hook
+          (lambda ()
+            (doom-hide-modeline-mode)
+            ;(global-hl-line-mode 0)
+            (yas-minor-mode 1)))
+
 (add-hook 'org-mode-hook
           (lambda ()
             (require 'org-bullets)
@@ -190,7 +196,7 @@
     ("W" ws-butler-mode "whitespace cleanup" :toggle t)
     ("L" page-break-lines-mode "page break lines" :toggle t))
    "Highlight"
-   (("l" hl-line-mode "line" :toggle t)
+   (("l" global-hl-line-mode "line" :toggle t)
     ("s" highlight-symbol-mode "symbol" :toggle t)
     ("x" highlight-sexp-mode "sexp" :toggle t)
     ("r" highlight-parentheses-mode "parens" :toggle t))
@@ -208,16 +214,11 @@
 
 (pretty-hydra-define dev-actions
   (:color pink :quit-key "q" :separator "┄")
-  ("Doc"
-   (("d" helm-clojuredocs-at-point "clojuredocs" :color teal)
-    ("c" cider-doc "cider doc" :color teal)
-    ("j" cider-javadoc "cider javadoc" :color teal)
-    ("a" dash-at-point "dash" :color teal))
-   "Git"
+  ("Git"
    (("f" magit-file-dispatch "file..." :color teal)
     ("b" magit-diff-buffer-file "diff buffer" :color teal)
     ("h" git-timemachine "time machine" :color teal)
-    ("l" magit-todos-list "todos list" :color teal))
+    ("t" magit-todos-list "todos list" :color teal))
    "GitHub"
    (("S" github-stars-browse-url "stars..." :color teal)
     ("G" gist-list "gists..." :color teal)
@@ -231,22 +232,27 @@
     ("=" git-gutter:popup-hunk "popup" :color teal))
    "Search"
    (("g" deadgrep "deadgrep" :color teal)
-    ("m" helm-projectile-grep "projectile grep" :color teal))
+    ("i" helm-projectile-grep "projectile grep" :color teal))
    "Tags"
-   (("t" helm-etags-select "etags select" :color teal)
-    ("o" projectile-find-tag "projectile tags" :color teal))
+   (("e" helm-etags-select "etags select" :color teal)
+    ("l" projectile-find-tag "projectile tags" :color teal))
    "Thesaurus"
    (("u" powerthesaurus-lookup-word "powerthesaurus" :color teal))))
 
 (pretty-hydra-define clj-actions
   (:color pink :quit-key "q" :separator "┄")
-  ("Clojure"
+  ("Doc"
+   (("d" helm-clojuredocs-at-point "clojuredocs" :color teal)
+    ("c" cider-doc "cider doc" :color teal)
+    ("j" cider-javadoc "cider javadoc" :color teal)
+    ("a" dash-at-point "dash" :color teal))
+   "Clojure"
    (("s" helm-cider-spec "spec..." :color teal)
-    ("n" cider-find-ns "find namespace..." :color teal))
+    ("n" cider-find-ns "find namespace..." :color teal)
+    ("v" cider-eval-ns-form "eval ns form" :color teal))
    "REPL"
-   (("d" cider-insert-defun-in-repl "insert defn to REPL" :color teal)
-    ("i" cider-insert-region-in-repl "insert region to REPL" :color teal)
-    ("j" cider-refresh "reload code" :color teal)
+   (("i" cider-insert-region-in-repl "insert region to REPL" :color teal)
+    ("r" cider-refresh "reload code" :color teal)
     ("h" helm-cider-repl-history "REPL history..." :color teal))
    "Format"
    (("z" zprint "zprint formatter" :color teal)
