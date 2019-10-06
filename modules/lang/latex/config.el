@@ -35,7 +35,7 @@
 
   (set! :popup " output\\*$" :regexp t :size 15 :noselect t :autoclose t :autokill t)
 
-  (map! :map LaTeX-mode-map "C-j" nil)
+  (define-key LaTeX-mode-map (kbd "C-j") nil)
 
   (def-package! company-auctex
     :when (featurep! :completion company)
@@ -53,17 +53,9 @@
   (add-hook! (latex-mode LaTeX-mode) #'turn-on-reftex)
 
   :config
-  (map! :map reftex-mode-map
-        :localleader :n ";" 'reftex-toc)
-
   (add-hook! 'reftex-toc-mode-hook
     (reftex-toc-rescan)
-    (doom-hide-modeline-mode +1)
-    (map! :local
-          :e "j"   #'next-line
-          :e "k"   #'previous-line
-          :e "q"   #'kill-buffer-and-window
-          :e "ESC" #'kill-buffer-and-window)))
+    (doom-hide-modeline-mode +1)))
 
 
 (def-package! bibtex ; built-in
@@ -74,7 +66,7 @@
         bibtex-text-indentation 20
         bibtex-completion-bibliography (list +latex-bibtex-default-file))
 
-  (map! :map bibtex-mode-map "C-c \\" #'bibtex-fill-entry))
+  (define-key bibtex-mode-map (kbd "C-c \\") #'bibtex-fill-entry))
 
 
 (def-package! ivy-bibtex

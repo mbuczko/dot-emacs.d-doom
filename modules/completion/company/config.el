@@ -23,7 +23,7 @@ MODES should be one major-mode symbol or a list of them."
 ;;
 
 (def-package! company
-  :commands (company-mode global-company-mode company-complete
+  :commands (company-mode global-company-mode company-complete company-active-map
              company-complete-common company-manual-begin company-grab-line)
   :config
   (setq company-idle-delay nil
@@ -38,11 +38,9 @@ MODES should be one major-mode symbol or a list of them."
         company-backends '(company-capf company-dabbrev company-ispell)
         company-transformers '(company-sort-by-occurrence))
 
-  (global-company-mode +1))
+  (global-company-mode +1)
+  (define-key company-active-map "\e" 'company-abort))
 
-
-(def-package! company-posframe
-  :commands (company-posframe-mode))
 
 (def-package! company-statistics
   :after company
@@ -50,23 +48,6 @@ MODES should be one major-mode symbol or a list of them."
   (setq company-statistics-file (concat doom-cache-dir "company-stats-cache.el"))
   (quiet! (company-statistics-mode +1)))
 
-
-;; Looks ugly on OSX without emacs-mac build
-(def-package! company-quickhelp
-  :after company
-  :config
-  (setq company-quickhelp-delay nil)
-  (company-quickhelp-mode +1))
-
-(def-package! company-dict
-  :commands company-dict
-  :config
-  (defun +company|enable-project-dicts (mode &rest _)
-    "Enable per-project dictionaries."
-    (if (symbol-value mode)
-        (cl-pushnew mode company-dict-minor-mode-list :test #'eq)
-      (setq company-dict-minor-mode-list (delq mode company-dict-minor-mode-list))))
-  (add-hook 'doom-project-hook #'+company|enable-project-dicts))
 
 ;;
 ;; Autoloads
@@ -79,5 +60,3 @@ MODES should be one major-mode symbol or a list of them."
 (autoload 'company-elisp "company-elisp")
 (autoload 'company-files "company-files")
 (autoload 'company-gtags "company-gtags")
-(autoload 'company-ispell "company-ispell")
-

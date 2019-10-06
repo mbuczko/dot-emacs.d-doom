@@ -35,12 +35,7 @@
         ;; conflicting with the eslint settings.
         (setq-local js2-strict-trailing-comma-warning nil)
         (setq-local js2-strict-missing-semi-warning nil))))
-  (add-hook 'flycheck-mode-hook #'+javascript|init-flycheck-eslint)
-
-  (map! :map js2-mode-map
-        :localleader
-        "r" #'+javascript/refactor-menu
-        "S" #'+javascript/skewer-this-buffer))
+  (add-hook 'flycheck-mode-hook #'+javascript|init-flycheck-eslint))
 
 
 ;; A find-{definition,references} backend for js2-mode. NOTE The xref API is
@@ -78,9 +73,9 @@
   (set! :electric 'rjsx-mode :chars '(?\} ?\) ?. ?>))
 
   ;; disable electric keys (I use snippets and `emmet-mode' instead)
-  (map! :map rjsx-mode-map
-        "<" nil
-        "C-d" nil)
+  (define-key rjsx-mode-map (kbd "<") nil)
+  (define-key rjsx-mode-map (kbd "C-d") nil)
+
   (add-hook! rjsx-mode
     ;; jshint doesn't really know how to deal with jsx
     (push 'javascript-jshint flycheck-disabled-checkers)))
@@ -92,9 +87,7 @@
 
 
 (def-package! web-beautify
-  :commands web-beautify-js
-  :init
-  (map! :map* (json-mode js2-mode-map) :n "gQ" #'web-beautify-js))
+  :commands web-beautify-js)
 
 
 (def-package! eslintd-fix
@@ -106,30 +99,13 @@
 ;;
 
 (def-package! skewer-mode
-  :commands (skewer-mode run-skewer)
-  :config
-  (map! :map skewer-mode-map
-        :localleader
-        :n "sE" #'skewer-eval-last-expression
-        :n "se" #'skewer-eval-defun
-        :n "sf" #'skewer-load-buffer))
+  :commands (skewer-mode run-skewer))
 
 (def-package! skewer-css ; in skewer-mode
-  :commands skewer-css-mode
-  :config
-  (map! :map skewer-css-mode-map
-        :localleader
-        :n "se" #'skewer-css-eval-current-declaration
-        :n "sr" #'skewer-css-eval-current-rule
-        :n "sb" #'skewer-css-eval-buffer
-        :n "sc" #'skewer-css-clear-all))
+  :commands skewer-css-mode)
 
 (def-package! skewer-html ; in skewer-mode
-  :commands skewer-html-mode
-  :config
-  (map! :map skewer-html-mode-map
-        :localleader
-        :n "se" #'skewer-html-eval-tag))
+  :commands skewer-html-mode)
 
 
 ;;

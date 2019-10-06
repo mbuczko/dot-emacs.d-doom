@@ -79,27 +79,7 @@
 
 
 (def-package! macrostep
-  :commands macrostep-expand
-  :config
-  (map! :map macrostep-keymap
-        :n "RET"    #'macrostep-expand
-        :n "e"      #'macrostep-expand
-        :n "u"      #'macrostep-collapse
-        :n "c"      #'macrostep-collapse
-
-        :n "TAB"    #'macrostep-next-macro
-        :n "n"      #'macrostep-next-macro
-        :n "J"      #'macrostep-next-macro
-
-        :n "S-TAB"  #'macrostep-prev-macro
-        :n "K"      #'macrostep-prev-macro
-        :n "p"      #'macrostep-prev-macro
-
-        :n "q"      #'macrostep-collapse-all
-        :n "C"      #'macrostep-collapse-all)
-  ;; `evil-normalize-keymaps' seems to be required for macrostep or it won't
-  ;; apply for the very first invocation
-  (add-hook 'macrostep-mode-hook #'evil-normalize-keymaps))
+  :commands macrostep-expand)
 
 
 (def-package! flycheck-cask
@@ -114,10 +94,6 @@
   :commands overseer-test
   :init (set! :popup "*overseer*" :size 12))
 
-
-;;
-;;
-;;
 
 (def-project-mode! +emacs-lisp-ert-mode
   :modes (emacs-lisp-mode)

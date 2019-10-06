@@ -79,7 +79,6 @@ environment variables."
   :config
   (add-hook 'anaconda-mode-hook #'anaconda-eldoc-mode)
   (set! :popup "*anaconda-mode*" :size 10 :noselect t :autoclose t :autokill t)
-  (map! :map anaconda-mode-map :m "gd" #'anaconda-mode-find-definitions)
   (advice-add #'anaconda-mode-doc-buffer :after #'doom*anaconda-mode-doc-buffer))
 
 
@@ -91,15 +90,7 @@ environment variables."
   (set! :jump 'python-mode
     :definition #'anaconda-mode-find-definitions
     :references #'anaconda-mode-find-referenences
-    :documentation #'anaconda-mode-show-doc)
-  (map! :map python-mode-map
-        :localleader
-        :prefix "f"
-        :nv "d" #'anaconda-mode-find-definitions
-        :nv "h" #'anaconda-mode-show-doc
-        :nv "a" #'anaconda-mode-find-assignments
-        :nv "f" #'anaconda-mode-find-file
-        :nv "u" #'anaconda-mode-find-references))
+    :documentation #'anaconda-mode-show-doc))
 
 
 (def-package! pip-requirements
@@ -114,15 +105,4 @@ environment variables."
   (associate! nose-mode :match "/test_.+\\.py$" :modes (python-mode))
   :config
   (set! :popup "*nosetests*" :size 0.4 :noselect t)
-  (set! :yas-minor-mode 'nose-mode)
-  (map! :map nose-mode-map
-        :localleader
-        :prefix "t"
-        :n "r" #'nosetests-again
-        :n "a" #'nosetests-all
-        :n "s" #'nosetests-one
-        :n "v" #'nosetests-module
-        :n "A" #'nosetests-pdb-all
-        :n "O" #'nosetests-pdb-one
-        :n "V" #'nosetests-pdb-module))
-
+  (set! :yas-minor-mode 'nose-mode))

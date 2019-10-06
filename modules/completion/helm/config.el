@@ -36,16 +36,20 @@
 
   (defvar helm-projectile-find-file-map (make-sparse-keymap))
   (require 'helm-projectile)
-  (set-keymap-parent helm-projectile-find-file-map helm-map)
-
-  (define-key helm-map (kbd "<left>") 'helm-previous-source)
-  (define-key helm-map (kbd "<right>") 'helm-next-source)
-
   (require 'helm-command)
+  (set-keymap-parent helm-projectile-find-file-map helm-map)
 
   ;; helm is too heavy for find-file-at-point
   (after! helm-mode
-    (add-to-list 'helm-completing-read-handlers-alist '(find-file-at-point . nil)))
+    (add-to-list 'helm-completing-read-handlers-alist '(find-file-at-point . nil))
+    (define-key helm-map (kbd "ESC")     nil)
+    (define-key helm-map (kbd "<left>")  'helm-previous-source)
+    (define-key helm-map (kbd "<right>") 'helm-next-source)
+    (define-key helm-map (kbd "C-s")     'helm-minibuffer-history)
+    (define-key helm-map (kbd "C-u")     'helm-delete-minibuffer-contents)
+    (define-key helm-map (kbd "M-p")     'previous-history-element)
+    (define-key helm-map (kbd "M-n")     'next-history-element)
+    (define-key helm-map [escape]        'helm-keyboard-quit))
 
   (set! :popup "\\` ?\\*[hH]elm.*?\\*\\'" :size 14 :regexp t)
   (setq projectile-completion-system 'helm)
@@ -66,20 +70,19 @@
 
   (advice-add #'helm-display-mode-line :override #'+helm*hide-header)
 
-  (map! :map global-map
-        [remap apropos]                   #'helm-apropos
-        [remap find-file]                 #'helm-find-files
-        [remap recentf-open-files]        #'helm-recentf
-        [remap projectile-switch-to-buffer] #'helm-projectile-switch-to-buffer
-        [remap projectile-recentf]        #'helm-projectile-recentf
-        [remap projectile-find-file]      #'helm-projectile-find-file
-        [remap imenu]                     #'helm-semantic-or-imenu
-        [remap bookmark-jump]             #'helm-bookmarks
-        [remap noop-show-kill-ring]       #'helm-show-kill-ring
-        [remap projectile-switch-project] #'helm-projectile-switch-project
-        [remap projectile-find-file]      #'helm-projectile-find-file
-        [remap imenu-anywhere]            #'helm-imenu-anywhere
-        [remap execute-extended-command]  #'helm-M-x))
+  (define-key global-map [remap apropos]                     #'helm-apropos)
+  (define-key global-map [remap find-file]                   #'helm-find-files)
+  (define-key global-map [remap recentf-open-files]          #'helm-recentf)
+  (define-key global-map [remap projectile-switch-to-buffer] #'helm-projectile-switch-to-buffer)
+  (define-key global-map [remap projectile-recentf]          #'helm-projectile-recentf)
+  (define-key global-map [remap projectile-find-file]        #'helm-projectile-find-file)
+  (define-key global-map [remap imenu]                       #'helm-semantic-or-imenu)
+  (define-key global-map [remap bookmark-jump]               #'helm-bookmarks)
+  (define-key global-map [remap noop-show-kill-ring]         #'helm-show-kill-ring)
+  (define-key global-map [remap projectile-switch-project]   #'helm-projectile-switch-project)
+  (define-key global-map [remap projectile-find-file]        #'helm-projectile-find-file)
+  (define-key global-map [remap imenu-anywhere]              #'helm-imenu-anywhere)
+  (define-key global-map [remap execute-extended-command]    #'helm-M-x))
 
 (def-package! helm-locate
   :defer t
@@ -103,9 +106,8 @@
 (def-package! helm-ag
   :defer t
   :config
-  (map! :map helm-ag-edit-map
-        [remap doom/kill-this-buffer] #'helm-ag--edit-abort
-        [remap quit-window]           #'helm-ag--edit-abort))
+  (define-key helm-ag-edit-map [remap doom/kill-this-buffer] #'helm-ag--edit-abort)
+  (define-key helm-ag-edit-map [remap quit-window]           #'helm-ag--edit-abort))
 
 
 (def-package! helm-css-scss ; https://github.com/ShingoFukuyama/helm-css-scss

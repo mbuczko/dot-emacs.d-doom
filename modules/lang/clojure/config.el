@@ -15,7 +15,7 @@
   (dolist (c (string-to-list ":_-/?!#*"))
     (modify-syntax-entry c "w" clojure-mode-syntax-table))
 
-  (map! :map clojure-mode-map "C-x C-d" #'helm-clojuredocs-at-point))
+  (define-key clojure-mode-map (kbd "C-x C-d") #'helm-clojuredocs-at-point))
 
 (def-package! clj-refactor
   :after clojure-mode
@@ -35,7 +35,7 @@
                      ("compojure" . "compojure.core")))
     (add-to-list 'cljr-magic-require-namespaces mapping t))
 
-  (map! :map cider-mode-map "C-h r" #'cljr-helm)
+  (define-key cider-mode-map (kbd "C-h r") #'cljr-helm)
   (cljr-add-keybindings-with-prefix "M-m"))
 
 
@@ -51,12 +51,12 @@
     "Auto re-centers screen after jump"
     (recenter))
 
-  (map! :map cider-repl-mode-map "C-x C-d" #'helm-clojuredocs-at-point)
-  (map! :map cider-repl-mode-map "C-x C-p" #'cider-repl-previous-matching-input)
-  (map! :map cider-repl-mode-map "M-r"     #'cider-switch-repl)
-  (map! :map cider-repl-mode-map "C-c n"   #'cider-find-ns)
-  (map! :map cider-mode-map "C-c n"        #'cider-find-ns)
-  (map! :map cider-mode-map "C-x C-t"      #'cider-eval-and-run-test))
+  (define-key cider-repl-mode-map (kbd "C-x C-d") #'helm-clojuredocs-at-point)
+  (define-key cider-repl-mode-map (kbd "C-x C-p") #'cider-repl-previous-matching-input)
+  (define-key cider-repl-mode-map (kbd "M-r")     #'cider-switch-repl)
+  (define-key cider-repl-mode-map (kbd "C-c n")   #'cider-find-ns)
+  (define-key cider-mode-map (kbd "C-c n")        #'cider-find-ns)
+  (define-key cider-mode-map (kbd "C-x C-t")      #'cider-eval-and-run-test))
 
 (def-package! cider-find
   :commands (cider-find-resource cider-find-ns cider-find-var))

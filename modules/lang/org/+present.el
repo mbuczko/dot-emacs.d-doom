@@ -24,10 +24,6 @@
         org-tree-slide-deactivate-message " "
         org-tree-slide-modeline-display nil)
 
-  (map! :map org-tree-slide-mode-map
-        :n [right] #'org-tree-slide-move-next-tree
-        :n [left]  #'org-tree-slide-move-previous-tree)
-
   (add-hook! 'org-tree-slide-mode-after-narrow-hook
     #'(+org-present|detect-slide +org-present|add-overlays org-display-inline-images))
 
@@ -37,13 +33,3 @@
 
 
 (def-package! centered-window-mode :commands centered-window-mode)
-
-
-;;
-;; Bootstrap
-;;
-
-(after! org
-  (require 'ox-reveal)
-  (map! :map org-mode-map "<f8>" #'+org-present/start))
-

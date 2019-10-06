@@ -59,9 +59,9 @@ modes are active and the buffer is read-only.")
 
 ;; temporary windows often have q bound to `quit-window', which only buries the
 ;; contained buffer. I rarely don't want that buffer killed, so...
-(defun doom*quit-window (orig-fn &optional kill window)
+(defun doom|quit-window (orig-fn &optional kill window)
   (funcall orig-fn (not kill) window))
-(advice-add #'quit-window :around #'doom*quit-window)
+(advice-add #'quit-window :around #'doom|quit-window)
 
 (defun doom|check-large-file ()
   "Check if the buffer's file is large (see `doom-large-file-size'). If so, ask
@@ -79,8 +79,6 @@ fundamental-mode) for performance sake."
       (buffer-disable-undo)
       (fundamental-mode))))
 (add-hook 'find-file-hook #'doom|check-large-file)
-
-(push '("/LICENSE$" . text-mode) auto-mode-alist)
 
 (defun doom-popup-buffer (buffer &optional plist extend-p)
   "Display BUFFER in a shackle popup with PLIST rules. See `shackle-rules' for
@@ -106,7 +104,7 @@ this popup, just the specified properties. Returns the new popup window."
 (setq auto-revert-verbose nil)
 
 ;; enabled by default in Emacs 25+. No thanks.
-(electric-indent-mode -1)
+;;(electric-indent-mode -1)
 
 ;; savehist / saveplace
 (setq savehist-file (concat doom-cache-dir "savehist")
@@ -134,56 +132,6 @@ this popup, just the specified properties. Returns the new popup window."
 ;;
 ;; Core Plugins
 ;;
-
-;; Handles whitespace (tabs/spaces) settings externally. This way projects can
-;; specify their own formatting rules.
-(def-package! editorconfig
-  :config
-  (add-hook 'doom-init-hook #'editorconfig-mode)
-
-  ;; editorconfig cannot procure the correct settings for extension-less files.
-  ;; Executable scripts with a shebang line, for example. So why not use Emacs'
-  ;; major mode to drop editorconfig a hint? This is accomplished by temporarily
-  ;; appending an extension to `buffer-file-name' when we talk to editorconfig.
-  (defvar doom-editorconfig-mode-alist
-    '((sh-mode     . "sh")
-      (python-mode . "py")
-      (ruby-mode   . "rb")
-      (perl-mode   . "pl")
-      (php-mode    . "php"))
-    "An alist mapping major modes to extensions. Used by
-`doom*editorconfig-smart-detection' to give editorconfig filetype hints.")
-
-  (defun doom*editorconfig-smart-detection (orig-fn &rest args)
-    "Retrieve the properties for the current file. If it doesn't have an
-extension, try to guess one."
-    (let ((buffer-file-name
-           (if (file-name-extension buffer-file-name)
-               buffer-file-name
-             (format "%s%s" buffer-file-name
-                     (let ((ext (cdr (assq major-mode doom-editorconfig-mode-alist))))
-                       (or (and ext (concat "." ext))
-                           ""))))))
-      (apply orig-fn args)))
-  (advice-add #'editorconfig-call-editorconfig-exec :around #'doom*editorconfig-smart-detection)
-
-  ;; Editorconfig makes indentation too rigid in Lisp modes, so tell
-  ;; editorconfig to ignore indentation. I prefer dynamic indentation support
-  ;; built into Emacs.
-  (dolist (mode '(emacs-lisp-mode lisp-mode))
-    (setq editorconfig-indentation-alist
-      (assq-delete-all mode editorconfig-indentation-alist)))
-
-  (defvar whitespace-style)
-  (defun doom|editorconfig-whitespace-mode-maybe (&rest _)
-    "Show whitespace-mode when file uses TABS (ew)."
-    (when indent-tabs-mode
-      (let ((whitespace-style '(face tabs tab-mark trailing-lines tail)))
-        (whitespace-mode +1))))
-  (add-hook 'editorconfig-custom-hooks #'doom|editorconfig-whitespace-mode-maybe))
-
-(def-package! editorconfig-conf-mode
-  :mode "\\.?editorconfig$")
 
 ;; Auto-close delimiters and blocks as you type
 (def-package! smartparens
@@ -238,9 +186,6 @@ The body of the advice is in BODY."
 ;; Autoloaded Plugins
 ;;
 
-(def-package! ace-link
-  :commands (ace-link-help ace-link-org))
-
 (def-package! avy
   :commands (avy-goto-char-2 avy-goto-line avy-goto-char-timer)
   :config
@@ -259,13 +204,6 @@ The body of the advice is in BODY."
 
 (def-package! expand-region
   :commands (er/expand-region er/contract-region er/mark-symbol er/mark-word er/mark-defun er/mark-inside-quotes er/mark-inside-pairs er/mark-inner-tag er/mark-outer-tag))
-
-(def-package! help-fns+ ; Improved help commands
-  :commands (describe-buffer describe-command describe-file
-             describe-keymap describe-option describe-option-of-type))
-
-(def-package! pcre2el
-  :commands rxt-quote-pcre)
 
 (def-package! smart-forward
   :commands (smart-up smart-down smart-backward smart-forward))

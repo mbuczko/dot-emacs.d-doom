@@ -1,106 +1,89 @@
 ;;; private/default/+bindings.el -*- lexical-binding: t; -*-
 
-(map! [remap find-tag] #'projectile-find-tag
-      [remap newline]  #'doom/newline-and-indent
-      [remap sp-splice-sexp-killing-backward] #'paxedit-delete
+(define-key global-map [remap find-tag] #'projectile-find-tag)
 
-      "M-w"       nil
-      "M-e"       #'helm-M-x
-      "M-:"       #'eval-expression
+(define-key global-map [remap newline]  #'doom/newline-and-indent)
+(define-key global-map [remap sp-splice-sexp-killing-backward] #'paxedit-delete)
 
-      ;; Text-scaling
-      "M-="       (λ! (text-scale-set 0))
-      "M-+"       #'text-scale-increase
-      "M--"       #'text-scale-decrease
+(define-key global-map (kbd "M-w")       nil)
+(define-key global-map (kbd "M-e")       #'helm-M-x)
+(define-key global-map (kbd "M-:")       #'eval-expression)
 
-      "C-a"       #'doom/backward-to-bol-or-indent
-      "M-c"       #'clipboard-kill-ring-save
-      "M-x"       #'clipboard-cut-line-or-region
-      "M-v"       #'clipboard-yank
-      "M-z"       #'undo
+(define-key global-map (kbd "M-=")       (λ! (text-scale-set 0)))
+(define-key global-map (kbd "M-+")       #'text-scale-increase)
+(define-key global-map (kbd "M--")       #'text-scale-decrease)
 
-      "M-l"       #'helm-buffers-list
-      "M-a"       #'find-tag-without-ns
-      "M-p"       #'indent-defn
-      "M-q"       #'kill-buffer-and-window
-      "M-t"       #'projectile-toggle-between-implementation-and-test
-      "M-s"       #'projectile-find-file
-      "M-;"       #'comment-or-uncomment-region-or-line
-      "M-("       #'wrap-round
-      "M-["       #'wrap-square
-      "M-{"       #'wrap-curly
-      "M-/"       #'company-complete
-      "M-RET"     #'crux-smart-open-line
+(define-key global-map (kbd "C-a")       #'doom/backward-to-bol-or-indent)
+(define-key global-map (kbd "M-c")       #'clipboard-kill-ring-save)
+(define-key global-map (kbd "M-x")       #'clipboard-cut-line-or-region)
+(define-key global-map (kbd "M-v")       #'clipboard-yank)
+(define-key global-map (kbd "M-z")       #'undo)
 
-      "C-o"       #'helm-semantic-or-imenu
-      "C-b"       #'helm-buffers-list
-      "C-w"       #'sp-backward-kill-word
-      "C->"       #'mc/mark-more-like-this-extended
-      "C-<"       #'mc/mark-all-like-this-dwim
-      "C-|"       #'whack-whitespace
-      "C-z"       #'zop-to-char
+(define-key global-map (kbd "M-l")       #'helm-buffers-list)
+(define-key global-map (kbd "M-a")       #'find-tag-without-ns)
+(define-key global-map (kbd "M-p")       #'indent-defn)
+(define-key global-map (kbd "M-q")       #'kill-buffer-and-window)
+(define-key global-map (kbd "M-t")       #'projectile-toggle-between-implementation-and-test)
+(define-key global-map (kbd "M-s")       #'projectile-find-file)
+(define-key global-map (kbd "M-;")       #'comment-or-uncomment-region-or-line)
+(define-key global-map (kbd "M-(")       #'wrap-round)
+(define-key global-map (kbd "M-[")       #'wrap-square)
+(define-key global-map (kbd "M-{")       #'wrap-curly)
+(define-key global-map (kbd "M-/")       #'company-complete)
+(define-key global-map (kbd "M-RET")     #'crux-smart-open-line)
 
-      "C-)"       #'sp-forward-slurp-sexp
-      "C-("       #'sp-forward-barf-sexp
-      "C-}"       #'sp-backward-barf-sexp
-      "C-{"       #'sp-backward-slurp-sexp
+(define-key global-map (kbd "C-o")       #'helm-semantic-or-imenu)
+(define-key global-map (kbd "C-b")       #'helm-buffers-list)
+(define-key global-map (kbd "C-w")       #'sp-backward-kill-word)
+(define-key global-map (kbd "C->")       #'mc/mark-more-like-this-extended)
+(define-key global-map (kbd "C-<")       #'mc/mark-all-like-this-dwim)
+(define-key global-map (kbd "C-|")       #'whack-whitespace)
+(define-key global-map (kbd "C-z")       #'zop-to-char)
 
-      "M-w M-q"   #'er/mark-inside-quotes
-      "M-w M-p"   #'er/mark-inside-pairs
-      "M-w M-w"   #'er/mark-word
-      "M-w M-d"   #'er/mark-defun
-      "M-w i"     #'er/mark-inner-tag
-      "M-w o"     #'er/mark-outer-tag
-      "M-w e"     #'mark-from-point-to-end-of-line
-      "C-c m"     #'magit-status
-      "C-c t"     #'global-toggles/body
-      "C-c c"     #'clj-actions/body
-      "C-c d"     #'dev-actions/body
-      "C-x d"     #'crux-duplicate-current-line-or-region
-      "C-x a"     #'helm-git-grep-at-point
-      "C-x s"     #'helm-git-grep
-      "C-x i"     #'helm-imenu-in-all-buffers
-      "C-x k"     #'helm-mark-ring
-      "C-x o"     #'helm-occur
-      "C-x p"     #'helm-show-kill-ring
-      "C-x f"     #'deadgrep
-      "C-x w"     #'close-other
-      "C-x q"     #'kill-this-buffer
-      "C-x v d"   #'magit-diff-popup
-      "C-x v ="   #'magit-diff-buffer-file
-      "C-x C-b"   #'projectile-ibuffer
-      "C-x C-o"   #'avy-goto-char-timer
-      "C-x C-i"   #'projectile-find-tag
-      "C-x C-h"   #'helm-resume
-      "C-x C-r"   #'helm-mini
-      "C-x C-m"   #'bm-toggle
-      "C-x C-l"   #'bm-show-all
-      "C-S-h"     #'highlight-symbol-at-point
+(define-key global-map (kbd "C-)")       #'sp-forward-slurp-sexp)
+(define-key global-map (kbd "C-(")       #'sp-forward-barf-sexp)
+(define-key global-map (kbd "C-}")       #'sp-backward-barf-sexp)
+(define-key global-map (kbd "C-{")       #'sp-backward-slurp-sexp)
 
-      [C-S-down]        'highlight-symbol-next
-      [C-S-up]          'highlight-symbol-prev
-      [(C-backspace)]   'backward-kill-word
-      [(C-S-return)]    'er/expand-region
-      [(backtab)]       'helm-buffers-list
-      [(control ?.)]    'goto-last-change
-      [(control ?,)]    'goto-last-change-reverse
+(define-key global-map (kbd "M-w M-q")   #'er/mark-inside-quotes)
+(define-key global-map (kbd "M-w M-p")   #'er/mark-inside-pairs)
+(define-key global-map (kbd "M-w M-w")   #'er/mark-word)
+(define-key global-map (kbd "M-w M-d")   #'er/mark-defun)
+(define-key global-map (kbd "M-w i")     #'er/mark-inner-tag)
+(define-key global-map (kbd "M-w o")     #'er/mark-outer-tag)
+(define-key global-map (kbd "M-w e")     #'mark-from-point-to-end-of-line)
+(define-key global-map (kbd "C-c m")     #'magit-status)
+(define-key global-map (kbd "C-c t")     #'global-toggles/body)
+(define-key global-map (kbd "C-c c")     #'clj-actions/body)
+(define-key global-map (kbd "C-c d")     #'dev-actions/body)
+(define-key global-map (kbd "C-x d")     #'crux-duplicate-current-line-or-region)
+(define-key global-map (kbd "C-x a")     #'helm-git-grep-at-point)
+(define-key global-map (kbd "C-x s")     #'helm-git-grep)
+(define-key global-map (kbd "C-x i")     #'helm-imenu-in-all-buffers)
+(define-key global-map (kbd "C-x k")     #'helm-mark-ring)
+(define-key global-map (kbd "C-x o")     #'helm-occur)
+(define-key global-map (kbd "C-x p")     #'helm-show-kill-ring)
+(define-key global-map (kbd "C-x f")     #'deadgrep)
+(define-key global-map (kbd "C-x w")     #'close-other)
+(define-key global-map (kbd "C-x q")     #'kill-this-buffer)
+(define-key global-map (kbd "C-x v d")   #'magit-diff-popup)
+(define-key global-map (kbd "C-x v =")   #'magit-diff-buffer-file)
+(define-key global-map (kbd "C-x C-b")   #'projectile-ibuffer)
+(define-key global-map (kbd "C-x C-o")   #'avy-goto-char-timer)
+(define-key global-map (kbd "C-x C-i")   #'projectile-find-tag)
+(define-key global-map (kbd "C-x C-h")   #'helm-resume)
+(define-key global-map (kbd "C-x C-r")   #'helm-mini)
+(define-key global-map (kbd "C-x C-m")   #'bm-toggle)
+(define-key global-map (kbd "C-x C-l")   #'bm-show-all)
+(define-key global-map (kbd "C-S-h")     #'highlight-symbol-at-point)
 
-      (:map company-active-map
-        "\e" 'company-abort)
-
-      (:after helm
-        (:map helm-map
-           "ESC" nil
-           "C-s" #'helm-minibuffer-history
-           "C-u" #'helm-delete-minibuffer-contents
-           "M-r" #'next-history-element
-           "M-n" #'previous-history-element
-           [escape] #'helm-keyboard-quit))
-
-      ;; --- Built-in plugins -----------------------------
-      (:after comint
-        ;; TAB auto-completion in term buffers
-        :map comint-mode-map [tab] #'company-complete))
+(define-key global-map [C-S-down]        'highlight-symbol-next)
+(define-key global-map [C-S-up]          'highlight-symbol-prev)
+(define-key global-map [(C-backspace)]   'backward-kill-word)
+(define-key global-map [(C-S-return)]    'er/expand-region)
+(define-key global-map [(backtab)]       'helm-buffers-list)
+(define-key global-map [(control ?.)]    'goto-last-change)
+(define-key global-map [(control ?,)]    'goto-last-change-reverse)
 
 (smartrep-define-key global-map "C-x v"
   '(("]"   . git-gutter:next-hunk)

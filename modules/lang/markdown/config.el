@@ -18,35 +18,7 @@
   (add-hook! markdown-mode
     (auto-fill-mode +1)
     (setq line-spacing 2
-          fill-column 80))
-
-  (map! (:map markdown-mode-map
-          [remap find-file-at-point] #'markdown-follow-thing-at-point
-          "M-*"      #'markdown-insert-list-item
-          "M-b"      #'markdown-insert-bold
-          "M-i"      #'markdown-insert-italic
-          "M-`"      #'+markdown/insert-del
-          :m "gj"    #'markdown-next-visible-heading
-          :m "gk"    #'markdown-previous-visible-heading
-          ;; Assumes you have a markdown renderer plugin in chrome
-          :n "M-r"   #'browse-url-of-file
-          ;; TODO: Make context sensitive
-          :m "]h"    #'markdown-next-visible-heading
-          :m "[h"    #'markdown-previous-visible-heading
-          :m "[p"    #'markdown-promote
-          :m "]p"    #'markdown-demote
-          :m "[l"    #'markdown-next-link
-          :m "]l"    #'markdown-previous-link
-          :i "M--"   #'markdown-insert-hr
-
-          (:localleader
-            :nv "o" #'markdown-open
-            :nv "b" #'markdown-preview
-            (:prefix "i"
-              :nv "t" #'markdown-toc-generate-toc
-              :nv "i" #'markdown-insert-image
-              :nv "l" #'markdown-insert-link)))))
-
+          fill-column 80)))
 
 (def-package! markdown-toc
   :commands markdown-toc-generate-toc)

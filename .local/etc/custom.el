@@ -290,8 +290,8 @@
      ("C-S-w" . sp-copy-sexp)
      ("M-<up>" . sp-backward-up-sexp)
      ("M-<down>" . sp-down-sexp)
-     ("M-<right>" . sp-forward-sexp)
-     ("M-<left>" . sp-backward-sexp)
+     ("M-<right>" . smart-forward)
+     ("M-<left>" . smart-backward)
      ("M-C-<down>" . paxedit-transpose-forward)
      ("M-C-<up>" . paxedit-transpose-backward))))
  '(split-height-threshold nil)
@@ -313,7 +313,7 @@
  '(yas-alias-to-yas/prefix-p nil)
  '(yas-snippet-dirs
    (quote
-    (emacs-snippets-dir +file-templates-dir "~/.emacs.d/snippets")))
+    (emacs-snippets-dir "~/.emacs.d/snippets")))
  '(yas-wrap-around-region t))
 
 

@@ -26,11 +26,6 @@
 ;;;###autoload (autoload '+default/browse-project "private/default/autoload/default" nil t)
 (+default--def-browse-in! project (doom-project-root))
 
-;;;###autoload (autoload '+default/find-in-templates "private/default/autoload/default" nil t)
-(+default--def-find-in!   templates +file-templates-dir)
-;;;###autoload (autoload '+default/browse-templates "private/default/autoload/default" nil t)
-(+default--def-browse-in! templates +file-templates-dir)
-
 ;;;###autoload (autoload '+default/find-in-emacsd "private/default/autoload/default" nil t)
 (+default--def-find-in!   emacsd doom-emacs-dir)
 ;;;###autoload (autoload '+default/browse-emacsd "private/default/autoload/default" nil t)

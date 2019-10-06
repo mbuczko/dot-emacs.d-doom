@@ -48,18 +48,7 @@ environment variables."
               +ruby-current-version version-str)
         (when (member version-str +ruby-rbenv-versions)
           (setenv "RBENV_VERSION" version-str))))
-    (add-hook 'ruby-mode-hook #'+ruby|detect-rbenv-version))
-
-  (map! :map ruby-mode-map
-        :localleader
-        :prefix "r"
-        :nv "b"  #'ruby-toggle-block
-        :nv "ec" #'ruby-refactor-extract-constant
-        :nv "el" #'ruby-refactor-extract-to-let
-        :nv "em" #'ruby-refactor-extract-to-method
-        :nv "ev" #'ruby-refactor-extract-local-variable
-        :nv "ad" #'ruby-refactor-add-parameter
-        :nv "cc" #'ruby-refactor-convert-post-conditional))
+    (add-hook 'ruby-mode-hook #'+ruby|detect-rbenv-version)))
 
 
 (def-package! ruby-refactor
@@ -85,15 +74,7 @@ environment variables."
       ("case" ("when" "else") "end")
       (("class" "def" "while" "do" "module" "for" "until") () "end")
       ;; Rake
-      (("task" "namespace") () "end")))
-  :config
-  (map! :map rspec-mode-map
-        :localleader
-        :prefix "t"
-        :n "r" #'rspec-rerun
-        :n "a" #'rspec-verify-all
-        :n "s" #'rspec-verify-single
-        :n "v" #'rspec-verify))
+      (("task" "namespace") () "end"))))
 
 
 (def-package! inf-ruby
