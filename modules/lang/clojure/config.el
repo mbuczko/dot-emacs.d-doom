@@ -70,6 +70,9 @@
 (def-package! cider-ns
   :commands (cider-ns-refresh))
 
+(def-package! cider-selector
+  :commands (cider-selector))
+
 (def-package! cljr-helm
   :commands (cljr-helm))
 

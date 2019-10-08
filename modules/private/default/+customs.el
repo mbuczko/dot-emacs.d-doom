@@ -77,9 +77,11 @@
 (defun cider-switch-repl ()
   "Switches between cider-repl and last active buffer."
   (interactive)
-  (if (string-match "cider-repl" (buffer-name) 1)
-      (cider-switch-to-last-clojure-buffer)
-    (cider-switch-to-repl-buffer)))
+  (let ((buf (or (cider-current-repl)
+                 (cider-selector--recently-visited-buffer 'cider-repl-mode))))
+    (if (string-match "cider-repl" (buffer-name) 1)
+        (switch-to-prev-buffer)
+     (when buf (switch-to-buffer buf)))))
 
 (defun cider-eval-and-run-test ()
   (interactive)
@@ -190,7 +192,10 @@
 
 (pretty-hydra-define global-toggles
   (:color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Global switches") :separator "┄")
-  ("Basic"
+  ("UI"
+   (("t" centaur-tabs-mode "centaur tabs" :toggle t)
+    ("n" neotree-show "neotree" :color teal))
+   "Basic"
    (("n" linum-mode "line number" :toggle t)
     ("w" whitespace-mode "whitespace" :toggle t)
     ("W" ws-butler-mode "whitespace cleanup" :toggle t)
@@ -200,9 +205,6 @@
     ("s" highlight-symbol-mode "symbol" :toggle t)
     ("x" highlight-sexp-mode "sexp" :toggle t)
     ("r" highlight-parentheses-mode "parens" :toggle t))
-   "UI"
-   (("t" centaur-tabs-mode "centaur tabs" :toggle t)
-    ("n" neotree-show "neotree" :color teal))
    "Coding"
    (("p" smartparens-mode "smartparens" :toggle t)
     ("P" smartparens-strict-mode "smartparens strict" :toggle t)
@@ -241,19 +243,22 @@
 
 (pretty-hydra-define clj-actions
   (:color pink :quit-key "q" :separator "┄")
-  ("Doc"
+  ("Clojure"
+   (("s" helm-cider-spec "spec..." :color teal)
+    ("n" cider-find-ns "find namespace..." :color teal)
+    ("v" cider-eval-ns-form "eval ns form" :color teal))
+   "Doc"
    (("d" helm-clojuredocs-at-point "clojuredocs" :color teal)
     ("c" cider-doc "cider doc" :color teal)
     ("j" cider-javadoc "cider javadoc" :color teal)
     ("a" dash-at-point "dash" :color teal))
-   "Clojure"
-   (("s" helm-cider-spec "spec..." :color teal)
-    ("n" cider-find-ns "find namespace..." :color teal)
-    ("v" cider-eval-ns-form "eval ns form" :color teal))
    "REPL"
    (("i" cider-insert-region-in-repl "insert region to REPL" :color teal)
     ("r" cider-refresh "reload code" :color teal)
     ("h" helm-cider-repl-history "REPL history..." :color teal))
+   "Buffs"
+   (("t" cider-scratch "cider scratch" :color teal)
+    ("e" cider-selector "cider selector..." :color teal))
    "Format"
    (("z" zprint "zprint formatter" :color teal)
-    ("e" cider-format-edn-region "format EDN region" :color teal))))
+    ("f" cider-format-edn-region "format EDN region" :color teal))))
