@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         helm-M-x
+        helm-maybe-exit-minibuffer
         sp-delete-char
         sp-kill-region
         sp-kill-word

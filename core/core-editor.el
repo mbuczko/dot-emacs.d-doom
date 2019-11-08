@@ -174,6 +174,9 @@ The body of the advice is in BODY."
 
 (add-hook 'mouse-leave-buffer-hook 'doom-auto-save-command)
 (add-hook 'focus-out-hook 'doom-auto-save-command)
+(add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
+(add-hook 'visual-line-mode-hook (lambda () (setq fill-column 90)))
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 ;; advise all window switching functions
 (advise-commands "auto-save"

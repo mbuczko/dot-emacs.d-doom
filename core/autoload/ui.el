@@ -11,19 +11,9 @@
 
 ;;;###autoload
 (defun doom/toggle-line-numbers (&optional arg)
-  "Toggle `linum-mode'."
+  "Toggle `display-line-numbers-mode'."
   (interactive "P")
-  (cond ((boundp 'display-line-numbers)
-         (setq display-line-numbers
-               (pcase arg
-                 ('(4) 'relative)
-                 (1 t)
-                 (-1 nil)
-                 (_ (not display-line-numbers)))))
-        ((featurep 'nlinum)
-         (nlinum-mode (or arg (if nlinum-mode -1 +1))))
-        (t
-         (error "No line number plugin detected"))))
+  (display-line-numbers-mode))
 
 ;;;###autoload
 (defun doom-resize-window (window new-size &optional horizontal force-p)

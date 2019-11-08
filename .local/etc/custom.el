@@ -197,23 +197,23 @@
  '(js2-missing-semi-one-line-override t)
  '(mac-command-key-is-meta t)
  '(mac-option-key-is-meta nil)
+ '(mac-use-title-bar t)
  '(magit-commit-show-diff nil)
  '(magit-diff-auto-show (quote (stage-all log-oneline log-select blame-follow)))
  '(magit-process-connection-type nil)
- '(menu-bar-mode nil)
  '(mouse-drag-copy-region nil)
  '(mouse-wheel-progressive-speed nil)
  '(neo-smart-open t)
  '(org-agenda-current-time-string #("<-now-" 0 2 (org-heading t)))
  '(org-agenda-files nil)
- '(org-agenda-tags-column -80)
+ '(org-agenda-tags-column -120)
  '(org-catch-invisible-edits (quote smart))
  '(org-cycle-separator-lines 0)
  '(org-duration-format (quote ((special . h:mm))))
  '(org-email-link-description-format "Email %c: %s")
  '(org-log-into-drawer nil)
  '(org-log-state-notes-insert-after-drawers t)
- '(org-tags-column -90)
+ '(org-tags-column -80)
  '(org-todo-keyword-faces
    (quote
     (("TODO" . "green")
@@ -226,7 +226,7 @@
     ((sequence "TODO" "IN-PROGRESS" "WAITING" "BLOCKED" "DONE"))))
  '(package-selected-packages
    (quote
-    (perspective inf-ruby cargo company-racer racer flycheck-rust rust-mode toml-mode deft w3m centaur-tabs shackle helm-cider github-stars powerthesaurus engine-mode pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor groovy-mode helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+    (ox-rfc w3m fancy-narrow swiper company-posframe perspective inf-ruby cargo company-racer racer flycheck-rust rust-mode toml-mode deft centaur-tabs shackle helm-cider github-stars powerthesaurus engine-mode pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews jabber company-auctex auctex company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig doom-themes dockerfile-mode dired-k company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
  '(popup-kill-ring-popup-width 50 t)
  '(projectile-completion-system (quote helm))
  '(projectile-enable-caching t)
@@ -257,7 +257,15 @@
     ("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" prelude-recentf-exclude-p ".*TAGS")))
  '(safe-local-variable-values
    (quote
-    ((eval when
+    ((org-confirm-babel-evaluate)
+     (eval when
+           (require
+            (quote projectile))
+           (setq cider-repl-history-file
+                 (concat
+                  (projectile-project-root)
+                  ".nrepl-history")))
+     (eval when
            (require
             (quote projectile))
            (setq projectile-enable-idle-timer t projectile-project-name "cerber-roles" cider-repl-history-file
@@ -304,6 +312,7 @@
    (quote
     ("%e" mode-line-front-space mode-line-buffer-identification)))
  '(undo-tree-visualizer-diff t)
+ '(w3m-use-tab-line nil)
  '(web-mode-auto-close-style 2)
  '(web-mode-code-indent-offset 4)
  '(web-mode-enable-current-column-highlight t)
@@ -311,9 +320,7 @@
  '(window-min-width 30)
  '(window-numbering-mode t)
  '(yas-alias-to-yas/prefix-p nil)
- '(yas-snippet-dirs
-   (quote
-    (emacs-snippets-dir "~/.emacs.d/snippets")))
+ '(yas-snippet-dirs (quote (emacs-snippets-dir "~/.emacs.d/snippets")))
  '(yas-wrap-around-region t))
 
 
@@ -323,7 +330,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka" :foundry "nil" :slant normal :weight light :height 141 :width normal))))
- '(bm-face ((t (:background "dark magenta" :foreground "tomato" :box (:line-width 1 :color "dark violet" :style released-button)))))
+ '(bm-face ((t (:background "slate blue" :foreground "tomato" :box (:line-width 1 :color "slate blue" :style released-button)))))
  '(bm-fringe-face ((t (:background "dark magenta" :foreground "Black"))))
  '(company-tooltip-mouse ((t (:background "gray8" :foreground "#282c34"))))
  '(doom-modeline-buffer-file ((t (:inherit mode-line-buffer-id))))

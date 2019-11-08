@@ -169,7 +169,6 @@
 (add-hook 'cider-repl-mode-hook
           (lambda ()
             (doom-hide-modeline-mode)
-            ;(global-hl-line-mode 0)
             (yas-minor-mode 1)))
 
 (add-hook 'org-mode-hook
@@ -194,14 +193,16 @@
   (:color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Global switches") :separator "┄")
   ("UI"
    (("t" centaur-tabs-mode "centaur tabs" :toggle t)
+    ("o" company-posframe-mode "posframe" :toggle t)
     ("n" neotree-show "neotree" :color teal))
    "Basic"
-   (("n" linum-mode "line number" :toggle t)
+   (("l" display-line-numbers-mode "line number" :toggle t)
     ("w" whitespace-mode "whitespace" :toggle t)
+    ("v" visual-line-mode "visual line" :toggle t)
     ("W" ws-butler-mode "whitespace cleanup" :toggle t)
     ("L" page-break-lines-mode "page break lines" :toggle t))
    "Highlight"
-   (("l" global-hl-line-mode "line" :toggle t)
+   (("h" hl-line-mode "line" :toggle t)
     ("s" highlight-symbol-mode "symbol" :toggle t)
     ("x" highlight-sexp-mode "sexp" :toggle t)
     ("r" highlight-parentheses-mode "parens" :toggle t))
@@ -209,7 +210,8 @@
    (("p" smartparens-mode "smartparens" :toggle t)
     ("P" smartparens-strict-mode "smartparens strict" :toggle t)
     ("S" show-smartparens-mode "show smartparens" :toggle t)
-    ("f" flycheck-mode "flycheck" :toggle t))
+    ("c" flycheck-mode "flycheck" :toggle t)
+    ("f" fancy-narrow-mode "fancy narrow" :toggle t))
    "Emacs"
    (("D" toggle-debug-on-error "debug on error" :toggle (default-value 'debug-on-error))
     ("X" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))))
@@ -220,7 +222,7 @@
    (("f" magit-file-dispatch "file..." :color teal)
     ("b" magit-diff-buffer-file "diff buffer" :color teal)
     ("h" git-timemachine "time machine" :color teal)
-    ("t" magit-todos-list "todos list" :color teal))
+    ("l" magit-todos-list "todos list" :color teal))
    "GitHub"
    (("S" github-stars-browse-url "stars..." :color teal)
     ("G" gist-list "gists..." :color teal)
@@ -229,15 +231,15 @@
    "Chunk"
    (("s" git-gutter:stage-hunk "stage" :color teal)
     ("r" git-gutter:revert-hunk "revert" :color teal)
-    ("n" git-gutter:next-hunk "next →" :toggle t)
-    ("p" git-gutter:previous-hunk "prev ←" :toggle t)
-    ("=" git-gutter:popup-hunk "popup" :color teal))
+    ("=" git-gutter:popup-hunk "popup" :color teal)
+    ("[" git-gutter:previous-hunk "prev ←" :toggle t)
+    ("]" git-gutter:next-hunk "next →" :toggle t))
    "Search"
-   (("g" deadgrep "deadgrep" :color teal)
-    ("i" helm-projectile-grep "projectile grep" :color teal))
+   (("d" deadgrep "deadgrep" :color teal)
+    ("g" helm-projectile-grep "projectile grep" :color teal))
    "Tags"
    (("e" helm-etags-select "etags select" :color teal)
-    ("l" projectile-find-tag "projectile tags" :color teal))
+    ("t" projectile-find-tag "projectile tags" :color teal))
    "Thesaurus"
    (("u" powerthesaurus-lookup-word "powerthesaurus" :color teal))))
 

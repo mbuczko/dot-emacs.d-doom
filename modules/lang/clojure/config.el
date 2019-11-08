@@ -1,5 +1,12 @@
 ;;; lang/clojure/config.el -*- lexical-binding: t; -*-
 
+(defun smart-sexp-open-line ()
+  (interactive)
+  (smart-backward)
+  (smart-backward)
+  (smart-forward)
+  (newline-and-indent))
+
 (def-package! clojure-mode
   :mode "\\.clj$"
   :mode "\\.cljc$"
@@ -15,7 +22,8 @@
   (dolist (c (string-to-list ":_-/?!#*"))
     (modify-syntax-entry c "w" clojure-mode-syntax-table))
 
-  (define-key clojure-mode-map (kbd "C-x C-d") #'helm-clojuredocs-at-point))
+  (define-key clojure-mode-map (kbd "C-x C-d") #'helm-clojuredocs-at-point)
+  (define-key clojure-mode-map (kbd "M-RET")   #'smart-sexp-open-line))
 
 (def-package! clj-refactor
   :after clojure-mode
@@ -40,7 +48,7 @@
 
 
 (def-package! cider
-  :commands (cider-jack-in cider-mode cider-jack-in-clojurescript cider-refresh)
+  :commands (cider-jack-in cider-mode cider-jack-in-clojurescript)
   :config
   (setq nrepl-hide-special-buffers t)
 
@@ -68,7 +76,7 @@
   :commands (cider-apropos))
 
 (def-package! cider-ns
-  :commands (cider-ns-refresh))
+  :commands (cider-ns-refresh cider-refresh))
 
 (def-package! cider-selector
   :commands (cider-selector))

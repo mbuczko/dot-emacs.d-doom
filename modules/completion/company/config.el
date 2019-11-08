@@ -41,6 +41,11 @@ MODES should be one major-mode symbol or a list of them."
   (global-company-mode +1)
   (define-key company-active-map "\e" 'company-abort))
 
+(def-package! company-posframe
+  :after company
+  :commands (company-posframe-mode)
+  :config
+  (company-posframe-mode 1))
 
 (def-package! company-statistics
   :after company

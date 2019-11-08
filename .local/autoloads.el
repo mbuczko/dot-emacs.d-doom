@@ -870,7 +870,7 @@ Toggle fullscreen Emacs (non-native on MacOS).
 \(fn)" t nil)
 
 (autoload 'doom/toggle-line-numbers "../core/autoload/ui" "\
-Toggle `linum-mode'.
+Toggle `display-line-numbers-mode'.
 
 \(fn &optional ARG)" t nil)
 

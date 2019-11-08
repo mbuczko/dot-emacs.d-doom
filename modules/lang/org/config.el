@@ -167,7 +167,6 @@ unfold to point on startup."
    org-startup-folded t
    org-startup-indented t
    org-startup-with-inline-images nil
-   org-tags-column 0
    org-todo-keywords
    '((sequence "[ ](t)" "[-](p)" "[?](m)" "|" "[X](d)")
      (sequence "TODO(T)" "|" "DONE(D)")

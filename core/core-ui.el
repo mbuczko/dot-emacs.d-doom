@@ -219,7 +219,6 @@ local value, whether or not it's permanent-local. Therefore, we cycle
 (if (fboundp 'fringe-mode) (fringe-mode doom-fringe-size))
 ;; draw me like one of your French editors
 (tooltip-mode -1) ; relegate tooltips to echo area only
-(menu-bar-mode -1)
 (if (fboundp 'tool-bar-mode)   (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
@@ -278,7 +277,7 @@ instead)."
 
 ;; Highlights the current line
 (def-package! hl-line ; built-in
-  :hook ((prog-mode text-mode conf-mode) . hl-line-mode)
+  :hook ((prog-mode conf-mode) . hl-line-mode)
   :config
   ;; I don't need hl-line showing in other windows. This also offers a small
   ;; speed boost when buffer is displayed in multiple windows.
@@ -333,7 +332,6 @@ instead)."
    (+ (if (boundp 'display-line-numbers) 6 0)
       fill-column)))
 
-
 ;;
 ;; Line numbers
 ;;
@@ -370,79 +368,6 @@ See `doom-line-numbers-style' to control the style of line numbers to display."
   (doom|enable-line-numbers -1))
 
 (add-hook! (prog-mode text-mode conf-mode) #'doom|enable-line-numbers)
-
-;; Emacs 26+ has native line number support.
-;; Line number column. A faster (or equivalent, in the worst case) line number
-;; plugin than `linum-mode'.
-(def-package! nlinum
-  :unless (boundp 'display-line-numbers)
-  :commands nlinum-mode
-  :init
-  (defvar doom-line-number-lpad 4
-    "How much padding to place before line numbers.")
-  (defvar doom-line-number-rpad 1
-    "How much padding to place after line numbers.")
-  (defvar doom-line-number-pad-char 32
-    "Character to use for padding line numbers.
-
-By default, this is a space character. If you use `whitespace-mode' with
-`space-mark', the whitespace in line numbers will be affected (this can look
-ugly). In this case, you can change this to ?\u2002, which is a unicode
-character that looks like a space that `whitespace-mode' won't affect.")
-  :config
-  (setq nlinum-highlight-current-line t)
-
-  ;; Fix lingering hl-line overlays (caused by nlinum)
-  (add-hook! 'hl-line-mode-hook
-    (remove-overlays (point-min) (point-max) 'face 'hl-line))
-
-  (defun doom-nlinum-format-fn (line _width)
-    "A more customizable `nlinum-format-function'. See `doom-line-number-lpad',
-`doom-line-number-rpad' and `doom-line-number-pad-char'. Allows a fix for
-`whitespace-mode' space-marks appearing inside the line number."
-    (let ((str (number-to-string line)))
-      (setq str (concat (make-string (max 0 (- doom-line-number-lpad (length str)))
-                                     doom-line-number-pad-char)
-                        str
-                        (make-string doom-line-number-rpad doom-line-number-pad-char)))
-      (put-text-property 0 (length str) 'face
-                         (if (and nlinum-highlight-current-line
-                                  (= line nlinum--current-line))
-                             'nlinum-current-line
-                           'linum)
-                         str)
-      str))
-  (setq nlinum-format-function #'doom-nlinum-format-fn)
-
-  (defun doom|init-nlinum-width ()
-    "Calculate line number column width beforehand (optimization)."
-    (setq nlinum--width
-          (length (save-excursion (goto-char (point-max))
-                                  (format-mode-line "%l")))))
-  (add-hook 'nlinum-mode-hook #'doom|init-nlinum-width))
-
-;; Fixes disappearing line numbers in nlinum and other quirks
-(def-package! nlinum-hl
-  :unless (boundp 'display-line-numbers)
-  :after nlinum
-  :config
-  ;; With `markdown-fontify-code-blocks-natively' enabled in `markdown-mode',
-  ;; line numbers tend to vanish next to code blocks.
-  (advice-add #'markdown-fontify-code-block-natively
-              :after #'nlinum-hl-do-markdown-fontify-region)
-  ;; When using `web-mode's code-folding an entire range of line numbers will
-  ;; vanish in the affected area.
-  (advice-add #'web-mode-fold-or-unfold :after #'nlinum-hl-do-generic-flush)
-  ;; Changing fonts can leave nlinum line numbers in their original size; this
-  ;; forces them to resize.
-  (advice-add #'set-frame-font :after #'nlinum-hl-flush-all-windows))
-
-(def-package! nlinum-relative
-  :unless (boundp 'display-line-numbers)
-  :commands nlinum-relative-mode
-  :config
-  (after! evil (nlinum-relative-setup-evil)))
-
 
 ;;
 ;; Modeline

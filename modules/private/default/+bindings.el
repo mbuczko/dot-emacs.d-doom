@@ -30,7 +30,6 @@
 (define-key global-map (kbd "M-[")       #'wrap-square)
 (define-key global-map (kbd "M-{")       #'wrap-curly)
 (define-key global-map (kbd "M-/")       #'company-complete)
-(define-key global-map (kbd "M-RET")     #'crux-smart-open-line)
 
 (define-key global-map (kbd "C-o")       #'helm-semantic-or-imenu)
 (define-key global-map (kbd "C-b")       #'helm-buffers-list)
@@ -77,13 +76,14 @@
 (define-key global-map (kbd "C-x C-l")   #'bm-show-all)
 (define-key global-map (kbd "C-S-h")     #'highlight-symbol-at-point)
 
-(define-key global-map [C-S-down]        'highlight-symbol-next)
-(define-key global-map [C-S-up]          'highlight-symbol-prev)
-(define-key global-map [(C-backspace)]   'backward-kill-word)
-(define-key global-map [(C-S-return)]    'er/expand-region)
-(define-key global-map [(backtab)]       'helm-buffers-list)
-(define-key global-map [(control ?.)]    'goto-last-change)
-(define-key global-map [(control ?,)]    'goto-last-change-reverse)
+(define-key global-map [C-S-down]        #'highlight-symbol-next)
+(define-key global-map [C-S-up]          #'highlight-symbol-prev)
+(define-key global-map [(C-backspace)]   #'backward-kill-word)
+(define-key global-map [(C-S-return)]    #'er/expand-region)
+(define-key global-map [(backtab)]       #'helm-buffers-list)
+(define-key global-map [(control ?.)]    #'goto-last-change)
+(define-key global-map [(control ?,)]    #'goto-last-change-reverse)
+(define-key global-map [(shift return)]  #'crux-smart-open-line)
 
 (smartrep-define-key global-map "C-x v"
   '(("]"   . git-gutter:next-hunk)
