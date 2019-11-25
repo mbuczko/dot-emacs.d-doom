@@ -213,12 +213,12 @@ local value, whether or not it's permanent-local. Therefore, we cycle
 (setq frame-title-format "%b")
 ;; auto-enabled in Emacs 25+; I'll do it myself
 (global-eldoc-mode -1)
+;; draw me like one of your French editors
+(tooltip-mode -1)
 ;; a good indicator that Emacs isn't frozen
 (add-hook 'doom-post-init-hook #'blink-cursor-mode)
 ;; standardize default fringe width
 (if (fboundp 'fringe-mode) (fringe-mode doom-fringe-size))
-;; draw me like one of your French editors
-(tooltip-mode -1) ; relegate tooltips to echo area only
 (if (fboundp 'tool-bar-mode)   (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
@@ -227,15 +227,6 @@ local value, whether or not it's permanent-local. Therefore, we cycle
   (set-window-fringes (minibuffer-window) 0 0 nil))
 (add-hook! '(doom-post-init-hook minibuffer-setup-hook)
   #'doom|no-fringes-in-minibuffer)
-
-(defun doom|protect-visible-buffers ()
-  "Don't kill the current buffer if it is visible in another window (bury it
-instead)."
-  (not (delq (selected-window)
-             (get-buffer-window-list nil nil t))))
-(add-hook! doom-post-init
-  (add-hook 'kill-buffer-query-functions #'doom|protect-visible-buffers))
-
 
 ;;
 ;; Plugins
@@ -273,7 +264,8 @@ instead)."
   :commands (highlight-sexp-mode))
 
 ;; For modes with sub-par number fontification
-(def-package! highlight-numbers :commands highlight-numbers-mode)
+(def-package! highlight-numbers
+  :commands highlight-numbers-mode)
 
 ;; Highlights the current line
 (def-package! hl-line ; built-in
@@ -297,22 +289,7 @@ instead)."
                    (line-end-position))
                   (t
                    (line-beginning-position 2)))))
-    (setq hl-line-range-function #'doom--line-range))
-
-  (after! evil
-    (defvar-local doom-buffer-hl-line-mode nil)
-
-    ;; Disable `hl-line' in evil-visual mode (temporarily). `hl-line' can make
-    ;; the selection region harder to see while in evil visual mode.
-    (defun doom|disable-hl-line ()
-      (when hl-line-mode
-        (setq doom-buffer-hl-line-mode t)
-        (hl-line-mode -1)))
-    (defun doom|enable-hl-line-maybe ()
-      (if doom-buffer-hl-line-mode (hl-line-mode +1)))
-
-    (add-hook 'evil-visual-state-entry-hook #'doom|disable-hl-line)
-    (add-hook 'evil-visual-state-exit-hook  #'doom|enable-hl-line-maybe)))
+    (setq hl-line-range-function #'doom--line-range)))
 
 ;; Helps us distinguish stacked delimiter pairs. Especially in parentheses-drunk
 ;; languages like Lisp.
@@ -336,38 +313,7 @@ instead)."
 ;; Line numbers
 ;;
 
-(defvar doom-line-numbers-style t
-  "The style to use for the line number display.
-
-Accepts the same arguments as `display-line-numbers', which are:
-
-nil         No line numbers
-t           Ordinary line numbers
-'relative   Relative line numbers")
-
-(defun doom|enable-line-numbers (&optional arg)
-  "Enables the display of line numbers, using `display-line-numbers' (in Emacs
-26+) or `nlinum-mode'.
-
-See `doom-line-numbers-style' to control the style of line numbers to display."
-  (cond ((boundp 'display-line-numbers)
-         (setq display-line-numbers
-               (pcase arg
-                 (+1 doom-line-numbers-style)
-                 (-1 nil)
-                 (_ doom-line-numbers-style))))
-        ((eq doom-line-numbers-style 'relative)
-         (if (= arg -1)
-             (nlinum-relative-off)
-           (nlinum-relative-on)))
-        ((not (null doom-line-numbers-style))
-         (nlinum-mode (or arg +1)))))
-
-(defun doom|disable-line-numbers ()
-  "Disable the display of line numbers."
-  (doom|enable-line-numbers -1))
-
-(add-hook! (prog-mode text-mode conf-mode) #'doom|enable-line-numbers)
+(add-hook! (prog-mode conf-mode) #'display-line-numbers-mode)
 
 ;;
 ;; Modeline

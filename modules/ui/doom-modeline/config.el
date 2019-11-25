@@ -24,28 +24,6 @@
 
   (eldoc-in-minibuffer-mode +1))
 
-;; anzu and evil-anzu expose current/total state that can be displayed in the
-;; mode-line.
-(def-package! evil-anzu
-  :requires evil
-  :init
-  (add-transient-hook! #'evil-ex-start-search (require 'evil-anzu))
-  (add-transient-hook! #'evil-ex-start-word-search (require 'evil-anzu))
-  :config
-  (setq anzu-cons-mode-line-p nil
-        anzu-minimum-input-length 1
-        anzu-search-threshold 250)
-  ;; Avoid anzu conflicts across buffers
-  (mapc #'make-variable-buffer-local
-        '(anzu--total-matched anzu--current-position anzu--state
-          anzu--cached-count anzu--cached-positions anzu--last-command
-          anzu--last-isearch-string anzu--overflow-p))
-  ;; Ensure anzu state is cleared when searches & iedit are done
-  (add-hook 'isearch-mode-end-hook #'anzu--reset-status t)
-  (add-hook '+evil-esc-hook #'anzu--reset-status t)
-  (add-hook 'iedit-mode-end-hook #'anzu--reset-status))
-
-
 ;; Keep `+doom-modeline-current-window' up-to-date
 (defvar +doom-modeline-current-window (frame-selected-window))
 (defun +doom-modeline|set-selected-window (&rest _)
@@ -91,9 +69,9 @@ file-name => comint.el")
 
 ;; externs
 (defvar anzu--state nil)
-(defvar evil-mode nil)
-(defvar evil-state nil)
-(defvar evil-visual-selection nil)
+;; (defvar evil-mode nil)
+;; (defvar evil-state nil)
+;; (defvar evil-visual-selection nil)
 (defvar iedit-mode nil)
 (defvar all-the-icons-scale-factor)
 (defvar all-the-icons-default-adjust)
@@ -134,8 +112,7 @@ file-name => comint.el")
 
 (defface doom-modeline-panel
   '((t (:inherit mode-line-highlight)))
-  "Face for 'X out of Y' segments, such as `+doom-modeline--anzu', `+doom-modeline--evil-substitute' and
-`iedit'"
+  "Face for 'X out of Y' segments, such as `+doom-modeline--anzu' and `iedit'"
   :group '+doom-modeline)
 
 (defface doom-modeline-info
@@ -448,18 +425,15 @@ icons."
 (def-modeline-segment! selection-info
   "Information about the current selection, such as how many characters and
 lines are selected, or the NxM dimensions of a block selection."
-  (when (and (active) (or mark-active (eq evil-state 'visual)))
+  (when (and (active) mark-active)
     (let ((reg-beg (region-beginning))
           (reg-end (region-end)))
       (propertize
        (let ((lines (count-lines reg-beg (min (1+ reg-end) (point-max)))))
-         (cond ((or (bound-and-true-p rectangle-mark-mode)
-                    (eq 'block evil-visual-selection))
+         (cond ((bound-and-true-p rectangle-mark-mode)
                 (let ((cols (abs (- (doom-column reg-end)
                                     (doom-column reg-beg)))))
                   (format "%dx%dB" lines cols)))
-               ((eq 'line evil-visual-selection)
-                (format "%dL" lines))
                ((> lines 1)
                 (format "%dC %dL" (- (1+ reg-end) reg-beg) lines))
                (t
@@ -469,14 +443,11 @@ lines are selected, or the NxM dimensions of a block selection."
 
 ;;
 (defun +doom-modeline--macro-recording ()
-  "Display current Emacs or evil macro being recorded."
+  "Display current Emacs macro being recorded."
   (when (and (active) (or defining-kbd-macro executing-kbd-macro))
     (let ((sep (propertize " " 'face 'doom-modeline-panel)))
       (concat sep
-              (propertize (if (bound-and-true-p evil-this-macro)
-                              (char-to-string evil-this-macro)
-                            "Macro")
-                          'face 'doom-modeline-panel)
+              (propertize "Macro" 'face 'doom-modeline-panel)
               sep
               (all-the-icons-octicon "triangle-right"
                                      :face 'doom-modeline-panel
@@ -484,8 +455,7 @@ lines are selected, or the NxM dimensions of a block selection."
               sep))))
 
 (defsubst +doom-modeline--anzu ()
-  "Show the match index and total number thereof. Requires `anzu', also
-`evil-anzu' if using `evil-mode' for compatibility with `evil-search'."
+  "Show the match index and total number thereof. Requires `anzu'."
   (when (and anzu--state (not iedit-mode))
     (propertize
      (let ((here anzu--current-position)
@@ -498,22 +468,6 @@ lines are selected, or the NxM dimensions of a block selection."
               (format " %s+ " total))
              (t
               (format " %s/%d " here total))))
-     'face (if (active) 'doom-modeline-panel))))
-
-(defsubst +doom-modeline--evil-substitute ()
-  "Show number of matches for evil-ex substitutions and highlights in real time."
-  (when (and evil-mode
-             (or (assq 'evil-ex-substitute evil-ex-active-highlights-alist)
-                 (assq 'evil-ex-global-match evil-ex-active-highlights-alist)
-                 (assq 'evil-ex-buffer-match evil-ex-active-highlights-alist)))
-    (propertize
-     (let ((range (if evil-ex-range
-                      (cons (car evil-ex-range) (cadr evil-ex-range))
-                    (cons (line-beginning-position) (line-end-position))))
-           (pattern (car-safe (evil-delimited-arguments evil-ex-argument 2))))
-       (if pattern
-           (format " %s matches " (how-many pattern (car range) (cdr range)))
-         " - "))
      'face (if (active) 'doom-modeline-panel))))
 
 (defun doom-themes--overlay-sort (a b)
@@ -540,11 +494,9 @@ lines are selected, or the NxM dimensions of a block selection."
 
 (def-modeline-segment! matches
   "Displays: 1. the currently recording macro, 2. A current/total for the
-current search term (with anzu), 3. The number of substitutions being conducted
-with `evil-ex-substitute', and/or 4. The number of active `iedit' regions."
+current search term (with anzu), 3. The number of active `iedit' regions."
   (let ((meta (concat (+doom-modeline--macro-recording)
                       (+doom-modeline--anzu)
-                      (+doom-modeline--evil-substitute)
                       (+doom-modeline--iedit))))
      (or (and (not (equal meta "")) meta)
          (if buffer-file-name " %I "))))

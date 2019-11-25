@@ -18,8 +18,7 @@ By default, ~nav-flash~ will be triggered whenever ~recenter~ is called. =:featu
 
 #+BEGIN_SRC emacs-lisp
 (add-hook!
-  '(imenu-after-jump-hook evil-jumps-post-jump-hook
-    counsel-grep-post-action-hook dumb-jump-after-jump-hook)
+  '(imenu-after-jump-hook dumb-jump-after-jump-hook)
   #'recenter)
 #+END_SRC
 

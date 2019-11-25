@@ -17,8 +17,7 @@
 (defun +jump/definition (identifier &optional other-window)
   "Jump to the definition of the symbol at point.
 
-Tries xref and falls back to `dumb-jump', then rg/ag, then
-`evil-goto-definition' (if evil is active)."
+Tries xref and falls back to `dumb-jump', then rg/ag."
   (interactive
    (list (thing-at-point 'symbol t)
          current-prefix-arg))
@@ -56,15 +55,6 @@ Tries xref and falls back to `dumb-jump', then rg/ag, then
                          (counsel-rg regex (doom-project-root)))
                     (and +jump--ag-installed-p
                          (counsel-ag regex (doom-project-root)))))))
-
-        ((and (featurep 'evil)
-              evil-mode
-              (cl-destructuring-bind (beg . end)
-                  (bounds-of-thing-at-point 'symbol)
-                (evil-goto-definition)
-                (let ((pt (point)))
-                  (not (and (>= pt beg)
-                            (<  pt end)))))))
 
         (t (user-error "Couldn't find '%s'" identifier))))
 

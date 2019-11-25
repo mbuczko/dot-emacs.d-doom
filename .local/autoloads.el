@@ -869,11 +869,6 @@ Toggle fullscreen Emacs (non-native on MacOS).
 
 \(fn)" t nil)
 
-(autoload 'doom/toggle-line-numbers "../core/autoload/ui" "\
-Toggle `display-line-numbers-mode'.
-
-\(fn &optional ARG)" t nil)
-
 (autoload 'doom-resize-window "../core/autoload/ui" "\
 Resize a window to NEW-SIZE. If HORIZONTAL, do it width-wise.
 If FORCE-P is omitted when `window-size-fixed' is non-nil, resizing will fail.
@@ -1034,8 +1029,7 @@ execute it immediately after.
 (autoload '+jump/definition "../modules/feature/jump/autoload/jump" "\
 Jump to the definition of the symbol at point.
 
-Tries xref and falls back to `dumb-jump', then rg/ag, then
-`evil-goto-definition' (if evil is active).
+Tries xref and falls back to `dumb-jump', then rg/ag.
 
 \(fn IDENTIFIER &optional OTHER-WINDOW)" t nil)
 
@@ -1924,45 +1918,6 @@ Close window (or workspace) on quit.
 
 \(fn)" nil nil)
 
-(autoload '+eshell/evil-append "../modules/tools/eshell/autoload/eshell" "\
-
-
-\(fn)" t nil)
-
-(autoload '+eshell/evil-append-maybe "../modules/tools/eshell/autoload/eshell" "\
-
-
-\(fn)" t nil)
-
-(autoload '+eshell/evil-prepend "../modules/tools/eshell/autoload/eshell" "\
-
-
-\(fn)" t nil)
-
-(autoload '+eshell/evil-prepend-maybe "../modules/tools/eshell/autoload/eshell" "\
-
-
-\(fn)" t nil)
-
-(autoload '+eshell/evil-replace-maybe "../modules/tools/eshell/autoload/eshell" "\
-
-
-\(fn)" t nil)
-
-(autoload '+eshell/evil-replace-state-maybe "../modules/tools/eshell/autoload/eshell" "\
-
-
-\(fn)" t nil)
-
-(autoload '+eshell/evil-change "../modules/tools/eshell/autoload/eshell" "\
-
-
-\(fn)" t nil)
-
-(autoload '+eshell/evil-change-line "../modules/tools/eshell/autoload/eshell" "\
-
-
-\(fn)" t nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "../modules/tools/eshell/autoload/eshell" '("+eshell-")))
 

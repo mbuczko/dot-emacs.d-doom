@@ -3,10 +3,7 @@
 (set! :popup "*xref*" :noselect t :autokill t :autoclose t)
 
 ;; Recenter after certain jumps
-(add-hook!
-  '(imenu-after-jump-hook evil-jumps-post-jump-hook
-    counsel-grep-post-action-hook dumb-jump-after-jump-hook)
-  #'recenter)
+(add-hook! '(imenu-after-jump-hook  dumb-jump-after-jump-hook) #'recenter)
 
 ;;
 ;; Packages

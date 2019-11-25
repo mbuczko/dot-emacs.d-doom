@@ -1,18 +1,6 @@
 ;;; org/org/autoload/org.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
-(define-minor-mode +org-pretty-mode
-  "TODO"
-  :init-value nil
-  :lighter " *"
-  :group 'evil-org
-  (setq org-hide-emphasis-markers +org-pretty-mode)
-  (org-toggle-pretty-entities)
-  (org-with-silent-modifications
-   ;; In case the above un-align tables
-   (org-table-map-tables 'org-table-align t)))
-
-;;;###autoload
 (defun +org|realign-table-maybe ()
   "Auto-align table under cursor and re-calculate formulas."
   (when (org-at-table-p)
@@ -84,10 +72,7 @@ If on a:
 
       (`table-cell
        (org-table-blank-field)
-       (org-table-recalculate)
-       (when (and (string-empty-p (string-trim (org-table-get-field)))
-                  (bound-and-true-p evil-mode))
-         (evil-change-state 'insert)))
+       (org-table-recalculate))
 
       (`babel-call
        (org-babel-lob-execute-maybe))
@@ -226,10 +211,7 @@ wrong places)."
              (when (org-element-property :todo-type context)
                (org-todo 'todo))))
 
-          (t (user-error "Not a valid list, heading or table")))
-
-    (when (bound-and-true-p evil-mode)
-      (evil-append-line 1))))
+          (t (user-error "Not a valid list, heading or table")))))
 
 ;;;###autoload
 (defun +org-get-property (name &optional _file) ; TODO Add FILE

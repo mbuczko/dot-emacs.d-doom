@@ -10,12 +10,6 @@
      'fullboth)))
 
 ;;;###autoload
-(defun doom/toggle-line-numbers (&optional arg)
-  "Toggle `display-line-numbers-mode'."
-  (interactive "P")
-  (display-line-numbers-mode))
-
-;;;###autoload
 (defun doom-resize-window (window new-size &optional horizontal force-p)
   "Resize a window to NEW-SIZE. If HORIZONTAL, do it width-wise.
 If FORCE-P is omitted when `window-size-fixed' is non-nil, resizing will fail."

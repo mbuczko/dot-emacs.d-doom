@@ -7,7 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(auth-sources (quote ("~/.authinfo" "~/.authinfo.gpg")))
  '(auto-window-vscroll nil t)
- '(bm-highlight-style (quote bm-highlight-only-line))
+ '(bm-highlight-style (quote bm-highlight-only-fringe))
  '(bm-recenter t)
  '(canlock-password "65fd570ab0dff8c5eab2bf832f5e58157748881a")
  '(comment-line-break-function (quote indent-new-comment-line) t)

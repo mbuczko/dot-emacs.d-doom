@@ -9,7 +9,6 @@
     (sp-local-pair 'elixir-mode beg nil :actions :rem))
   ;; only complete the basics
   (sp-with-modes 'elixir-mode
-    (sp-local-pair "do" "end" :when '(("RET" "<evil-ret>")) :post-handlers '("||\n[i]"))
     (sp-local-pair "do " " end")
     (sp-local-pair "fn " " end")))
 

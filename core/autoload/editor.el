@@ -50,7 +50,7 @@ If already there, do nothing."
                         (skip-chars-backward " " bol)
                         (point))))
                   eol))
-         (goto-char-fn (if (featurep 'evil) #'evil-goto-char #'goto-char)))
+         (goto-char-fn #'goto-char))
     (if (= eoc point)
         (funcall goto-char-fn eol)
       (unless (= eol point)
@@ -95,10 +95,7 @@ afterwards, kill line to column 1."
   (interactive)
   (let ((empty-line-p (save-excursion (beginning-of-line)
                                       (looking-at-p "[ \t]*$"))))
-    (funcall (if (featurep 'evil)
-                 #'evil-delete
-               #'delete-region)
-             (point-at-bol) (point))
+    (delete-region (point-at-bol) (point))
     (unless empty-line-p
       (indent-according-to-mode))))
 
@@ -168,10 +165,7 @@ spaces on either side of the point if so. Resorts to
           (cond ((not whitespace-match)
                  (call-interactively #'delete-backward-char))
                 ((string-match "\n" whitespace-match)
-                 (funcall (if (featurep 'evil)
-                              #'evil-delete
-                            #'delete-region)
-                          (point-at-bol) (point))
+                 (delete-region (point-at-bol) (point))
                  (call-interactively #'delete-backward-char)
                  (save-excursion (call-interactively #'delete-char)))
                 (t (just-one-space 0))))
@@ -222,9 +216,7 @@ consistent throughout a selected region, depending on `indent-tab-mode'."
 (defun doom/narrow-buffer (beg end &optional clone-p)
   "Restrict editing in this buffer to the current region, indirectly. With CLONE-P,
 clone the buffer and hard-narrow the selection. If mark isn't active, then widen
-the buffer (if narrowed).
-
-Inspired from http://demonastery.org/2013/04/emacs-evil-narrow-region/"
+the buffer (if narrowed)."
   (interactive "r")
   (cond ((region-active-p)
          (deactivate-mark)

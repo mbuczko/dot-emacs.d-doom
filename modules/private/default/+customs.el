@@ -183,6 +183,7 @@
 (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
 
+(add-hook 'dired-mode-hook #'hl-line-mode)
 (add-hook 'clojure-mode-hook
           (lambda ()
             (highlight-symbol-mode)

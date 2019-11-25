@@ -31,8 +31,6 @@ the cursor at the prompt."
   (interactive)
   (when-let* ((command (cdr (assq major-mode +eval-repls))))
     (when (+eval--ensure-in-repl-buffer command)
-      (when (bound-and-true-p evil-mode)
-        (call-interactively #'evil-append-line))
       t)))
 
 ;;;###autoload
@@ -43,8 +41,6 @@ execute it immediately after."
   (let ((selection (buffer-substring-no-properties beg end)))
     (unless (+eval--ensure-in-repl-buffer)
       (error "No REPL open"))
-    (when (bound-and-true-p evil-mode)
-      (call-interactively #'evil-append-line))
     (insert (string-trim selection))
     (when auto-execute-p
       ;; I don't use `comint-send-input' because different REPLs may have their

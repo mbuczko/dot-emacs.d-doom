@@ -1,8 +1,5 @@
 ;;; feature/snippets/config.el -*- lexical-binding: t; -*-
 
-;; Snippets! I've thrown together a few hacks to make `yasnippet' and `evil'
-;; behave together.
-
 (def-package! yasnippet
   :commands (yas-minor-mode yas-minor-mode-on yas-expand yas-expand-snippet
              yas-lookup-snippet yas-insert-snippet yas-new-snippet
@@ -34,10 +31,7 @@
   (add-hook 'doom-project-hook #'+snippets|enable-project-modes)
 
   ;; fix an error caused by smartparens interfering with yasnippet bindings
-  (advice-add #'yas-expand :before #'sp-remove-active-pair-overlay)
-
-  ;; Exit snippets on ESC from normal mode
-  (add-hook '+evil-esc-hook #'yas-exit-all-snippets))
+  (advice-add #'yas-expand :before #'sp-remove-active-pair-overlay))
 
 
 (def-package! auto-yasnippet
