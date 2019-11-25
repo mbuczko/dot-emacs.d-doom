@@ -14,6 +14,9 @@
   :config
   (require 'helm-clojuredocs)
   (require 'flycheck-joker)
+  (setq clojure-project-root-function (lambda
+                                        (dir-name)
+                                        (ignore-errors (projectile-project-root))))
 
   ;; get docstrings colored correctly with defn-spec
   (put 'defn-spec 'clojure-doc-string-elt 3)
@@ -28,6 +31,10 @@
 (def-package! clj-refactor
   :after clojure-mode
   :config
+  (setq cljr-auto-clean-ns t
+        cljr-hotload-dependencies t
+        cljr-suppress-middleware-warnings t
+        cljr-warn-on-eval nil)
 
   ;; setup some extra namespace auto completion for great awesome
   (dolist (mapping '(("time"      . "clj-time.core")
@@ -50,10 +57,11 @@
 (def-package! cider
   :commands (cider-jack-in cider-mode cider-jack-in-clojurescript)
   :config
-  (setq nrepl-hide-special-buffers t)
-
-  ;; settings for cider repl as a popup (prevent it from being closed on escape, especially.)
-  (set! :popup "^\\*cider" :regexp t :noselect t :noesc t)
+  (setq nrepl-hide-special-buffers t
+        cider-prompt-for-symbol nil
+        cider-repl-display-help-banner nil
+        cider-repl-display-in-current-window t
+        cider-repl-pop-to-buffer-on-connect 'display-only)
 
   (defadvice cider-jump-to (after cider-jump activate)
     "Auto re-centers screen after jump"

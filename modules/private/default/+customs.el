@@ -1,7 +1,6 @@
 ;;; private/default/+customs.el -*- lexical-binding: t; -*-
 
 (require 'helm-git-grep)
-(require 'golden-ratio)
 (require 'window-numbering)
 (require 'highlight-symbol)
 (require 'highlight-parentheses)
@@ -92,6 +91,12 @@
   (interactive)
   (delete-window (other-window 1)))
 
+(defun hide-ctrl-M ()
+  "Hides the disturbing '^M' showing up in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
+
 (defun wrap-round  () (interactive) (er/expand-region 1) (paredit-wrap-round))
 (defun wrap-curly  () (interactive) (er/expand-region 1) (paredit-wrap-curly))
 (defun wrap-square () (interactive) (er/expand-region 1) (paredit-wrap-square))
@@ -138,6 +143,13 @@
     (browse-url
      (concat repo-url sub-path "/" id))))
 
+(defun github--babel-codeblock (str)
+  "Parse STR for a issue number and return source block with issue details."
+  (let* ((issue  (string-match "\\([0-9]+\\)[^\\|]+|\\([^\n]+\\)" str))
+         (number (match-string 1 str))
+         (descr  (string-trim (match-string 2 str))))
+    (format "#%s %s\n#+begin_src fish :results output :wrap EXPORT gfm\nhub issue show %s\n#+end_src" number descr number)))
+
 (defun github--goto-issue (id)
   "Opens in a browser issue with given ID or with a one found at current line."
   (interactive
@@ -155,6 +167,16 @@
           (str (read-string default nil nil at-point)))
      (list str)))
   (github--goto-issue-or-pr id 'pr))
+
+(defun diff-last-two-kills ()
+  "Write the last two kills to temporary files and diff them."
+  (interactive)
+  (let ((old "/tmp/old-kill") (new "/tmp/new-kill"))
+    (with-temp-file new
+      (insert (current-kill 0 t)))
+    (with-temp-file old
+      (insert (current-kill 1 t)))
+    (diff old new "-u" t)))
 
 ;; javascript mode for all *.js and *.vue files
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -190,7 +212,7 @@
   (s-concat (all-the-icons-material icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
 
 (pretty-hydra-define global-toggles
-  (:color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Global switches") :separator "┄")
+  (:color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Global switches") :separator "-")
   ("UI"
    (("t" centaur-tabs-mode "centaur tabs" :toggle t)
     ("o" company-posframe-mode "posframe" :toggle t)
@@ -217,7 +239,7 @@
     ("X" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))))
 
 (pretty-hydra-define dev-actions
-  (:color pink :quit-key "q" :separator "┄")
+  (:color pink :quit-key "q" :separator "-")
   ("Git"
    (("f" magit-file-dispatch "file..." :color teal)
     ("b" magit-diff-buffer-file "diff buffer" :color teal)
@@ -225,7 +247,7 @@
     ("l" magit-todos-list "todos list" :color teal))
    "GitHub"
    (("S" github-stars-browse-url "stars..." :color teal)
-    ("G" gist-list "gists..." :color teal)
+    ("L" gist-list "gists..." :color teal)
     ("P" github--goto-pr "goto PR" :color teal)
     ("I" github--goto-issue "goto ISSUE" :color teal))
    "Chunk"
@@ -235,16 +257,19 @@
     ("[" git-gutter:previous-hunk "prev ←" :toggle t)
     ("]" git-gutter:next-hunk "next →" :toggle t))
    "Search"
-   (("d" deadgrep "deadgrep" :color teal)
-    ("g" helm-projectile-grep "projectile grep" :color teal))
+   (("g" deadgrep "deadgrep" :color teal)
+    ("G" helm-projectile-grep "projectile grep" :color teal))
    "Tags"
    (("e" helm-etags-select "etags select" :color teal)
     ("t" projectile-find-tag "projectile tags" :color teal))
-   "Thesaurus"
-   (("u" powerthesaurus-lookup-word "powerthesaurus" :color teal))))
+   "Other"
+   (("k" diff-last-two-kills "diff last 2 kills" :color teal)
+    ("d" deft "deft" :color teal)
+    ("m" helm-filtered-bookmarks "bookmarks" :color teal)
+    ("t" powerthesaurus-lookup-word "powerthesaurus" :color teal))))
 
 (pretty-hydra-define clj-actions
-  (:color pink :quit-key "q" :separator "┄")
+  (:color pink :quit-key "q" :separator "-")
   ("Clojure"
    (("s" helm-cider-spec "spec..." :color teal)
     ("n" cider-find-ns "find namespace..." :color teal)

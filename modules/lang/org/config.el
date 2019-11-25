@@ -1,6 +1,6 @@
 ;;; lang/org/config.el -*- lexical-binding: t; -*-
 
-(defvar +org-dir (expand-file-name "~/Dropbox/org")
+(defvar +org-dir (expand-file-name "~/.deft")
   "The directory where org files are kept.")
 
 ;; Ensure ELPA org is prioritized above built-in org.
@@ -14,8 +14,7 @@
 (if (featurep! +capture) (load! +capture))
 (if (featurep! +export)  (load! +export))
 (if (featurep! +present) (load! +present))
-;; TODO (if (featurep! +publish) (load! +publish))
-
+(if (featurep! +sources) (load! +sources))
 
 ;;
 ;; Plugins
@@ -24,11 +23,8 @@
 (def-package! toc-org
   :commands toc-org-enable)
 
-(def-package! org-crypt ; built-in
-  :commands org-crypt-use-before-save-magic
-  :config
-  (setq org-tags-exclude-from-inheritance '("crypt")
-        org-crypt-key user-mail-address))
+(def-package! helm-org
+  :commands helm-org-capture-templates)
 
 (def-package! ox-extra ;org-plus-contrib
    :commands (ox-extras-activate ignore-headlines)
@@ -41,6 +37,9 @@
 (def-package! poporg
   :commands poporg-dwim)
 
+(def-package! direnv
+  :commands direnv-mode)
+
 ;;
 ;; Bootstrap
 ;;
@@ -50,10 +49,8 @@
   ;; the load. This results in a broken, partially loaded state. This require
   ;; tries to set it straight.
   (require 'org)
-
   (defvaralias 'org-directory '+org-dir)
 
-  (org-crypt-use-before-save-magic)
   (+org-init-ui)
   (+org-hacks))
 
@@ -62,14 +59,13 @@
      org-bullets-mode           ; "prettier" bullets
      org-indent-mode            ; margin-based indentation
      toc-org-enable             ; auto-table of contents
+     direnv-mode
      visual-line-mode           ; line wrapping
 
-     +org|enable-auto-reformat-tables
      +org|enable-auto-update-cookies
      +org|smartparens-compatibility-config
      +org|unfold-to-2nd-level-or-point
      +org|show-paren-mode-compatibility
-
      +org|colored-src-listings))
 
 
@@ -105,15 +101,8 @@ unfold to point on startup."
       (sp-local-pair "~" nil :unless '(sp-point-after-word-p sp-point-before-word-p))
       (sp-local-pair "=" nil :unless '(sp-point-after-word-p sp-point-before-word-p)))))
 
-(defun +org|enable-auto-reformat-tables ()
-  "Realign tables exiting insert mode (`evil-mode')."
-  (when (featurep 'evil)
-    (add-hook 'evil-insert-state-exit-hook #'+org|realign-table-maybe nil t)))
-
 (defun +org|enable-auto-update-cookies ()
-  "Update statistics cookies when saving or exiting insert mode (`evil-mode')."
-  (when (featurep 'evil)
-    (add-hook 'evil-insert-state-exit-hook #'+org|update-cookies nil t))
+  "Update statistics cookies when saving."
   (add-hook 'before-save-hook #'+org|update-cookies nil t))
 
 (defun +org|show-paren-mode-compatibility ()
@@ -143,8 +132,13 @@ unfold to point on startup."
    org-agenda-files (directory-files +org-dir t "\\.org$" t)
    org-agenda-inhibit-startup t
    org-agenda-skip-unavailable-files nil
+   org-agenda-current-time-string #("<-now-" 0 2 (org-heading t))
+   org-agenda-tags-column -120
+   org-catch-invisible-edits 'smart
    org-cycle-include-plain-lists t
    org-cycle-separator-lines 1
+   org-duration-format '((special . h:mm))
+   org-email-link-description-format "Email %c: %s"
    org-entities-user '(("flat"  "\\flat" nil "" "" "266D" "♭") ("sharp" "\\sharp" nil "" "" "266F" "♯"))
    ;; org-ellipsis " ... "
    org-fontify-done-headline t
@@ -158,6 +152,17 @@ unfold to point on startup."
    org-image-actual-width nil
    org-indent-indentation-per-level 2
    org-indent-mode-turns-on-hiding-stars t
+   org-log-into-drawer t
+   org-log-note-headings '((done        . "CLOSING NOTE %t")
+                           (state       . "State %-12s from %-12S %t")
+                           (note        . "Note taken on %t")
+                           (reschedule  . "Schedule changed on %t: %S -> %s")
+                           (delschedule . "Not scheduled, was %S on %t")
+                           (redeadline  . "Deadline changed on %t: %S -> %s")
+                           (deldeadline . "Removed deadline, was %S on %t")
+                           (refile      . "Refiled on %t")
+                           (clock-out   . ""))
+   org-log-state-notes-insert-after-drawers t
    org-pretty-entities nil
    org-pretty-entities-include-sub-superscripts t
    org-priority-faces
@@ -167,10 +172,14 @@ unfold to point on startup."
    org-startup-folded t
    org-startup-indented t
    org-startup-with-inline-images nil
-   org-todo-keywords
-   '((sequence "[ ](t)" "[-](p)" "[?](m)" "|" "[X](d)")
-     (sequence "TODO(T)" "|" "DONE(D)")
-     (sequence "NEXT(n)" "ACTIVE(a)" "WAITING(w)" "LATER(l)" "|" "CANCELLED(c)"))
+   org-tags-column -90
+   org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "WAITING" "BLOCKED" "DONE"))
+   org-todo-keyword-faces '(("TODO" . "green")
+                            ("BLOCKED" . "red")
+                            ("" . "")
+                            ("WAITING" . "yellow")
+                            ("IN-PROGRESS" . "white"))
+
    org-use-sub-superscripts '{}
    outline-blank-line t
 
@@ -201,18 +210,8 @@ unfold to point on startup."
   ;; Don't open separate windows
   (push '(file . find-file) org-link-frame-setup)
 
-  ;; Let OS decide what to do with files when opened
-  (setq org-file-apps
-        `(("\\.org$" . emacs)
-          (t . ,(cond (IS-MAC "open -R \"%s\"")
-                      (IS-LINUX "xdg-open \"%s\"")))))
-
-  (defun +org|remove-occur-highlights ()
-    "Remove org occur highlights on ESC in normal mode."
-    (when (and (derived-mode-p 'org-mode)
-               org-occur-highlights)
-      (org-remove-occur-highlights)))
-  (add-hook '+evil-esc-hook #'+org|remove-occur-highlights)
+  ;; Org sources autocompleted
+  (define-key org-mode-map (kbd "<") #'org-insert-char-dwim)
 
   (after! recentf
     ;; Don't clobber recentf with agenda files

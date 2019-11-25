@@ -13,17 +13,22 @@
 (def-package! git-gutter-fringe
   :commands git-gutter-mode
   :init
-  (defun +version-control|git-gutter-maybe ()
-    "Enable `git-gutter-mode' in non-remote buffers."
+  (setq git-gutter:disabled-modes '(org-mode image-mode pdf-view-mode))
+  (add-hook! 'find-file-hook
     (when (and (buffer-file-name)
-               (not (file-remote-p (buffer-file-name))))
+               (not (file-remote-p (buffer-file-name)))
+               (vc-backend buffer-file-name)
+               (not (memq major-mode git-gutter:disabled-modes)))
       (git-gutter-mode +1)))
-  (add-hook! (text-mode prog-mode conf-mode) #'+version-control|git-gutter-maybe)
   :config
-  (set! :popup "^\\*git-gutter.+\\*$" :regexp t :size 15 :noselect t)
-
-  ;; Update git-gutter on focus (in case I was using git externally)
-  (add-hook 'focus-in-hook #'git-gutter:update-all-windows))
+  (defun +vc-gutter-update-h (&rest _)
+    (when (and git-gutter-mode
+               (not (memq this-command '(git-gutter:stage-hunk
+                                         git-gutter:revert-hunk))))
+      (ignore (git-gutter))))
+  ;; update git-gutter when using magit commands
+  (advice-add #'magit-stage-file   :after #'+vc-gutter-update-h)
+  (advice-add #'magit-unstage-file :after #'+vc-gutter-update-h))
 
 
 (def-package! git-timemachine
@@ -49,7 +54,10 @@
     ad-do-it
     (delete-other-windows))
 
-  (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
+  (add-hook 'magit-mode-hook (lambda ()
+                               (turn-on-magit-gitflow)
+                               (doom-hide-modeline-mode)
+                               (setq left-fringe-width 2))))
 
 (def-package! magit-gitflow
   :commands (turn-on-magit-gitflow))

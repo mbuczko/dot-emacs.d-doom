@@ -25,10 +25,21 @@
         helm-ff-auto-update-initial-value nil
         helm-find-files-doc-header nil
         ;; Don't override evil-ex's completion
-        helm-mode-handle-completion-in-region nil
-        helm-candidate-number-limit 50
+        ;; helm-mode-handle-completion-in-region nil
         ;; Don't wrap item cycling
-        helm-move-to-line-cycle-in-source t)
+        ;; helm-move-to-line-cycle-in-source t
+        helm-candidate-number-limit 50
+        helm-boring-buffer-regexp-list '("\\*" "\\` " "TAGS")
+        helm-buffer-max-length 60
+        helm-candidate-separator "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄"
+        helm-ff-lynx-style-map t
+        helm-git-grep-pathspecs '("*" ":!:*.inc.js" ":!:*yarn*" ":!:*.min.*")
+        helm-imenu-lynx-style-map t
+        helm-occur-use-ioccur-style-keys t
+        helm-prevent-escaping-from-minibuffer t
+        helm-semantic-lynx-style-map t
+        helm-split-window-default-side 'other
+        helm-split-window-inside-p t)
 
   :config
   (load "helm-autoloads" nil t)

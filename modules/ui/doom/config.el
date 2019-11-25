@@ -124,3 +124,79 @@
        (and (string-prefix-p "magit" name)
             (not (file-name-extension name)))))))
 
+(def-package! golden-ratio
+  :commands golden-ratio
+  :config
+  (setq golden-ratio-auto-scale nil
+        golden-ratio-exclude-buffer-names '("*helm imenu*" "*helm etags*" "*Helm Swoop*" "*fzf*" "*Ediff Control Panel*" "*helm M-x*" "*transient*")
+        golden-ratio-exclude-buffer-regexp '("undo" "transient")
+        golden-ratio-exclude-modes '("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode" minimap-mode TERM)
+        golden-ratio-mode t))
+
+(def-package! deft
+  :commands deft
+  :config
+  (setq deft-extensions '("org" "md" "tex" "txt")
+        deft-default-extension "org"
+        ;; de-couples filename and note title:
+        deft-use-filename-as-title nil
+        deft-use-filter-string-for-filename t
+        deft-org-mode-title-prefix t
+        ;; converts the filter string into a readable file-name using kebab-case:
+        deft-file-naming-rules
+              '((noslash . "-")
+                (nospace . "-")
+                (case-fn . downcase))))
+
+(def-package! ibuffer
+  :commands ibuffer
+  :config
+  (setq  ibuffer-always-compile-formats nil
+         ibuffer-display-summary nil
+         ibuffer-expert t
+         ;ibuffer-never-show-predicates '(".newsrc*" "*.*" "TAGS") nil (ibuf-ext)
+         ibuffer-saved-filter-groups '(("home"
+                                        ("emacs-config"
+                                         (or
+                                          (filename . ".emacs")
+                                          (filename . ".gnus")))
+                                        ("Dired"
+                                         (mode . dired-mode))
+                                        ("Ruby"
+                                         (mode . ruby-mode))
+                                        ("CSS"
+                                         (or
+                                          (mode . scss-mode)
+                                          (mode . css-mode)))
+                                        ("JS"
+                                         (mode . js2-mode))
+                                        ("Clojure"
+                                         (mode . clojure-mode))
+                                        ("EShell"
+                                         (mode . eshell-mode))
+                                        ("Org"
+                                         (or
+                                          (mode . org-mode)))
+                                        ("Gnus"
+                                         (or
+                                          (mode . message-mode)
+                                          (mode . bbdb-mode)
+                                          (mode . mail-mode)
+                                          (mode . gnus-group-mode)
+                                          (mode . gnus-summary-mode)
+                                          (mode . gnus-article-mode)))
+                                        ("REPL"
+                                         (name . "*cider-repl*"))
+                                        ("ERB"
+                                         (name . "*.erb*"))
+                                        ("Magit"
+                                         (name . "*magit"))
+                                        ("ERC"
+                                         (mode . erc-mode))
+                                        ("Help"
+                                         (or
+                                          (name . "*Help*")
+                                          (name . "*Apropos*")
+                                          (name . "*info*")))))
+         ibuffer-show-empty-filter-groups nil
+         ibuffer-use-header-line nil))

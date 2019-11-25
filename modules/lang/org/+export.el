@@ -15,12 +15,11 @@
           (mathjax . t)
           (parse-raw . t))))
 
-;;
 (after! org
   (add-transient-hook! #'org-export-dispatch (require 'ox-pandoc))
 
   (setq org-export-directory (expand-file-name ".export" +org-dir)
-        org-export-backends '(ascii html latex md)
+        org-export-backends '(ascii html latex md gfm hugo)
         org-export-with-toc t
         org-export-with-author t)
 

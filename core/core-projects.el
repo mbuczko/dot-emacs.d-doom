@@ -4,12 +4,23 @@
   :hook (doom-init . projectile-mode)
   :init
   (setq projectile-cache-file (concat doom-cache-dir "projectile.cache")
+        projectile-completion-system 'helm
         projectile-enable-caching (not noninteractive)
+        ;projectile-enable-caching t
         projectile-indexing-method 'alien
-        projectile-known-projects-file (concat doom-cache-dir "projectile.projects")
         projectile-require-project-root nil
+        projectile-globally-ignored-buffers '("TAGS" "^\\\\*")
+        projectile-globally-ignored-directories '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "~/.emacs.d/.local/" ".sync" "build" "target" "dist")
         projectile-globally-ignored-files '(".DS_Store" "Icon" "TAGS")
-        projectile-globally-ignored-file-suffixes '(".elc" ".pyc" ".o"))
+        projectile-globally-ignored-file-suffixes '("groovy" "java" "gz" "png" "log" "min.css" "min.js" "inc.js" ".elc" ".pyc" ".o")
+        projectile-idle-timer-seconds 45
+        projectile-known-projects-file (concat doom-cache-dir "projectile.projects")
+        projectile-mode-line '(:eval
+                               (format " Projectile[%s]"
+                                       (projectile-project-name)))
+        projectile-project-root-files '("project.clj" "build.boot" "pom.xml" "build.sbt" "Gemfile" "setup.py" "TAGS" "GTAGS")
+        projectile-require-project-root t
+        projectile-tags-backend 'auto)
 
   :config
   (add-hook 'dired-before-readin-hook #'projectile-track-known-projects-find-file-hook)

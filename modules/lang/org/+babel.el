@@ -14,9 +14,9 @@
     plantuml
     ;python
     restclient ; ob-restclient
-    ;ruby
+    ruby
     ;rust       ; ob-rust
-    ;shell
+    shell
     ;sqlite
     ;sql-mode   ; ob-sql-mode
     ;translate   ; ob-translate
@@ -44,10 +44,10 @@
   (define-key org-src-mode-map (kbd "C-c C-c") #'org-edit-src-exit)
 
   ;; To update and redraw diagrams
-  (define-key org-mode-map (kbd "C-c C-p") (lambda ()
-                                             (interactive)
-                                             (org-ctrl-c-ctrl-c)
-                                             (org-redisplay-inline-images)))
+  ;; (define-key org-mode-map (kbd "C-c C-p") (lambda ()
+  ;;                                            (interactive)
+  ;;                                            (org-ctrl-c-ctrl-c)
+  ;;                                            (org-redisplay-inline-images)))
 
   ;; In a recent update, `org-babel-get-header' was removed from org-mode, which
   ;; is something a fair number of babel plugins use. So until those plugins
