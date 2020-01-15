@@ -22,8 +22,11 @@ request
 transient
 elpa
 TAGS
+history
+bookmarks
 
 .gnus
+.envrc
 
 # compiled files
 *.elc
