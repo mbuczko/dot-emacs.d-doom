@@ -10,10 +10,15 @@
  '(bm-highlight-style (quote bm-highlight-only-fringe))
  '(bm-recenter t)
  '(canlock-password "65fd570ab0dff8c5eab2bf832f5e58157748881a")
+ '(cljr-eagerly-build-asts-on-startup nil)
+ '(cljr-find-usages-ignore-analyzer-errors t)
+ '(cljr-ignore-analyzer-errors t)
+ '(cljr-middleware-ignored-paths (quote ("/target" "/scripts" "/test")))
  '(comment-line-break-function (quote indent-new-comment-line) t)
  '(comment-multi-line t)
  '(comment-start "/** " t)
  '(comment-start-skip "/\\*\\*" t)
+ '(company-posframe-quickhelp-delay nil)
  '(compilation-ask-about-save nil)
  '(compilation-auto-jump-to-first-error t)
  '(compilation-process-setup-function nil t)
@@ -56,6 +61,7 @@
  '(file-cache-filter-regexps
    (quote
     ("~$" "\\.o$" "\\.exe$" "\\.a$" "\\.elc$" ",v$" "\\.output$" "\\.$" "#$" "\\.class$" "tmp/")))
+ '(find-file-visit-truename t)
  '(flycheck-global-modes (quote (not css-mode html-mode)))
  '(gh-api-v3-authenticator (quote gh-oauth-authenticator))
  '(git-link-open-in-browser t)
@@ -102,9 +108,10 @@
  '(mouse-drag-copy-region nil)
  '(mouse-wheel-progressive-speed nil)
  '(neo-smart-open t)
+ '(org-bullets-bullet-list (quote ("◉" "○" "★" "✽" "✿" "✸")))
  '(package-selected-packages
    (quote
-    (helm-org ox-pandoc ox-gfm direnv org-sticky-header doom-themes direx dired-k ox-rfc w3m fancy-narrow swiper company-posframe perspective inf-ruby cargo company-racer racer flycheck-rust rust-mode toml-mode deft centaur-tabs shackle helm-cider github-stars powerthesaurus engine-mode pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews company-auctex auctex company-tern flycheck-joker zprint-mode lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dockerfile-mode company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+    (fzf zprint-mode helm-org ox-pandoc ox-gfm direnv doom-themes direx dired-k ox-rfc w3m fancy-narrow swiper company-posframe perspective toml-mode deft centaur-tabs shackle helm-cider github-stars powerthesaurus engine-mode pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews company-auctex auctex company-tern flycheck-joker lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dockerfile-mode company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
  '(popup-kill-ring-popup-width 50 t)
  '(racer-command-timeout 3)
  '(rainbow-delimiters-outermost-only-face-count 2)
@@ -179,7 +186,6 @@
  '(yas-snippet-dirs (quote (emacs-snippets-dir "~/.emacs.d/snippets")))
  '(yas-wrap-around-region t))
 
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -188,6 +194,7 @@
  '(default ((t (:family "Iosevka" :foundry "nil" :slant normal :weight light :height 141 :width normal))))
  '(bm-face ((t (:background "LightPink4" :foreground "orange" :weight semi-bold))))
  '(bm-fringe-face ((t (:background "LightPink4" :foreground "orange" :underline t))))
+ '(company-tooltip ((t (:inherit tooltip :foreground "salmon"))))
  '(company-tooltip-mouse ((t (:background "gray8" :foreground "#282c34"))))
  '(doom-modeline-buffer-file ((t (:inherit mode-line-buffer-id))))
  '(doom-modeline-buffer-major-mode ((t (:inherit mode-line-emphasis))))
@@ -211,4 +218,7 @@
  '(mc/cursor-bar-face ((t (:background "#51afef" :foreground "gold" :height 1))))
  '(mc/cursor-face ((t (:inherit cursor :foreground "gold"))))
  '(mode-line ((t (:background "#1c1e24" :box nil :height 0.92))))
- '(mode-line-inactive ((t (:background "#1d2026" :foreground "#5B6268" :box nil :height 0.9)))))
+ '(mode-line-inactive ((t (:background "#1d2026" :foreground "#5B6268" :box nil :height 0.9))))
+ '(org-column ((t (:background "grey18" :strike-through nil :underline nil :slant normal :weight normal))))
+ '(org-column-title ((t (:background "gray18" :foreground "dim gray" :weight bold :width normal :family "Iosevka"))))
+ '(org-headline-done ((t (:foreground "#5B6268" :strike-through t)))))

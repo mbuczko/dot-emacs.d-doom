@@ -55,12 +55,12 @@
   (+org-hacks))
 
 (add-hook! org-mode
-  #'(doom|disable-line-numbers  ; no line numbers
-     org-bullets-mode           ; "prettier" bullets
+  #'(org-bullets-mode           ; "prettier" bullets
      org-indent-mode            ; margin-based indentation
      toc-org-enable             ; auto-table of contents
      direnv-mode
      visual-line-mode           ; line wrapping
+     hide-ctrl-M                ; no garbage please
 
      +org|enable-auto-update-cookies
      +org|smartparens-compatibility-config
@@ -173,7 +173,7 @@ unfold to point on startup."
    org-startup-indented t
    org-startup-with-inline-images nil
    org-tags-column -90
-   org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "WAITING" "BLOCKED" "DONE"))
+   org-todo-keywords '((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "BLOCKED(b)" "DONE(d)"))
    org-todo-keyword-faces '(("TODO" . "green")
                             ("BLOCKED" . "red")
                             ("" . "")

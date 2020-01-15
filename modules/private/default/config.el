@@ -20,3 +20,9 @@
         ;; With GPG 2.1, this forces gpg-agent to use the Emacs minibuffer to
         ;; prompt for the key passphrase.
         epa-pinentry-mode 'loopback))
+
+(def-package! nuke-buffers
+  :commands (nuke-buffers))
+
+(def-package! googlese-search
+  :commands (googlese-search))

@@ -16,12 +16,19 @@
 (defvar +org-default-notes-file "notes.org"
   "TODO")
 
-(defvar org-capture-templates
-  '(("t" "Todo" entry
-     (file+headline +org-default-todos-file "Todos")
-     "* [ ] %?\n%i" :prepend t :kill-buffer t)
+(defvar +org-default-tils-file "tils.org"
+  "TIL")
 
-    ("n" "Notes" entry
+(defvar org-capture-templates
+  '(("l" "Today I learned..." entry
+     (file+headline +org-default-tils-file "Today I learned")
+     "** %u %?\n%i" :prepend t :kill-buffer t)
+
+    ("t" "Todo" entry
+     (file+headline +org-default-todos-file "Todos")
+     "** %?\n%i" :prepend t :kill-buffer t)
+
+    ("n" "Note" entry
      (file+headline +org-default-notes-file "Inbox")
      "* %u %?\n%i" :prepend t :kill-buffer t)
 
@@ -33,8 +40,10 @@
 (after! org
   (defvaralias 'org-default-notes-file '+org-default-notes-file)
   (defvaralias 'org-default-todos-file '+org-default-todos-file)
+  (defvaralias 'org-default-tils-file  '+org-default-tils-file)
 
   (setq org-default-notes-file (expand-file-name +org-default-notes-file +org-dir)
-        org-default-todos-file (expand-file-name +org-default-todos-file +org-dir))
+        org-default-todos-file (expand-file-name +org-default-todos-file +org-dir)
+        org-default-tils-file  (expand-file-name +org-default-tils-file  +org-dir))
 
   (add-hook 'org-capture-after-finalize-hook #'+org-capture|cleanup-frame))

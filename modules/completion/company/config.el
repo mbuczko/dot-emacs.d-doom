@@ -54,7 +54,8 @@ MODES should be one major-mode symbol or a list of them."
   :after company
   :commands (company-posframe-mode)
   :config
-  (company-posframe-mode 1))
+  (setq company-posframe-show-metadata nil
+        company-posframe-show-indicator nil))
 
 (def-package! company-statistics
   :after company

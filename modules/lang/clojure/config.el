@@ -89,6 +89,9 @@
 (def-package! cider-selector
   :commands (cider-selector))
 
+(def-package! cider-format
+  :commands (cider-format-edn-region))
+
 (def-package! cljr-helm
   :commands (cljr-helm))
 

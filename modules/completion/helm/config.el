@@ -139,5 +139,5 @@
         helm-swoop-pre-input-function (lambda () "")))
 
 
-(def-package! helm-describe-modes :commands helm-describe-modes)
-
+(def-package! helm-describe-modes
+  :commands helm-describe-modes)

@@ -69,7 +69,7 @@
 (define-key global-map (kbd "C-x v d")   #'magit-diff-popup)
 (define-key global-map (kbd "C-x v =")   #'magit-diff-buffer-file)
 (define-key global-map (kbd "C-x C-b")   #'projectile-ibuffer)
-(define-key global-map (kbd "C-x C-o")   #'avy-goto-char-timer)
+(define-key global-map (kbd "C-x C-p")   #'avy-goto-char-timer)
 (define-key global-map (kbd "C-x C-i")   #'projectile-find-tag)
 (define-key global-map (kbd "C-x C-h")   #'helm-resume)
 (define-key global-map (kbd "C-x C-r")   #'helm-mini)

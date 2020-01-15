@@ -11,6 +11,7 @@
 
 (global-company-mode)
 (global-flycheck-mode)
+(company-posframe-mode)
 (ws-butler-global-mode)
 (engine-mode)
 
@@ -264,9 +265,11 @@
    (("e" helm-etags-select "etags select" :color teal)
     ("t" projectile-find-tag "projectile tags" :color teal))
    "Other"
-   (("k" diff-last-two-kills "diff last 2 kills" :color teal)
+   (("-" nuke-buffers "nuke unused buffers" :color teal)
+    ("k" diff-last-two-kills "diff last 2 kills" :color teal)
     ("d" deft "deft" :color teal)
     ("m" helm-filtered-bookmarks "bookmarks" :color teal)
+    ("o" googlese-search "StackOverflow to the rescue!" :color teal)
     ("t" powerthesaurus-lookup-word "powerthesaurus" :color teal))))
 
 (pretty-hydra-define clj-actions
