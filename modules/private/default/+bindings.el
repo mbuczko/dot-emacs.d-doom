@@ -75,6 +75,7 @@
 (define-key global-map (kbd "C-x C-r")   #'helm-mini)
 (define-key global-map (kbd "C-x C-l")   #'bm-show-all)
 (define-key global-map (kbd "C-x C-m")   #'bm-toggle)
+(define-key global-map (kbd "C-x C-o")   #'fzf-git)
 (define-key global-map (kbd "C-S-h")     #'highlight-symbol-at-point)
 
 (define-key global-map [C-S-down]        #'highlight-symbol-next)

@@ -6,6 +6,4 @@
 
 (def-package! fzf
   :defer t
-  :commands (fzf fzf-git)
-  :config
-  (define-key global-map (kbd "C-x C-o") #'fzf-git))
+  :commands (fzf fzf-git))

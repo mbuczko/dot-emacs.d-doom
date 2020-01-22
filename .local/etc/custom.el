@@ -182,6 +182,7 @@
  '(web-mode-script-padding 0)
  '(window-min-width 30)
  '(window-numbering-mode t)
+ '(ws-butler-global-exempt-modes (quote (markdown-mode org-mode)))
  '(yas-alias-to-yas/prefix-p nil)
  '(yas-snippet-dirs (quote (emacs-snippets-dir "~/.emacs.d/snippets")))
  '(yas-wrap-around-region t))
@@ -191,7 +192,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka" :foundry "nil" :slant normal :weight light :height 141 :width normal))))
+ '(default ((t (:family "JetBrains Mono" :foundry "nil" :slant normal :weight light :height 120 :width normal))))
  '(bm-face ((t (:background "LightPink4" :foreground "orange" :weight semi-bold))))
  '(bm-fringe-face ((t (:background "LightPink4" :foreground "orange" :underline t))))
  '(company-tooltip ((t (:inherit tooltip :foreground "salmon"))))

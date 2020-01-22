@@ -63,7 +63,7 @@
   :commands (turn-on-magit-gitflow))
 
 (def-package! magit-todos
-  :commands (magit-todos-mode))
+  :commands (magit-todos-mode magit-todos-list))
 
 (def-package! git-link
   :commands (git-link git-link-commit git-link-homepage git-link--exec))
