@@ -17,6 +17,9 @@
   :when (featurep! :completion company)
   :after web-mode)
 
+(def-package! emmet-mode
+  :after web-mode)
+
 (def-package! haml-mode :mode "\\.haml$")
 
 (def-package! pug-mode
