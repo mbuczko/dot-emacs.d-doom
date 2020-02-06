@@ -78,6 +78,7 @@ confirmation."
       (or (yes-or-no-p (format "››› %s" (or prompt "Quit Emacs?")))
           (ignore (message "Aborted")))
     t))
+
 (setq confirm-kill-emacs nil)
 ;(add-hook 'kill-emacs-query-functions #'doom-quit-p)
 
@@ -93,9 +94,11 @@ confirmation."
 (defvar-local doom--modeline-format nil
   "The modeline format to use when `doom-hide-modeline-mode' is active. Don't
 set this directly. Let-bind it instead.")
+
 (defvar-local doom--old-modeline-format nil
   "The old modeline format, so `doom-hide-modeline-mode' can revert when it's
 disabled.")
+
 (define-minor-mode doom-hide-modeline-mode
   "Minor mode to hide the mode-line in the current buffer."
   :init-value nil

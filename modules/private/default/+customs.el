@@ -15,7 +15,7 @@
 (ws-butler-global-mode)
 (engine-mode)
 
-;; turns ligatures on
+;; ligatures turned on by default
 (mac-auto-operator-composition-mode)
 
 ;; sane mouse clicks
@@ -23,7 +23,7 @@
 (define-key global-map (kbd "<S-mouse-1>") 'mouse-set-point)
 (put 'mouse-set-point 'CUA 'move)
 
-;; global abbrev mode with most frequently used phrases
+;; some more defaults
 (setq-default
  abbrev-mode t
  rfc-mode-directory (expand-file-name "~/Dropbox/rfc/"))
@@ -32,17 +32,11 @@
 (put 'minibuffer-history 'history-length 50)
 (put 'kill-ring 'history-length 25)
 
-;; search engines!
+;; search engines
 (defengine duckduckgo "https://duckduckgo.com/?q=%s" :keybinding "d")
 (defengine google "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s" :keybinding "g")
 (defengine stack-overflow "https://stackoverflow.com/search?q=%s" :keybinding "s")
 (defengine twitter "https://twitter.com/search?q=%s" :keybinding "t")
-
-(def-package! powerthesaurus
-  :commands (powerthesaurus-lookup-word))
-
-(def-package! github-stars
-  :commands (github-stars-browse-url))
 
 ;; projectile default prefix
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -185,7 +179,7 @@
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
 
 (add-hook 'dired-mode-hook #'hl-line-mode)
-(add-hook 'clojure-mode-hook
+(add-hook 'cider-mode-hook
           (lambda ()
             (highlight-symbol-mode)
             (clj-refactor-mode)))
@@ -193,6 +187,7 @@
 (add-hook 'cider-repl-mode-hook
           (lambda ()
             (doom-hide-modeline-mode)
+            (doom-disable-ligatures)
             (yas-minor-mode 1)))
 
 (add-hook 'org-mode-hook
@@ -218,9 +213,10 @@
   ("UI"
    (("t" centaur-tabs-mode "centaur tabs" :toggle t)
     ("o" company-posframe-mode "posframe" :toggle t)
-    ("n" neotree-show "neotree" :color teal))
+    ("l" mac-auto-operator-composition-mode "ligatures" :toggle t)
+    ("N" neotree-show "neotree" :color teal))
    "Basic"
-   (("l" display-line-numbers-mode "line number" :toggle t)
+   (("n" display-line-numbers-mode "line number" :toggle t)
     ("w" whitespace-mode "whitespace" :toggle t)
     ("v" visual-line-mode "visual line" :toggle t)
     ("W" ws-butler-mode "whitespace cleanup" :toggle t)
@@ -293,3 +289,9 @@
    "Format"
    (("z" zprint "zprint formatter" :color teal)
     ("f" cider-format-edn-region "format EDN region" :color teal))))
+
+(def-package! powerthesaurus
+  :commands (powerthesaurus-lookup-word))
+
+(def-package! github-stars
+  :commands (github-stars-browse-url))

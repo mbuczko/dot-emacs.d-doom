@@ -38,13 +38,10 @@ modes are active and the buffer is read-only.")
  truncate-partial-width-windows 50
  ;; whitespace-mode
  whitespace-line-column fill-column
- whitespace-style
- '(face indentation tabs tab-mark spaces space-mark newline newline-mark
-   trailing lines-tail)
- whitespace-display-mappings
- '((tab-mark ?\t [?› ?\t])
-   (newline-mark ?\n [?¬ ?\n])
-   (space-mark ?\  [?·] [?.])))
+ whitespace-style '(face indentation tabs tab-mark spaces space-mark newline newline-mark trailing lines-tail)
+ whitespace-display-mappings '((tab-mark ?\t [?› ?\t])
+                               (newline-mark ?\n [?¬ ?\n])
+                               (space-mark ?\  [?·] [?.])))
 
 ;; ediff
 (setq ediff-diff-options "-w"
@@ -93,6 +90,9 @@ this popup, just the specified properties. Returns the new popup window."
                (append plist (shackle-match buffer))
              plist)
 (shackle-match buffer))))
+
+(defun doom-disable-ligatures ()
+  (setq auto-composition-mode nil))
 
 
 ;;

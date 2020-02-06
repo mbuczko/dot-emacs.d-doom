@@ -32,6 +32,9 @@
  '(cua-delete-selection t)
  '(cua-enable-cua-keys nil)
  '(cua-mode t nil (cua-base))
+ '(custom-safe-themes
+   (quote
+    ("e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" "2cdc13ef8c76a22daa0f46370011f54e79bae00d5736340a5ddfe656a767fddf" "1c8171893a9a0ce55cb7706766e57707787962e43330d7b0b6b0754ed5283cda" "bc836bf29eab22d7e5b4c142d201bcce351806b7c1f94955ccafab8ce5b20208" "7f791f743870983b9bb90c8285e1e0ba1bf1ea6e9c9a02c60335899ba20f3c94" "0736a8e34702a67d84e32e2af90145ed19824f661776a0e966cea62aa1943a6e" "72fda75af7caddec17ba9b49d2f99703c20a5f5f5c4dcec641d34a0b83569e88" "be9645aaa8c11f76a10bcf36aaf83f54f4587ced1b9b679b55639c87404e2499" "d1c7f2db070c96aa674f1d61403b4da1fff2154163e9be76ce51824ed5ca709c" "d5f8099d98174116cba9912fe2a0c3196a7cd405d12fa6b9375c55fc510988b5" "e1ef2d5b8091f4953fe17b4ca3dd143d476c106e221d92ded38614266cea3c8b" "0ad7f1c71fd0289f7549f0454c9b12005eddf9b76b7ead32a24d9cb1d16cbcbd" "6bacece4cf10ea7dd5eae5bfc1019888f0cb62059ff905f37b33eec145a6a430" "6de37d6d573e18138aa948683c8ff0e72b89e90d1cdbf683787ea72f8e6295ab" "229c5cf9c9bd4012be621d271320036c69a14758f70e60385e87880b46d60780" "51956e440cec75ba7e4cff6c79f4f8c884a50b220e78e5e05145386f5b381f7b" default)))
  '(default-frame-alist
     (quote
      ((left . 40)
@@ -109,9 +112,10 @@
  '(mouse-wheel-progressive-speed nil)
  '(neo-smart-open t)
  '(org-bullets-bullet-list (quote ("◉" "○" "★" "✽" "✿" "✸")))
+ '(org-use-speed-commands t)
  '(package-selected-packages
    (quote
-    (fzf zprint-mode helm-org ox-pandoc ox-gfm direnv doom-themes direx dired-k ox-rfc w3m fancy-narrow swiper company-posframe perspective toml-mode deft centaur-tabs shackle helm-cider github-stars powerthesaurus engine-mode pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo magit-todos pdf-tools org-bullets deadgrep hackernews company-auctex auctex company-tern flycheck-joker lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile magit-gitflow mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash magit json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dockerfile-mode company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+    (magit-gitflow magit fzf zprint-mode helm-org ox-pandoc ox-gfm direnv doom-themes direx dired-k ox-rfc w3m fancy-narrow swiper company-posframe perspective toml-mode deft centaur-tabs shackle helm-cider github-stars powerthesaurus engine-mode pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo pdf-tools org-bullets deadgrep hackernews company-auctex auctex company-tern flycheck-joker lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dockerfile-mode company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
  '(popup-kill-ring-popup-width 50 t)
  '(racer-command-timeout 3)
  '(rainbow-delimiters-outermost-only-face-count 2)
@@ -120,28 +124,23 @@
     ("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" prelude-recentf-exclude-p ".*TAGS")))
  '(safe-local-variable-values
    (quote
-    ((org-confirm-babel-evaluate)
+    ((eval when
+           (require
+            (quote projectile))
+           (setq projectile-enable-idle-timer t cider-repl-history-file
+                 (concat
+                  (projectile-project-root)
+                  ".nrepl-history")))
+     (git-commit-major-mode . git-commit-elisp-text-mode)
+     (org-confirm-babel-evaluate)
      (eval when
            (require
             (quote projectile))
            (setq cider-repl-history-file
                  (concat
                   (projectile-project-root)
-                  ".nrepl-history")))
-     (eval when
-           (require
-            (quote projectile))
-           (setq projectile-enable-idle-timer t projectile-project-name "cerber-roles" cider-repl-history-file
-                 (concat
-                  (projectile-project-root)
-                  ".nrepl-history")))
-     (eval when
-           (require
-            (quote projectile))
-           (setq projectile-enable-idle-timer t cider-repl-history-file
-                 (concat
-                  (projectile-project-root)
-                  ".nrepl-history"))))))
+                  ".nrepl-history")
+                 projectile-enable-idle-timer t)))))
  '(scroll-bar-mode nil)
  '(scroll-preserve-screen-position 1)
  '(select-enable-clipboard t)

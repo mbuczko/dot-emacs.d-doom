@@ -76,7 +76,8 @@
 
   (defun +helm*hide-header (&rest _)
     "Hide header-line & mode-line in helm windows."
-    (setq mode-line-format nil)
+    (setq mode-line-format nil
+          auto-composition-mode nil)
     (setq-local header-line-format nil))
 
   (advice-add #'helm-display-mode-line :override #'+helm*hide-header)

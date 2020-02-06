@@ -47,7 +47,6 @@
 (def-package! magit
   :commands (magit-status magit-blame magit-diff-buffer-file magit-file-dispatch)
   :config
-  (magit-todos-mode)
   (defadvice magit-status (around magit-fullscreen activate)
     "Full screen magit-status."
     (window-configuration-to-register :magit-fullscreen)
@@ -55,9 +54,11 @@
     (delete-other-windows))
 
   (add-hook 'magit-mode-hook (lambda ()
-                               (turn-on-magit-gitflow)
                                (doom-hide-modeline-mode)
-                               (setq left-fringe-width 2))))
+                               (turn-on-magit-gitflow)
+                               ;; (magit-todos-mode)
+                               ;; fix visual glitches with tiny fringe icons
+                               (setq left-fringe-width 10))))
 
 (def-package! magit-gitflow
   :commands (turn-on-magit-gitflow))

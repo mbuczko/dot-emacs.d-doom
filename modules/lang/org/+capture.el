@@ -13,7 +13,7 @@
 (defvar +org-default-todos-file "todo.org"
   "TODO")
 
-(defvar +org-default-notes-file "notes.org"
+(defvar +org-default-notes-file "inbox.org"
   "TODO")
 
 (defvar +org-default-tils-file "tils.org"
@@ -26,15 +26,19 @@
 
     ("t" "Todo" entry
      (file+headline +org-default-todos-file "Todos")
-     "** %?\n%i" :prepend t :kill-buffer t)
+     "** TODO %u %?\n%i" :prepend t :kill-buffer t)
 
     ("n" "Note" entry
      (file+headline +org-default-notes-file "Inbox")
      "* %u %?\n%i" :prepend t :kill-buffer t)
 
+    ("c" "org-protocol-capture" entry
+     (file+headline +org-default-notes-file "Links")
+     "* [[%:link][%:description]]\n\n %i" :immediate-finish t)
+
     ("i" "Issue" entry
-     (file+headline "~/workspace/pitch-app/worklog.org" "Ongoing")
-     "** %?%(with-current-buffer (org-capture-get :original-file-nondirectory) (github--babel-codeblock (thing-at-point 'line t)))"
+     (file+headline "~/workspace/pitch-app/worklog.org" "Worklog")
+     "** %u %?%(with-current-buffer (org-capture-get :original-file-nondirectory) (github--babel-codeblock (thing-at-point 'line t)))"
      :immediate-finish t)))
 
 (after! org
@@ -44,6 +48,9 @@
 
   (setq org-default-notes-file (expand-file-name +org-default-notes-file +org-dir)
         org-default-todos-file (expand-file-name +org-default-todos-file +org-dir)
-        org-default-tils-file  (expand-file-name +org-default-tils-file  +org-dir))
+        org-default-tils-file  (expand-file-name +org-default-tils-file  +org-dir)
+
+        org-refile-targets (quote (("worklog.org" :maxlevel . 1)
+                                   (+org-default-todos-file :level . 1))))
 
   (add-hook 'org-capture-after-finalize-hook #'+org-capture|cleanup-frame))
