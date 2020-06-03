@@ -4,10 +4,10 @@
 ;; Plugins
 ;;
 
-(def-package! rainbow-mode)
+(use-package rainbow-mode)
 
 
-(def-package! kurecolor
+(use-package kurecolor
   :after rainbow-mode
   :config
   (def-hydra! +rgb@kurecolor (:color pink :hint nil)

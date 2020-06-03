@@ -15,7 +15,7 @@ is loaded.")
 ;; Plugins
 ;;
 
-(def-package! python
+(use-package python
   :commands python-mode
   :init
   (setq python-environment-directory doom-cache-dir
@@ -70,7 +70,7 @@ environment variables."
     (sp-local-pair "'" nil :unless '(sp-point-before-word-p sp-point-after-word-p sp-point-before-same-p))))
 
 
-(def-package! anaconda-mode
+(use-package anaconda-mode
   :after python
   :hook python-mode
   :init
@@ -82,8 +82,7 @@ environment variables."
   (advice-add #'anaconda-mode-doc-buffer :after #'doom*anaconda-mode-doc-buffer))
 
 
-(def-package! company-anaconda
-  :when (featurep! :completion company)
+(use-package company-anaconda
   :after anaconda-mode
   :config
   (set! :company-backend 'python-mode '(company-anaconda))
@@ -93,11 +92,11 @@ environment variables."
     :documentation #'anaconda-mode-show-doc))
 
 
-(def-package! pip-requirements
+(use-package pip-requirements
   :mode ("/requirements.txt$" . pip-requirements-mode))
 
 
-(def-package! nose
+(use-package nose
   :commands nose-mode
   :preface
   (defvar nose-mode-map (make-sparse-keymap))

@@ -1,6 +1,6 @@
 ;;; lang/markdown/config.el -*- lexical-binding: t; -*-
 
-(def-package! markdown-mode
+(use-package markdown-mode
   :mode "/README$"
   :mode "\\.m\\(d\\|arkdown\\)$"
   :mode ("/README\\.md$" . gfm-mode)
@@ -19,6 +19,6 @@
     (setq line-spacing 2
           fill-column 80)))
 
-(def-package! markdown-toc
+(use-package markdown-toc
   :commands markdown-toc-generate-toc)
 

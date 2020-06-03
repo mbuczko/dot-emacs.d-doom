@@ -37,13 +37,12 @@
 
   (define-key LaTeX-mode-map (kbd "C-j") nil)
 
-  (def-package! company-auctex
-    :when (featurep! :completion company)
+  (use-package company-auctex
     :init
     (set! :company-backend 'LaTeX-mode '(company-auctex))))
 
 
-(def-package! reftex ; built-in
+(use-package reftex ; built-in
   :commands (turn-on-reftex reftex-mode)
   :init
   (setq reftex-plug-into-AUCTeX t
@@ -58,7 +57,7 @@
     (doom-hide-modeline-mode +1)))
 
 
-(def-package! bibtex ; built-in
+(use-package bibtex ; built-in
   :defer t
   :config
   (setq bibtex-dialect 'biblatex
@@ -69,12 +68,5 @@
   (define-key bibtex-mode-map (kbd "C-c \\") #'bibtex-fill-entry))
 
 
-(def-package! ivy-bibtex
-  :when (featurep! :completion ivy)
-  :commands ivy-bibtex)
-
-
-(def-package! helm-bibtex
-  :when (featurep! :completion helm)
+(use-package helm-bibtex
   :commands helm-bibtex)
-

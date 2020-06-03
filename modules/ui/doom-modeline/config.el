@@ -1,6 +1,6 @@
 ;;; ui/doom-modeline/config.el -*- lexical-binding: t; -*-
 
-(def-package! eldoc-eval
+(use-package eldoc-eval
   :config
   (defun +doom-modeline-eldoc (text)
     (concat (when (display-graphic-p)
@@ -38,7 +38,7 @@
 (advice-add #'select-window :after #'+doom-modeline|set-selected-window)
 
 ;; fish-style modeline
-(def-package! shrink-path
+(use-package shrink-path
   :commands (shrink-path-prompt shrink-path-file-mixed))
 
 

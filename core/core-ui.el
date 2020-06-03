@@ -242,7 +242,7 @@ local value, whether or not it's permanent-local. Therefore, we cycle
 ;; Plugins
 ;;
 
-(def-package! all-the-icons
+(use-package all-the-icons
   :commands (all-the-icons-octicon all-the-icons-faicon all-the-icons-fileicon
              all-the-icons-wicon all-the-icons-material all-the-icons-alltheicon
              all-the-icons-install-fonts)
@@ -256,29 +256,29 @@ local value, whether or not it's permanent-local. Therefore, we cycle
                 all-the-icons-wicon all-the-icons-alltheicon))
     (advice-add fn :around #'doom*disable-all-the-icons-in-tty)))
 
-(def-package! fringe-helper
+(use-package fringe-helper
   :commands (fringe-helper-define fringe-helper-convert)
   :init
   (unless (fboundp 'define-fringe-bitmap)
     ;; doesn't exist in terminal Emacs; define it to prevent errors
     (defun define-fringe-bitmap (&rest _))))
 
-(def-package! hideshow ; built-in
+(use-package hideshow ; built-in
   :commands (hs-minor-mode hs-toggle-hiding hs-already-hidden-p)
   :config (setq hs-hide-comments-when-hiding-all nil))
 
-(def-package! highlight-indentation
+(use-package highlight-indentation
   :commands (highlight-indentation-mode highlight-indentation-current-column-mode))
 
-(def-package! highlight-sexp
+(use-package highlight-sexp
   :commands (highlight-sexp-mode))
 
 ;; For modes with sub-par number fontification
-(def-package! highlight-numbers
+(use-package highlight-numbers
   :commands highlight-numbers-mode)
 
 ;; Highlights the current line
-(def-package! hl-line ; built-in
+(use-package hl-line ; built-in
   :hook ((prog-mode conf-mode deft-mode) . hl-line-mode)
   :config
   ;; I don't need hl-line showing in other windows. This also offers a small
@@ -303,13 +303,13 @@ local value, whether or not it's permanent-local. Therefore, we cycle
 
 ;; Helps us distinguish stacked delimiter pairs. Especially in parentheses-drunk
 ;; languages like Lisp.
-(def-package! rainbow-delimiters
+(use-package rainbow-delimiters
   :hook (lisp-mode . rainbow-delimiters-mode)
   :config (setq rainbow-delimiters-max-face-count 3))
 
 ;; For a distractions-free-like UI, that dynamically resizes margets and can
 ;; center a buffer.
-(def-package! visual-fill-column
+(use-package visual-fill-column
   :commands visual-fill-column-mode
   :config
   (setq-default

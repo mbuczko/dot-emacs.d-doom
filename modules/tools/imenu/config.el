@@ -1,11 +1,11 @@
 ;;; tools/imenu/config.el -*- lexical-binding: t; -*-
 
-(def-package! imenu-anywhere
+(use-package imenu-anywhere
   :commands (ido-imenu-anywhere ivy-imenu-anywhere helm-imenu-anywhere)
   :config (setq imenu-anywhere-delimiter ": "))
 
 
-(def-package! imenu-list
+(use-package imenu-list
   :commands imenu-list-minor-mode
   :config
   (setq imenu-list-focus-after-activation t)

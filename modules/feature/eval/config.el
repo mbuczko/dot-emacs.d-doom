@@ -59,7 +59,7 @@ function that creates and returns the REPL buffer."
                 ,(symbol-name (doom-unquote mode))
                 ',command :mode ,mode))))))
 
-(def-package! quickrun
+(use-package quickrun
   :commands (quickrun
              quickrun-region
              quickrun-with-arg

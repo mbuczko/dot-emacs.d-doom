@@ -4,7 +4,7 @@
 ;; it ourselves:
 (autoload 'pkg-info-version-info "pkg-info")
 
-(def-package! flycheck
+(use-package flycheck
   :commands (flycheck-mode global-flycheck-mode flycheck-list-errors flycheck-buffer)
   :config
   ;; Emacs feels snappier without checks on idle/change

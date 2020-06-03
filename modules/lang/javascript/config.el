@@ -1,6 +1,6 @@
 ;;; lang/javascript/config.el -*- lexical-binding: t; -*-
 
-(def-package! js2-mode
+(use-package js2-mode
   :mode "\\.js$"
   :interpreter "node"
   :config
@@ -40,21 +40,21 @@
 
 ;; A find-{definition,references} backend for js2-mode. NOTE The xref API is
 ;; unstable and may break with an Emacs update.
-(def-package! xref-js2 :commands xref-js2-xref-backend)
+(use-package xref-js2
+  :commands xref-js2-xref-backend)
 
-(def-package! tern
+(use-package tern
   :hook (js2-mode . tern-mode)
   :config
   (advice-add #'tern-project-dir :override #'doom-project-root))
 
-(def-package! company-tern
-  :when (featurep! :completion company)
+(use-package company-tern
   :after tern
   :config
   (set! :company-backend 'js2-mode '(company-tern)))
 
 
-(def-package! rjsx-mode
+(use-package rjsx-mode
   :commands rjsx-mode
   :mode "\\.jsx$"
   :mode "components/.+\\.js$"
@@ -81,16 +81,16 @@
     (push 'javascript-jshint flycheck-disabled-checkers)))
 
 
-(def-package! coffee-mode
+(use-package coffee-mode
   :mode "\\.coffee$"
   :init (setq coffee-indent-like-python-mode t))
 
 
-(def-package! web-beautify
+(use-package web-beautify
   :commands web-beautify-js)
 
 
-(def-package! eslintd-fix
+(use-package eslintd-fix
   :commands (eslintd-fix-mode eslintd-fix))
 
 
@@ -98,13 +98,13 @@
 ;; Skewer-mode
 ;;
 
-(def-package! skewer-mode
+(use-package skewer-mode
   :commands (skewer-mode run-skewer))
 
-(def-package! skewer-css ; in skewer-mode
+(use-package skewer-css ; in skewer-mode
   :commands skewer-css-mode)
 
-(def-package! skewer-html ; in skewer-mode
+(use-package skewer-html ; in skewer-mode
   :commands skewer-html-mode)
 
 

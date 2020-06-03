@@ -1,6 +1,6 @@
 ;;; feature/snippets/config.el -*- lexical-binding: t; -*-
 
-(def-package! yasnippet
+(use-package yasnippet
   :commands (yas-minor-mode yas-minor-mode-on yas-expand yas-expand-snippet
              yas-lookup-snippet yas-insert-snippet yas-new-snippet
              yas-visit-snippet-file snippet-mode)
@@ -34,7 +34,7 @@
   (advice-add #'yas-expand :before #'sp-remove-active-pair-overlay))
 
 
-(def-package! auto-yasnippet
+(use-package auto-yasnippet
   :commands (aya-create aya-expand aya-open-line aya-persist-snippet)
   :config
   (setq aya-persist-snippets-dir (concat doom-local-dir "auto-snippets/")))

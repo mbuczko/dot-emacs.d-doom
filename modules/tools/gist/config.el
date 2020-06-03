@@ -4,7 +4,7 @@
 ;; errors. If that happens, try `+gist/kill-cache'. You may have to restart
 ;; Emacs.
 
-(def-package! gist
+(use-package gist
   :commands (gist-list gist-region-or-buffer-private gist-region-or-buffer)
   :config
   (set! :popup "*github:gists*" :size 15 :select t :autokill t)

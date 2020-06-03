@@ -3,7 +3,7 @@
 (after! projectile
   (add-to-list 'projectile-project-root-files "Cargo.toml"))
 
-(def-package! rustic
+(use-package rustic
   :mode ("\\.rs$" . rustic-mode)
   :commands (rustic-run-cargo-command rustic-cargo-outdated)
   :init
@@ -14,7 +14,7 @@
         rustic-lsp-client (quote lsp-mode)
         rustic-lsp-format t)
 
-  (define-key lsp-mode-map (kbd "C-x C-d") #'lsp-describe-thing-at-point)
+  (define-key rustic-mode-map (kbd "C-x C-d") #'lsp-describe-thing-at-point)
 
   (after! rustic-flycheck
     (add-to-list 'flycheck-checkers 'rustic-clippy)))

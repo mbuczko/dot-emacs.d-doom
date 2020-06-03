@@ -67,9 +67,6 @@ package's name as a symbol, and whose CDR is the plist supplied to its
   "A list of packages that must be installed (and will be auto-installed if
 missing) and shouldn't be deleted.")
 
-(defvar doom-disabled-packages ()
-  "A list of packages that should be ignored by `def-package!'.")
-
 (defvar doom-reload-hook nil
   "A list of hooks to run when `doom/reload-load-path' is called.")
 
@@ -320,50 +317,6 @@ MODULES is an malformed plist of modules to load."
            (server-start)))
        (add-hook 'doom-init-hook #'doom-packages--display-benchmark t)
        (message "Doom modules initialized"))))
-
-(defmacro def-package! (name &rest plist)
-  "A thin wrapper around `use-package'."
-  ;; Ignore package if NAME is in `doom-disabled-packages'
-  (when (and (memq name doom-disabled-packages)
-             (not (memq :disabled plist)))
-    (setq plist `(:disabled t ,@plist)))
-  ;; If byte-compiling, ignore this package if it doesn't meet the condition.
-  ;; This avoids false-positive load errors.
-  (unless (and (bound-and-true-p byte-compile-current-file)
-               (or (and (plist-member plist :if)     (not (eval (plist-get plist :if))))
-                   (and (plist-member plist :when)   (not (eval (plist-get plist :when))))
-                   (and (plist-member plist :unless) (eval (plist-get plist :unless)))))
-    `(use-package ,name ,@plist)))
-
-(defmacro def-package-hook! (package when &rest body)
-  "Reconfigures a package's `def-package!' block.
-
-Under the hood, this uses use-package's `use-package-inject-hooks'.
-
-PACKAGE is a symbol; the package's name.
-WHEN should be one of the following:
-  :pre-init :post-init :pre-config :post-config :disable
-
-If WHEN is :disable then BODY is ignored, and DOOM will be instructed to ignore
-all `def-package!' blocks for PACKAGE.
-
-WARNING: If :pre-init or :pre-config hooks return nil, the original
-`def-package!''s :init/:config block (respectively) is overwritten, so remember
-to have them return non-nil (or exploit that to overwrite Doom's config)."
-  (declare (indent defun))
-  (cond ((eq when :disable)
-         (push package doom-disabled-packages)
-         nil)
-        ((memq when '(:pre-init :post-init :pre-config :post-config))
-         `(progn
-            (setq use-package-inject-hooks t)
-            (add-hook!
-              ',(intern (format "use-package--%s--%s-hook"
-                                package
-                                (substring (symbol-name when) 1)))
-              ,@body)))
-        (t
-         (error "'%s' isn't a valid hook for def-package-hook!" when))))
 
 (defmacro load! (filesym &optional path noerror)
   "Load a file relative to the current executing file (`load-file-name').

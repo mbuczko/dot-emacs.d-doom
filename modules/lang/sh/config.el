@@ -11,7 +11,7 @@
 ;; Plugins
 ;;
 
-(def-package! sh-script ; built-in
+(use-package sh-script ; built-in
   :mode ("\\.zsh$"   . sh-mode)
   :mode ("\\.zunit$" . sh-mode)
   :mode ("/bspwmrc$" . sh-mode)
@@ -54,8 +54,7 @@
   (add-hook 'sh-mode-hook #'+sh|detect-zsh))
 
 
-(def-package! company-shell
-  :when (featurep! :completion company)
+(use-package company-shell
   :after sh-script
   :config
   (set! :company-backend 'sh-mode '(company-shell company-files))

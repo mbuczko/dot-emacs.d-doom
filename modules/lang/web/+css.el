@@ -15,26 +15,26 @@
 ;; Packages
 ;;
 
-(def-package! rainbow-mode
+(use-package rainbow-mode
   :hook (css-mode sass-mode))
 
 
-(def-package! css-mode
+(use-package css-mode
   :mode "\\.css$"
   :mode ("\\.scss$" . scss-mode)
   :config
   (set! :company-backend '(css-mode scss-mode) '(company-css company-yasnippet)))
 
 
-(def-package! sass-mode
+(use-package sass-mode
   :mode "\\.sass$"
   :config
   (set! :company-backend 'sass-mode '(company-css company-yasnippet)))
 
-(def-package! less-css-mode
+(use-package less-css-mode
   :mode "\\.less$")
 
-(def-package! stylus-mode
+(use-package stylus-mode
   :mode "\\.styl$"
   :init (add-hook! stylus-mode #'(yas-minor-mode-on flycheck-mode)))
 

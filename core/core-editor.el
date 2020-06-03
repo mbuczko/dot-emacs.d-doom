@@ -115,7 +115,7 @@ this popup, just the specified properties. Returns the new popup window."
 (add-hook! 'doom-init-hook #'(savehist-mode save-place-mode))
 
 ;; Keep track of recently opened files
-(def-package! recentf
+(use-package recentf
   :hook (doom-init . recentf-mode)
   :config
   (setq recentf-save-file (concat doom-cache-dir "recentf")
@@ -134,7 +134,7 @@ this popup, just the specified properties. Returns the new popup window."
 ;;
 
 ;; Auto-close delimiters and blocks as you type
-(def-package! smartparens
+(use-package smartparens
   :hook (doom-init . smartparens-global-mode)
   :config
   (require 'smartparens-config)
@@ -146,7 +146,7 @@ this popup, just the specified properties. Returns the new popup window."
                  :post-handlers '(("| " "SPC"))))
 
 ;; Branching undo
-(def-package! undo-tree
+(use-package undo-tree
   :config
   (add-hook 'doom-init-hook #'global-undo-tree-mode)
   ;; persistent undo history is known to cause undo history corruption, which
@@ -189,54 +189,54 @@ The body of the advice is in BODY."
 ;; Autoloaded Plugins
 ;;
 
-(def-package! avy
+(use-package avy
   :commands (avy-goto-char-2 avy-goto-line avy-goto-char-timer)
   :config
   (setq avy-all-windows nil
         avy-background t))
 
-(def-package! command-log-mode
+(use-package command-log-mode
   :commands (command-log-mode global-command-log-mode)
   :config
   (set! :popup "*command-log*" :size 40 :align 'right :noselect t)
   (setq command-log-mode-auto-show t
         command-log-mode-open-log-turns-on-mode t))
 
-(def-package! multiple-cursors
+(use-package multiple-cursors
   :commands (mc/mark-more-like-this-extended mc/mark-all-like-this-dwim))
 
-(def-package! expand-region
+(use-package expand-region
   :commands (er/expand-region er/contract-region er/mark-symbol er/mark-word er/mark-defun er/mark-inside-quotes er/mark-inside-pairs er/mark-inner-tag er/mark-outer-tag))
 
-(def-package! smart-forward
+(use-package smart-forward
   :commands (smart-up smart-down smart-backward smart-forward))
 
-(def-package! wgrep
+(use-package wgrep
   :commands (wgrep-setup wgrep-change-to-wgrep-mode)
   :config (setq wgrep-auto-save-buffer t))
 
-(def-package! bm
+(use-package bm
   :commands (bm-toggle bm-show-all))
 
-(def-package! smartrep
+(use-package smartrep
   :commands (smartrep-define-key))
 
-(def-package! crux
+(use-package crux
   :commands (crux-duplicate-current-line-or-region crux-cleanup-buffer-or-region crux-smart-open-line))
 
-(def-package! paxedit
+(use-package paxedit
   :commands (paxedit-delete paxedit-transpose-forward paxedit-transpose-backward))
 
-(def-package! shackle
+(use-package shackle
   :commands (shackle-display-buffer shackle-match))
 
-(def-package! zop-to-char
+(use-package zop-to-char
   :commands (zop-to-char))
 
-(def-package! beacon
+(use-package beacon
   :commands (beacon-mode))
 
-(def-package! swiper
+(use-package swiper
   :commands (swiper swiper-thing-at-point swiper-isearch))
 
 (provide 'core-editor)

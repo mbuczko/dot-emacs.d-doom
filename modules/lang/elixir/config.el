@@ -1,6 +1,6 @@
 ;;; lang/elixir/config.el -*- lexical-binding: t; -*-
 
-(def-package! elixir-mode
+(use-package elixir-mode
   :mode "\\.exs?$"
   :mode "\\.elixir2$"
   :config
@@ -13,7 +13,7 @@
     (sp-local-pair "fn " " end")))
 
 
-(def-package! alchemist
+(use-package alchemist
   :after elixir-mode
   :hook (elixir-mode . alchemist-mode)
   :config
@@ -23,8 +23,7 @@
   (set! :eval 'elixir-mode #'alchemist-eval-region))
 
 
-(def-package! alchemist-company
-  :when (featurep! :completion company)
+(use-package alchemist-company
   :after elixir-mode
   :config
   ;; Let Doom handle this

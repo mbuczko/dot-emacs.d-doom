@@ -8,14 +8,14 @@
 ;; Plugins
 ;;
 
-(def-package! ox-reveal
+(use-package ox-reveal
   :defer t
   :config
   (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"
         org-reveal-mathjax t))
 
 
-(def-package! org-tree-slide
+(use-package org-tree-slide
   :commands org-tree-slide-mode
   :config
   (org-tree-slide-simple-profile)
@@ -32,4 +32,5 @@
               :around #'+org-present*narrow-to-subtree))
 
 
-(def-package! centered-window-mode :commands centered-window-mode)
+(use-package centered-window-mode
+  :commands centered-window-mode)

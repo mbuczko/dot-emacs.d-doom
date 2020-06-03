@@ -14,7 +14,7 @@
     '("*vc-change-log*" :size 15)
     '(vc-annotate-mode :same t)))
 
-(def-package! smerge-mode
+(use-package smerge-mode
   :hook (find-file . +vcs|enable-smerge-mode-maybe)
   :config
   (when (version< emacs-version "26")

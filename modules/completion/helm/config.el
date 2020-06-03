@@ -10,7 +10,7 @@
 ;; Packages
 ;;
 
-(def-package! helm
+(use-package helm
   :init
   (setq helm-quick-update t
         ;; Speedier without fuzzy matching
@@ -121,18 +121,18 @@ With WITH-TYPES, ask for file types to search in."
                 with-types))
 
 
-(def-package! helm-locate
+(use-package helm-locate
   :defer t
   :init (defvar helm-generic-files-map (make-sparse-keymap))
   :config (set-keymap-parent helm-generic-files-map helm-map))
 
 
-(def-package! helm-bookmark
+(use-package helm-bookmark
   :commands helm-bookmark
   :config (setq-default helm-bookmark-show-location t))
 
 
-(def-package! helm-files
+(use-package helm-files
   :defer t
   :config
   (setq helm-boring-file-regexp-list
@@ -140,14 +140,14 @@ With WITH-TYPES, ask for file types to search in."
                 helm-boring-file-regexp-list)))
 
 
-(def-package! helm-ag
+(use-package helm-ag
   :defer t
   :config
   (define-key helm-ag-edit-map [remap doom/kill-this-buffer] #'helm-ag--edit-abort)
   (define-key helm-ag-edit-map [remap quit-window]           #'helm-ag--edit-abort))
 
 
-(def-package! helm-css-scss ; https://github.com/ShingoFukuyama/helm-css-scss
+(use-package helm-css-scss ; https://github.com/ShingoFukuyama/helm-css-scss
   :commands (helm-css-scss
              helm-css-scss-multi
              helm-css-scss-insert-close-comment)
@@ -156,7 +156,7 @@ With WITH-TYPES, ask for file types to search in."
         helm-css-scss-split-with-multiple-windows t))
 
 
-(def-package! helm-swoop ; https://github.com/ShingoFukuyama/helm-swoop
+(use-package helm-swoop ; https://github.com/ShingoFukuyama/helm-swoop
   :commands (helm-swoop helm-multi-swoop helm-multi-swoop-all)
   :config
   (setq helm-swoop-use-line-number-face t
@@ -165,5 +165,5 @@ With WITH-TYPES, ask for file types to search in."
         helm-swoop-pre-input-function (lambda () "")))
 
 
-(def-package! helm-describe-modes
+(use-package helm-describe-modes
   :commands helm-describe-modes)

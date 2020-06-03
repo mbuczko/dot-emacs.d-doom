@@ -22,7 +22,7 @@ MODES should be one major-mode symbol or a list of them."
 ;; Packages
 ;;
 
-(def-package! company
+(use-package company
   :commands (company-mode global-company-mode company-complete company-active-map
              company-complete-common company-manual-begin company-grab-line)
   :config
@@ -50,7 +50,7 @@ MODES should be one major-mode symbol or a list of them."
   (global-company-mode +1)
   (define-key company-active-map "\e" 'company-abort))
 
-(def-package! company-posframe
+(use-package company-posframe
   :after company
   :commands (company-posframe-mode)
   :config
@@ -59,7 +59,7 @@ MODES should be one major-mode symbol or a list of them."
         company-posframe-show-params (list :internal-border-color "#444"
                                            :internal-border-width 1)))
 
-(def-package! company-statistics
+(use-package company-statistics
   :after company
   :config
   (setq company-statistics-file (concat doom-cache-dir "company-stats-cache.el"))

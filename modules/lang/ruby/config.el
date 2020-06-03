@@ -11,7 +11,7 @@
 ;; Plugins
 ;;
 
-(def-package! ruby-mode
+(use-package ruby-mode
   :mode "\\.rb$"
   :mode "\\.rake$"
   :mode "\\.gemspec$"
@@ -51,7 +51,7 @@ environment variables."
     (add-hook 'ruby-mode-hook #'+ruby|detect-rbenv-version)))
 
 
-(def-package! ruby-refactor
+(use-package ruby-refactor
   :commands
   (ruby-refactor-extract-to-method ruby-refactor-extract-local-variable
    ruby-refactor-extract-constant ruby-refactor-add-parameter
@@ -59,10 +59,10 @@ environment variables."
 
 
 ;; Highlight doc comments
-(def-package! yard-mode :hook ruby-mode)
+(use-package yard-mode :hook ruby-mode)
 
 
-(def-package! rspec-mode
+(use-package rspec-mode
   :mode ("/\\.rspec$" . text-mode)
   :init
   (associate! rspec-mode :match "/\\.rspec$")
@@ -77,18 +77,16 @@ environment variables."
       (("task" "namespace") () "end"))))
 
 
-(def-package! inf-ruby
+(use-package inf-ruby
   :commands (inf-ruby inf-ruby-console-auto)
   :init (set! :repl 'ruby-mode 'inf-ruby))
 
 
-(def-package! company-inf-ruby
-  :when (featurep! :completion company)
+(use-package company-inf-ruby
   :after inf-ruby
   :config (set! :company-backend 'inf-ruby-mode '(company-inf-ruby)))
 
 
-(def-package! rake
+(use-package rake
   :commands (rake rake-find-task rake-rerun)
   :config (setq rake-completion-system 'default))
-

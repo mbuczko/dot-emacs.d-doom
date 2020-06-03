@@ -7,7 +7,7 @@
   (smart-forward)
   (newline-and-indent))
 
-(def-package! clojure-mode
+(use-package clojure-mode
   :mode "\\.clj$"
   :mode "\\.cljc$"
   :mode ("\\.cljs$" . clojurescript-mode)
@@ -28,7 +28,7 @@
   (define-key clojure-mode-map (kbd "C-x C-d") #'helm-clojuredocs-at-point)
   (define-key clojure-mode-map (kbd "M-RET")   #'smart-sexp-open-line))
 
-(def-package! clj-refactor
+(use-package clj-refactor
   :after clojure-mode
   :config
   (setq cljr-auto-clean-ns t
@@ -54,7 +54,7 @@
   (cljr-add-keybindings-with-prefix "M-m"))
 
 
-(def-package! cider
+(use-package cider
   :commands (cider-jack-in cider-mode cider-jack-in-clojurescript)
   :config
   (setq nrepl-hide-special-buffers t
@@ -74,29 +74,29 @@
   (define-key cider-mode-map (kbd "C-c n")        #'cider-find-ns)
   (define-key cider-mode-map (kbd "C-x C-t")      #'cider-eval-and-run-test))
 
-(def-package! cider-find
+(use-package cider-find
   :commands (cider-find-resource cider-find-ns cider-find-var))
 
-(def-package! cider-scratch
+(use-package cider-scratch
   :commands (cider-scratch))
 
-(def-package! cider-apropos
+(use-package cider-apropos
   :commands (cider-apropos))
 
-(def-package! cider-ns
+(use-package cider-ns
   :commands (cider-ns-refresh cider-refresh))
 
-(def-package! cider-selector
+(use-package cider-selector
   :commands (cider-selector))
 
-(def-package! cider-format
+(use-package cider-format
   :commands (cider-format-edn-region))
 
-(def-package! cljr-helm
+(use-package cljr-helm
   :commands (cljr-helm))
 
-(def-package! helm-cider
+(use-package helm-cider
   :commands (helm-cider-spec helm-cider-repl-history))
 
-(def-package! zprint-mode
+(use-package zprint-mode
   :commands (zprint))

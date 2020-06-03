@@ -4,6 +4,6 @@
 ;; Packages
 ;;
 
-(def-package! fzf
+(use-package fzf
   :defer t
   :commands (fzf fzf-git))

@@ -1,6 +1,6 @@
 ;;; ui/unicode/config.el -*- lexical-binding: t; -*-
 
-(def-package! unicode-fonts
+(use-package unicode-fonts
   :init
   (setq-default bidi-display-reordering t
                 doom-unicode-font nil)

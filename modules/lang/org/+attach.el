@@ -19,7 +19,7 @@
   "Where to store attachments (relative to current org file).")
 
 
-(def-package! org-download
+(use-package org-download
   :commands (org-download-dnd org-download-dnd-base64)
   :init
   ;; Add these myself, so that org-download is lazy-loaded...

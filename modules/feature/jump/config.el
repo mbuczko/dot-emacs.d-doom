@@ -9,19 +9,12 @@
 ;; Packages
 ;;
 
-(def-package! ivy-xref
-  :when (featurep! :completion ivy)
-  :after xref
-  :config (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
-
-
-(def-package! helm-xref
-  :when (featurep! :completion helm)
+(use-package helm-xref
   :after xref
   :config (setq xref-show-xrefs-function #'helm-xref-show-xrefs))
 
 
-(def-package! dumb-jump
+(use-package dumb-jump
   :commands (dumb-jump-go dumb-jump-quick-look
              dumb-jump-back dumb-jump-result-follow)
   :config
@@ -31,11 +24,11 @@
                                  ((featurep! :completion helm) 'helm)
                                  (t 'popup))))
 
-(def-package! deadgrep
+(use-package deadgrep
   :commands (deadgrep))
 
-(def-package! dash-at-point
+(use-package dash-at-point
   :commands (dash-at-point))
 
-(def-package! goto-last-change
+(use-package goto-last-change
   :commands (goto-last-change))

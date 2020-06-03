@@ -1,7 +1,7 @@
 ;;; ui/doom/config.el -*- lexical-binding: t; -*-
 
 ;; <https://github.com/hlissner/emacs-doom-theme>
-(def-package! doom-themes
+(use-package doom-themes
   :config
   (unless doom-theme
     (setq doom-theme 'doom-one)
@@ -22,7 +22,7 @@
     (add-hook 'doom-load-theme-hook #'doom-themes-treemacs-config)
     (setq doom-treemacs-enable-variable-pitch t)))
 
-(def-package! solaire-mode
+(use-package solaire-mode
   :hook (after-change-major-mode . turn-on-solaire-mode)
   :hook (doom-popup-mode . turn-off-solaire-mode)
   :config
@@ -89,15 +89,15 @@
     "XXX....."
     "XXXX...."))
 
-(def-package! perspective
+(use-package perspective
   :commands (persp-mode persp-switch persp-rename)
   :init
   (persp-mode))
 
-(def-package! fancy-narrow
+(use-package fancy-narrow
   :commands (fancy-narrow-mode fancy-widen fancy-narrow-to-defun fancy-narrow-to-region))
 
-(def-package! centaur-tabs
+(use-package centaur-tabs
   :init
   (setq x-underline-at-descent-line t
         centaur-tabs-set-modified-marker t
@@ -126,7 +126,7 @@
        (and (string-prefix-p "magit" name)
             (not (file-name-extension name)))))))
 
-(def-package! golden-ratio
+(use-package golden-ratio
   :commands golden-ratio
   :config
   (setq golden-ratio-auto-scale nil
@@ -135,7 +135,7 @@
         golden-ratio-exclude-modes '("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode" minimap-mode TERM)
         golden-ratio-mode t))
 
-(def-package! deft
+(use-package deft
   :commands deft
   :config
   (setq deft-extensions '("org" "md" "tex" "txt")
@@ -150,7 +150,7 @@
                 (nospace . "-")
                 (case-fn . downcase))))
 
-(def-package! ibuffer
+(use-package ibuffer
   :commands ibuffer
   :config
   (setq  ibuffer-always-compile-formats nil

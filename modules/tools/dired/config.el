@@ -38,7 +38,7 @@
 ;; Packages
 ;;
 
-(def-package! dired-k
+(use-package dired-k
   :after dired
   :config
   (setq dired-k-style 'git)

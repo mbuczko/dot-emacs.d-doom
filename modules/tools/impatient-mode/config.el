@@ -2,5 +2,5 @@
 
 ;; Show off code as you write it
 
-(def-package! impatient-mode
+(use-package impatient-mode
   :commands impatient-mode)

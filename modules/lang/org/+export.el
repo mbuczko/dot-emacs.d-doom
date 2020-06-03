@@ -5,7 +5,7 @@
 ;; because all my org files are usually in one place, and I want to be able to
 ;; refer back to old exports if needed.
 
-(def-package! ox-pandoc
+(use-package ox-pandoc
   :defer t
   :config
   (when (executable-find "pandoc")

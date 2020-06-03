@@ -20,24 +20,24 @@
 ;; Plugins
 ;;
 
-(def-package! toc-org
+(use-package toc-org
   :commands toc-org-enable)
 
-(def-package! helm-org
+(use-package helm-org
   :commands helm-org-capture-templates)
 
-(def-package! ox-extra ;org-plus-contrib
+(use-package ox-extra ;org-plus-contrib
    :commands (ox-extras-activate ignore-headlines)
    :config
    (ox-extras-activate '(ignore-headlines)))
 
-(def-package! org-bullets
+(use-package org-bullets
   :commands org-bullets-mode)
 
-(def-package! poporg
+(use-package poporg
   :commands poporg-dwim)
 
-(def-package! direnv
+(use-package direnv
   :commands direnv-mode)
 
 ;;

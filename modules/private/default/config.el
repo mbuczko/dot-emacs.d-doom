@@ -8,7 +8,8 @@
 ;; Plugins
 ;;
 
-(def-package! emacs-snippets :after yasnippet)
+(use-package emacs-snippets
+  :after yasnippet)
 
 
 ;;
@@ -21,5 +22,5 @@
         ;; prompt for the key passphrase.
         epa-pinentry-mode 'loopback))
 
-(def-package! nuke-buffers
+(use-package nuke-buffers
   :commands (nuke-buffers))

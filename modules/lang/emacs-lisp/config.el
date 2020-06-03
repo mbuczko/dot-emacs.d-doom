@@ -1,6 +1,6 @@
 ;;; lang/emacs-lisp/config.el -*- lexical-binding: t; -*-
 
-(def-package! elisp-mode ; built-in
+(use-package elisp-mode ; built-in
   :mode ("/Cask$" . emacs-lisp-mode)
   :config
   (set! :repl 'emacs-lisp-mode #'+emacs-lisp/repl)
@@ -59,37 +59,36 @@
 ;; Plugins
 ;;
 
-(def-package! auto-compile
+(use-package auto-compile
   :commands auto-compile-on-save-mode
   :config
   (setq auto-compile-display-buffer nil
         auto-compile-use-mode-line nil))
 
 
-(def-package! highlight-quoted
+(use-package highlight-quoted
   :commands highlight-quoted-mode)
 
 
-(def-package! slime
+(use-package slime
   :defer t
   :config
   (setq inferior-lisp-program "clisp")
   (require 'slime-fuzzy))
 
 
-(def-package! macrostep
+(use-package macrostep
   :commands macrostep-expand)
 
 
-(def-package! flycheck-cask
-  :when (featurep! :feature syntax-checker)
+(use-package flycheck-cask
   :commands flycheck-cask-setup
   :init
   (add-hook! 'emacs-lisp-hook
     (add-hook 'flycheck-mode-hook #'flycheck-cask-setup nil t)))
 
 
-(def-package! overseer
+(use-package overseer
   :commands overseer-test
   :init (set! :popup "*overseer*" :size 12))
 

@@ -283,8 +283,8 @@
    (("z" zprint "zprint formatter" :color teal)
     ("f" cider-format-edn-region "format EDN region" :color teal))))
 
-(def-package! powerthesaurus
+(use-package powerthesaurus
   :commands (powerthesaurus-lookup-word))
 
-(def-package! github-stars
+(use-package github-stars
   :commands (github-stars-browse-url))

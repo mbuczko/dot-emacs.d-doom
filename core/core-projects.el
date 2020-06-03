@@ -1,6 +1,6 @@
 ;;; core-projects.el -*- lexical-binding: t; -*-
 
-(def-package! projectile
+(use-package projectile
   :hook (doom-init . projectile-mode)
   :init
   (setq projectile-cache-file (concat doom-cache-dir "projectile.cache")

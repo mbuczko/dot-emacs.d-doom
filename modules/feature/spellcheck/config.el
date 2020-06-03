@@ -1,6 +1,6 @@
 ;;; feature/spellcheck/config.el -*- lexical-binding: t; -*-
 
-(def-package! flyspell ; built-in
+(use-package flyspell ; built-in
   :commands flyspell-mode
   :config
   (setq ispell-program-name (executable-find "aspell")
@@ -8,7 +8,7 @@
         ispell-extr-args '("--dont-tex-check-comments")))
 
 
-(def-package! flyspell-correct
+(use-package flyspell-correct
   :commands (flyspell-correct-word-generic
              flyspell-correct-previous-word-generic)
   :config

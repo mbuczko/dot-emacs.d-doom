@@ -4,7 +4,7 @@
 ;; available keybindings. All built into one powerful macro: `map!'. If evil is
 ;; never loaded, then evil bindings set with `map!' will be ignored.
 
-(def-package! which-key
+(use-package which-key
   :config
   (setq which-key-sort-order #'which-key-prefix-then-key-order
         which-key-sort-uppercase-first nil
@@ -17,7 +17,7 @@
   (add-hook 'doom-init-hook #'which-key-mode))
 
 
-(def-package! hydra
+(use-package hydra
   :init
   ;; In case I later need to wrap defhydra in any special functionality.
   (defalias 'def-hydra! 'defhydra)
@@ -26,7 +26,7 @@
   (setq lv-use-seperator t))
 
 
-(def-package! pretty-hydra
+(use-package pretty-hydra
   :commands (pretty-hydra-define))
 
 (provide 'core-keybinds)

@@ -1,16 +1,16 @@
 ;;; feature/version-control/+git.el -*- lexical-binding: t; -*-
 ;;;###if (not (featurep! -git))
 
-(def-package! gitconfig-mode
+(use-package gitconfig-mode
   :mode "/\\.?git/?config$"
   :mode "/\\.gitmodules$")
 
 
-(def-package! gitignore-mode
+(use-package gitignore-mode
   :mode "/\\.gitignore$")
 
 
-(def-package! git-gutter-fringe
+(use-package git-gutter-fringe
   :commands git-gutter-mode
   :init
   (setq git-gutter:disabled-modes '(org-mode image-mode pdf-view-mode))
@@ -31,7 +31,7 @@
   (advice-add #'magit-unstage-file :after #'+vc-gutter-update-h))
 
 
-(def-package! git-timemachine
+(use-package git-timemachine
   :commands (git-timemachine git-timemachine-toggle)
   :config
   (require 'magit-blame)
@@ -44,7 +44,7 @@
   (advice-add #'git-timemachine-show-revision :after #'+vcs*update-header-line))
 
 
-(def-package! magit
+(use-package magit
   :commands (magit-status magit-blame magit-diff-buffer-file magit-file-dispatch)
   :config
   (setq magit-save-repository-buffers 'dontask)
@@ -61,11 +61,11 @@
                                ;; fix visual glitches with tiny fringe icons
                                (setq left-fringe-width 10))))
 
-(def-package! magit-gitflow
+(use-package magit-gitflow
   :commands (turn-on-magit-gitflow))
 
-(def-package! magit-todos
+(use-package magit-todos
   :commands (magit-todos-mode magit-todos-list))
 
-(def-package! git-link
+(use-package git-link
   :commands (git-link git-link-commit git-link-homepage git-link--exec))

@@ -13,7 +13,7 @@
 ;;
 ;; Can be used via .dir-locals.el file in your project.
 
-(def-package! ssh-deploy
+(use-package ssh-deploy
   :commands (ssh-deploy-upload-handler
              ssh-deploy-upload-handler-forced
              ssh-deploy-diff-handler
