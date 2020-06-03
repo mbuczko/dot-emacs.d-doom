@@ -89,6 +89,13 @@ confirmation."
 ;; ...but hide them while isearch is active
 (add-hook 'isearch-mode-hook     #'doom|disable-ui-keystrokes)
 (add-hook 'isearch-mode-end-hook #'doom|enable-ui-keystrokes)
+(add-hook 'isearch-mode-end-hook
+          (lambda ()
+            (when (and isearch-forward
+                       (number-or-marker-p isearch-other-end)
+                       (not mark-active)
+                       (not isearch-mode-end-hook-quit))
+              (goto-char isearch-other-end))))
 
 ;; A minor mode for toggling the mode-line
 (defvar-local doom--modeline-format nil

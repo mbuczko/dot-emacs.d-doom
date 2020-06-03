@@ -5,15 +5,13 @@
 (require 'highlight-symbol)
 (require 'highlight-parentheses)
 (require 'ws-butler)
-(require 'engine-mode)
 
 ;; global modes
 
 (global-company-mode)
 (global-flycheck-mode)
-(company-posframe-mode)
 (ws-butler-global-mode)
-(engine-mode)
+(company-posframe-mode)
 
 ;; ligatures turned on by default
 (mac-auto-operator-composition-mode)
@@ -33,10 +31,12 @@
 (put 'kill-ring 'history-length 25)
 
 ;; search engines
-(defengine duckduckgo "https://duckduckgo.com/?q=%s" :keybinding "d")
-(defengine google "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s" :keybinding "g")
-(defengine stack-overflow "https://stackoverflow.com/search?q=%s" :keybinding "s")
-(defengine twitter "https://twitter.com/search?q=%s" :keybinding "t")
+;; (require 'engine-mode)
+;; (engine-mode)
+;; (defengine duckduckgo "https://duckduckgo.com/?q=%s" :keybinding "d")
+;; (defengine google "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s" :keybinding "g")
+;; (defengine stack-overflow "https://stackoverflow.com/search?q=%s" :keybinding "s")
+;; (defengine twitter "https://twitter.com/search?q=%s" :keybinding "t")
 
 ;; projectile default prefix
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -138,13 +138,6 @@
     (browse-url
      (concat repo-url sub-path "/" id))))
 
-(defun github--babel-codeblock (str)
-  "Parse STR for a issue number and return source block with issue details."
-  (let* ((issue  (string-match "\\([0-9]+\\)[^\\|]+|\\([^\n]+\\)" str))
-         (number (match-string 1 str))
-         (descr  (string-trim (match-string 2 str))))
-    (format "#%s %s\n#+begin_src fish :results output :wrap EXPORT gfm\nhub issue show %s\n#+end_src" number descr number)))
-
 (defun github--goto-issue (id)
   "Opens in a browser issue with given ID or with a one found at current line."
   (interactive
@@ -214,13 +207,13 @@
    (("t" centaur-tabs-mode "centaur tabs" :toggle t)
     ("o" company-posframe-mode "posframe" :toggle t)
     ("l" mac-auto-operator-composition-mode "ligatures" :toggle t)
-    ("N" neotree-show "neotree" :color teal))
+    ("b" beacon-mode "beacon" :toggle t))
    "Basic"
-   (("n" display-line-numbers-mode "line number" :toggle t)
+   (("L" page-break-lines-mode "page break lines" :toggle t)
+    ("n" display-line-numbers-mode "line number" :toggle t)
     ("w" whitespace-mode "whitespace" :toggle t)
-    ("v" visual-line-mode "visual line" :toggle t)
     ("W" ws-butler-mode "whitespace cleanup" :toggle t)
-    ("L" page-break-lines-mode "page break lines" :toggle t))
+    ("v" visual-line-mode "visual line" :toggle t))
    "Highlight"
    (("h" hl-line-mode "line" :toggle t)
     ("s" highlight-symbol-mode "symbol" :toggle t)
@@ -230,11 +223,12 @@
    (("p" smartparens-mode "smartparens" :toggle t)
     ("P" smartparens-strict-mode "smartparens strict" :toggle t)
     ("S" show-smartparens-mode "show smartparens" :toggle t)
-    ("c" flycheck-mode "flycheck" :toggle t)
-    ("f" fancy-narrow-mode "fancy narrow" :toggle t))
+    ("f" flycheck-mode "flycheck" :toggle t)
+    ("F" fancy-narrow-mode "fancy narrow" :toggle t))
    "Emacs"
    (("D" toggle-debug-on-error "debug on error" :toggle (default-value 'debug-on-error))
-    ("X" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))))
+    ("X" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit))
+    ("N" neotree-show "neotree" :color teal))))
 
 (pretty-hydra-define dev-actions
   (:color pink :quit-key "q" :separator "-")
@@ -256,7 +250,7 @@
     ("]" git-gutter:next-hunk "next →" :toggle t))
    "Search"
    (("g" deadgrep "deadgrep" :color teal)
-    ("G" helm-projectile-grep "projectile grep" :color teal))
+    ("G" helm-google-suggest "google" :color teal))
    "Tags"
    (("e" helm-etags-select "etags select" :color teal)
     ("t" projectile-find-tag "projectile tags" :color teal))
@@ -265,20 +259,19 @@
     ("k" diff-last-two-kills "diff last 2 kills" :color teal)
     ("d" deft "deft" :color teal)
     ("m" helm-filtered-bookmarks "bookmarks" :color teal)
-    ("o" googlese-search "StackOverflow to the rescue!" :color teal)
     ("t" powerthesaurus-lookup-word "powerthesaurus" :color teal))))
 
 (pretty-hydra-define clj-actions
-  (:color pink :quit-key "q" :separator "-")
-  ("Clojure"
+  (:color pink :quit-key "q" :title (with-octicon "dashboard" "Clojure Dev Kit") :separator "-")
+  ("Code"
    (("s" helm-cider-spec "spec..." :color teal)
     ("n" cider-find-ns "find namespace..." :color teal)
     ("v" cider-eval-ns-form "eval ns form" :color teal))
    "Doc"
-   (("d" helm-clojuredocs-at-point "clojuredocs" :color teal)
-    ("c" cider-doc "cider doc" :color teal)
+   (("c" cider-doc "cider doc" :color teal)
     ("j" cider-javadoc "cider javadoc" :color teal)
-    ("a" dash-at-point "dash" :color teal))
+    ("d" helm-clojuredocs-at-point "clojuredocs" :color teal)
+    ("D" dash-at-point "dash" :color teal))
    "REPL"
    (("i" cider-insert-region-in-repl "insert region to REPL" :color teal)
     ("r" cider-refresh "reload code" :color teal)

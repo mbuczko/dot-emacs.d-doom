@@ -7,7 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(auth-sources (quote ("~/.authinfo" "~/.authinfo.gpg")))
  '(auto-window-vscroll nil t)
- '(bm-highlight-style (quote bm-highlight-only-fringe))
+ '(bm-highlight-style (quote bm-highlight-only-line))
  '(bm-recenter t)
  '(canlock-password "65fd570ab0dff8c5eab2bf832f5e58157748881a")
  '(cljr-eagerly-build-asts-on-startup nil)
@@ -18,7 +18,11 @@
  '(comment-multi-line t)
  '(comment-start "/** " t)
  '(comment-start-skip "/\\*\\*" t)
+ '(company-idle-delay 0.2)
  '(company-posframe-quickhelp-delay nil)
+ '(company-tooltip-margin 1)
+ '(company-tooltip-maximum-width 64)
+ '(company-tooltip-minimum 3)
  '(compilation-ask-about-save nil)
  '(compilation-auto-jump-to-first-error t)
  '(compilation-process-setup-function nil t)
@@ -56,8 +60,8 @@
  '(eldoc-idle-delay 0.8)
  '(electric-indent-mode nil)
  '(epg-debug t)
- '(epg-gpg-program "/usr/local/MacGPG2/bin/gpg2")
- '(epg-gpgsm-program "/usr/local/MacGPG2/bin/gpgsm")
+ '(epg-gpg-program "/usr/local/bin/gpg")
+ '(epg-gpgsm-program "/usr/local/bin/gpgsm")
  '(erc-nick "grabarz")
  '(feature-cucumber-command "cucumber --format pretty -s {options} {feature}")
  '(feature-use-rvm t)
@@ -76,6 +80,9 @@
  '(gnus-make-format-preserve-properties nil)
  '(gnus-parameter-large-newsgroup-initial 700)
  '(gnus-use-correct-string-widths t)
+ '(helm-candidate-number-limit 30)
+ '(helm-grep-ag-command
+   "rg --color=always --smart-case --no-heading --line-number %s %s %s")
  '(highlight-symbol-idle-delay 1.1)
  '(history-length 100)
  '(hl-paren-colors (quote ("#aff" "#acf" "#a9f" "#a6f")))
@@ -102,6 +109,11 @@
  '(js2-include-node-externs t)
  '(js2-mirror-mode nil)
  '(js2-missing-semi-one-line-override t)
+ '(lsp-diagnostic-package :none)
+ '(lsp-rust-all-targets nil)
+ '(lsp-rust-analyzer-call-info-full nil)
+ '(lsp-rust-analyzer-display-chaining-hints t)
+ '(lsp-rust-analyzer-display-parameter-hints t)
  '(mac-command-key-is-meta t)
  '(mac-option-key-is-meta nil)
  '(mac-use-title-bar t)
@@ -115,9 +127,8 @@
  '(org-use-speed-commands t)
  '(package-selected-packages
    (quote
-    (magit-gitflow magit fzf zprint-mode helm-org ox-pandoc ox-gfm direnv doom-themes direx dired-k ox-rfc w3m fancy-narrow swiper company-posframe perspective toml-mode deft centaur-tabs shackle helm-cider github-stars powerthesaurus engine-mode pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo pdf-tools org-bullets deadgrep hackernews company-auctex auctex company-tern flycheck-joker lorem-ipsum stylus-mode ripgrep cljr-helm clj-refactor helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers highlight-indentation helm-xref helm-swoop helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist exec-path-from-shell emmet-mode emacs-snippets eldoc-eval editorconfig dockerfile-mode company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+    (lsp-mode rustic beacon bibtex-completion org-ref company-posframe clj-refactor posframe magit-todos magit-gitflow magit fzf zprint-mode helm-org ox-pandoc ox-gfm direnv doom-themes direx dired-k ox-rfc w3m fancy-narrow swiper perspective toml-mode deft centaur-tabs shackle helm-cider github-stars powerthesaurus pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo pdf-tools org-bullets deadgrep company-auctex auctex company-tern flycheck-joker lorem-ipsum stylus-mode ripgrep helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers helm-xref helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist emmet-mode emacs-snippets eldoc-eval editorconfig dockerfile-mode company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
  '(popup-kill-ring-popup-width 50 t)
- '(racer-command-timeout 3)
  '(rainbow-delimiters-outermost-only-face-count 2)
  '(recentf-exclude
    (quote
@@ -125,6 +136,13 @@
  '(safe-local-variable-values
    (quote
     ((eval when
+           (require
+            (quote projectile))
+           (setq projectile-enable-idle-timer t projectile-project-name "cerber-roles" cider-repl-history-file
+                 (concat
+                  (projectile-project-root)
+                  ".nrepl-history")))
+     (eval when
            (require
             (quote projectile))
            (setq projectile-enable-idle-timer t cider-repl-history-file
@@ -192,7 +210,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "JetBrains Mono" :foundry "nil" :slant normal :weight light :height 120 :width normal))))
- '(bm-face ((t (:background "LightPink4" :foreground "orange" :weight semi-bold))))
+ '(bm-face ((t (:background "maroon4"))))
  '(bm-fringe-face ((t (:background "LightPink4" :foreground "orange" :underline t))))
  '(company-tooltip ((t (:inherit tooltip :foreground "salmon"))))
  '(company-tooltip-mouse ((t (:background "gray8" :foreground "#282c34"))))
@@ -207,7 +225,7 @@
  '(gnus-summary-normal-unread ((t (:inherit medium :foreground "#98be65"))))
  '(helm-separator ((t (:foreground "gray20"))))
  '(helm-source-header ((t (:background "#202328" :foreground "#5B6268" :height 0.8))))
- '(highlight-symbol-face ((t (:underline t))))
+ '(highlight-symbol-face ((t (:background "gray20" :foreground "light slate blue"))))
  '(magit-diff-added-highlight ((t (:background "#3e493d" :foreground "#98be65" :weight normal))))
  '(magit-diff-file-heading-selection ((t (:background "#2257A0" :foreground "#c678dd" :weight normal))))
  '(magit-diff-hunk-heading-highlight ((t (:background "#a9a1e1" :foreground "#282c34" :weight normal))))

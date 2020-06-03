@@ -36,10 +36,10 @@
      (file+headline +org-default-notes-file "Links")
      "* [[%:link][%:description]]\n\n %i" :immediate-finish t)
 
-    ("i" "Issue" entry
+    ("w" "Worklog" entry
      (file+headline "~/workspace/pitch-app/worklog.org" "Worklog")
-     "** %u %?%(with-current-buffer (org-capture-get :original-file-nondirectory) (github--babel-codeblock (thing-at-point 'line t)))"
-     :immediate-finish t)))
+     "** IN-PROGRESS %u %?%(with-current-buffer (org-capture-get :original-file-nondirectory) (github--babel-codeblock (thing-at-point 'line t)))"
+     :kill-buffer t)))
 
 (after! org
   (defvaralias 'org-default-notes-file '+org-default-notes-file)
@@ -54,3 +54,10 @@
                                    (+org-default-todos-file :level . 1))))
 
   (add-hook 'org-capture-after-finalize-hook #'+org-capture|cleanup-frame))
+
+
+(defun github--babel-codeblock (str)
+  "Parse STR for a issue number and return source block with issue details."
+  (if-let ((issue (github--get-issue-or-pr-at-point)))
+      (format "%s\n#+begin_src fish :results output :wrap EXPORT gfm\nhub issue show %s\n#+end_src"
+              (string-trim str) issue)))

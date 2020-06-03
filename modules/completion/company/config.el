@@ -55,7 +55,9 @@ MODES should be one major-mode symbol or a list of them."
   :commands (company-posframe-mode)
   :config
   (setq company-posframe-show-metadata nil
-        company-posframe-show-indicator nil))
+        company-posframe-show-indicator nil
+        company-posframe-show-params (list :internal-border-color "#444"
+                                           :internal-border-width 1)))
 
 (def-package! company-statistics
   :after company

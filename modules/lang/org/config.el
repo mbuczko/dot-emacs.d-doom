@@ -169,6 +169,7 @@ unfold to point on startup."
    `((?a . ,(face-foreground 'error))
      (?b . ,(face-foreground 'warning))
      (?c . ,(face-foreground 'success)))
+   org-src-window-setup 'current-window
    org-startup-folded t
    org-startup-indented t
    org-startup-with-inline-images nil

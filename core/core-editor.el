@@ -233,5 +233,11 @@ The body of the advice is in BODY."
 (def-package! zop-to-char
   :commands (zop-to-char))
 
+(def-package! beacon
+  :commands (beacon-mode))
+
+(def-package! swiper
+  :commands (swiper swiper-thing-at-point swiper-isearch))
+
 (provide 'core-editor)
 ;;; core-editor.el ends here

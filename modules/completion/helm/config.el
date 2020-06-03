@@ -96,6 +96,31 @@
   (define-key global-map [remap imenu-anywhere]              #'helm-imenu-anywhere)
   (define-key global-map [remap execute-extended-command]    #'helm-M-x))
 
+(defun doom-helm-rg (directory &optional with-types)
+  "Search in DIRECTORY with RG.
+With WITH-TYPES, ask for file types to search in."
+  (interactive "P")
+  (require 'helm-adaptive)
+  (helm-grep-ag-1 (expand-file-name directory)
+                  (helm-aif (and with-types
+                                 (helm-grep-ag-get-types))
+                      (helm-comp-read
+                       "RG type: " it
+                       :must-match t
+                       :marked-candidates t
+                       :fc-transformer 'helm-adaptive-sort
+                       :buffer "*helm rg types*"))))
+
+
+(defun helm-project-rg-search (&optional with-types)
+  "Search in current project with RG.
+With WITH-TYPES, ask for file types to search in."
+  (interactive "P")
+  (doom-helm-rg (or (projectile-project-root)
+                    (helm-current-directory))
+                with-types))
+
+
 (def-package! helm-locate
   :defer t
   :init (defvar helm-generic-files-map (make-sparse-keymap))

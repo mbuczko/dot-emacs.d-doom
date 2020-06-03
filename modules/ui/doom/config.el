@@ -99,11 +99,13 @@
 
 (def-package! centaur-tabs
   :init
-  (setq centaur-tabs-set-modified-marker t
+  (setq x-underline-at-descent-line t
+        centaur-tabs-set-modified-marker t
         centaur-tabs-modified-marker "●"
         centaur-tabs-cycle-scope 'tabs
         centaur-tabs-height 24
-        centaur-tabs-set-bar 'over)
+        centaur-tabs-style "box"
+        centaur-tabs-set-bar 'under)
   :config
   (centaur-tabs-change-fonts "iosevka" 120)
   ;(centaur-tabs-headline-match)

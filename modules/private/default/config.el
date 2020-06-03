@@ -23,6 +23,3 @@
 
 (def-package! nuke-buffers
   :commands (nuke-buffers))
-
-(def-package! googlese-search
-  :commands (googlese-search))

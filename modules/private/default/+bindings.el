@@ -21,6 +21,7 @@
 
 (define-key global-map (kbd "M-l")       #'helm-buffers-list)
 (define-key global-map (kbd "M-a")       #'find-tag-without-ns)
+(define-key global-map (kbd "M-o")       #'avy-goto-char-timer)
 (define-key global-map (kbd "M-p")       #'indent-defn)
 (define-key global-map (kbd "M-q")       #'kill-buffer-and-window)
 (define-key global-map (kbd "M-t")       #'projectile-toggle-between-implementation-and-test)
@@ -36,6 +37,8 @@
 (define-key global-map (kbd "C-}")       #'sp-backward-barf-sexp)
 (define-key global-map (kbd "C-{")       #'sp-backward-slurp-sexp)
 
+(define-key global-map (kbd "C-s")       #'swiper-isearch)
+(define-key global-map (kbd "C-f")       #'swiper-thing-at-point)
 (define-key global-map (kbd "C-o")       #'helm-semantic-or-imenu)
 (define-key global-map (kbd "C-w")       #'sp-backward-kill-word)
 (define-key global-map (kbd "C->")       #'mc/mark-more-like-this-extended)
@@ -73,7 +76,6 @@
 (define-key global-map (kbd "C-x C-r")   #'helm-mini)
 (define-key global-map (kbd "C-x C-l")   #'bm-show-all)
 (define-key global-map (kbd "C-x C-m")   #'bm-toggle)
-(define-key global-map (kbd "C-x C-o")   #'avy-goto-char-timer)
 (define-key global-map (kbd "C-S-h")     #'highlight-symbol-at-point)
 
 (define-key global-map [C-S-down]        #'highlight-symbol-next)
@@ -84,12 +86,21 @@
 (define-key global-map [(control ?,)]    #'goto-last-change-reverse)
 (define-key global-map [(shift return)]  #'crux-smart-open-line)
 
+;; exclusively for touchbar
+(define-key global-map (kbd "<f1>")     #'magit-status)
+(define-key global-map (kbd "<f2>")     #'gnus)
+(define-key global-map (kbd "<f3>")     #'global-toggles/body)
+(define-key global-map (kbd "<f4>")     #'bookmark-set)
+(define-key global-map (kbd "<f5>")     #'neotree-toggle)
+(define-key global-map (kbd "<f6>")     #'kill-this-buffer)
+
+
 (smartrep-define-key global-map "C-x v"
   '(("]"   . git-gutter:next-hunk)
     ("["   . git-gutter:previous-hunk)
     ("|"   . git-gutter:stage-hunk)
     ("\\"  . git-gutter:revert-hunk)))
 
-(smartrep-define-key global-map "C-x \\"
+(smartrep-define-key global-map "C-x"
   '(("]" . highlight-symbol-next)
     ("[" . highlight-symbol-prev)))

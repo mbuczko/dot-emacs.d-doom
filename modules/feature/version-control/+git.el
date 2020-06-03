@@ -47,6 +47,7 @@
 (def-package! magit
   :commands (magit-status magit-blame magit-diff-buffer-file magit-file-dispatch)
   :config
+  (setq magit-save-repository-buffers 'dontask)
   (defadvice magit-status (around magit-fullscreen activate)
     "Full screen magit-status."
     (window-configuration-to-register :magit-fullscreen)
