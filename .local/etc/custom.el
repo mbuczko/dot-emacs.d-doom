@@ -81,6 +81,7 @@
  '(gnus-parameter-large-newsgroup-initial 700)
  '(gnus-use-correct-string-widths t)
  '(helm-candidate-number-limit 30)
+ '(helm-completion-style (quote emacs))
  '(helm-grep-ag-command
    "rg --color=always --smart-case --no-heading --line-number %s %s %s")
  '(highlight-symbol-idle-delay 1.1)
@@ -127,7 +128,7 @@
  '(org-use-speed-commands t)
  '(package-selected-packages
    (quote
-    (lsp-mode rustic beacon bibtex-completion org-ref company-posframe clj-refactor posframe magit-todos magit-gitflow magit fzf zprint-mode helm-org ox-pandoc ox-gfm direnv doom-themes direx dired-k ox-rfc w3m fancy-narrow swiper perspective toml-mode deft centaur-tabs shackle helm-cider github-stars powerthesaurus pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo pdf-tools org-bullets deadgrep company-auctex auctex company-tern flycheck-joker lorem-ipsum stylus-mode ripgrep helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers helm-xref helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist emmet-mode emacs-snippets eldoc-eval editorconfig dockerfile-mode company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
+    (helm-bm lsp-mode rustic beacon bibtex-completion org-ref company-posframe clj-refactor posframe magit-todos magit-gitflow magit fzf zprint-mode helm-org ox-pandoc ox-gfm direnv doom-themes direx dired-k ox-rfc w3m fancy-narrow swiper perspective toml-mode deft centaur-tabs shackle helm-cider github-stars powerthesaurus pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo pdf-tools org-bullets deadgrep company-auctex auctex company-tern flycheck-joker lorem-ipsum stylus-mode ripgrep helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers helm-xref helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist emmet-mode emacs-snippets eldoc-eval editorconfig dockerfile-mode company-web company-statistics company-shell company-quickhelp company-dict auto-yasnippet auto-compile)))
  '(popup-kill-ring-popup-width 50 t)
  '(rainbow-delimiters-outermost-only-face-count 2)
  '(recentf-exclude
@@ -184,6 +185,8 @@
      ("M-C-<up>" . paxedit-transpose-backward))))
  '(split-height-threshold nil)
  '(split-width-threshold 0)
+ '(swiper-goto-start-of-match t)
+ '(swiper-verbose nil)
  '(tab-width 4)
  '(tags-add-tables nil)
  '(tags-revert-without-query t)

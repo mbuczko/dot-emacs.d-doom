@@ -218,6 +218,9 @@ The body of the advice is in BODY."
 (use-package bm
   :commands (bm-toggle bm-show-all))
 
+(use-package helm-bm
+  :commands (helm-bm))
+
 (use-package smartrep
   :commands (smartrep-define-key))
 
@@ -237,7 +240,7 @@ The body of the advice is in BODY."
   :commands (beacon-mode))
 
 (use-package swiper
-  :commands (swiper swiper-thing-at-point swiper-isearch))
+  :commands (swiper-thing-at-point swiper-isearch))
 
 (provide 'core-editor)
 ;;; core-editor.el ends here

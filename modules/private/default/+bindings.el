@@ -21,7 +21,6 @@
 
 (define-key global-map (kbd "M-l")       #'helm-buffers-list)
 (define-key global-map (kbd "M-a")       #'find-tag-without-ns)
-(define-key global-map (kbd "M-o")       #'avy-goto-char-timer)
 (define-key global-map (kbd "M-p")       #'indent-defn)
 (define-key global-map (kbd "M-q")       #'kill-buffer-and-window)
 (define-key global-map (kbd "M-t")       #'projectile-toggle-between-implementation-and-test)
@@ -53,18 +52,19 @@
 (define-key global-map (kbd "M-w M-d")   #'er/mark-defun)
 (define-key global-map (kbd "M-w i")     #'er/mark-inner-tag)
 (define-key global-map (kbd "M-w o")     #'er/mark-outer-tag)
+(define-key global-map (kbd "M-w a")     #'avy-goto-char-2)
+(define-key global-map (kbd "C-c h")     #'helm-all-mark-rings)
 (define-key global-map (kbd "C-c m")     #'magit-status)
 (define-key global-map (kbd "C-c t")     #'global-toggles/body)
 (define-key global-map (kbd "C-c c")     #'clj-actions/body)
 (define-key global-map (kbd "C-c d")     #'dev-actions/body)
 (define-key global-map (kbd "C-c o")     #'helm-org-capture-templates)
-(define-key global-map (kbd "C-x a")     #'helm-git-grep-at-point)
 (define-key global-map (kbd "C-x d")     #'crux-duplicate-current-line-or-region)
+(define-key global-map (kbd "C-x a")     #'helm-git-grep-at-point)
 (define-key global-map (kbd "C-x s")     #'helm-git-grep)
 (define-key global-map (kbd "C-x i")     #'helm-imenu-in-all-buffers)
-(define-key global-map (kbd "C-x k")     #'helm-mark-ring)
 (define-key global-map (kbd "C-x o")     #'helm-occur)
-(define-key global-map (kbd "C-x p")     #'helm-show-kill-ring)
+(define-key global-map (kbd "C-x k")     #'helm-show-kill-ring)
 (define-key global-map (kbd "C-x f")     #'fzf-git)
 (define-key global-map (kbd "C-x w")     #'close-other)
 (define-key global-map (kbd "C-x q")     #'kill-this-buffer)
@@ -74,7 +74,7 @@
 (define-key global-map (kbd "C-x C-i")   #'projectile-find-tag)
 (define-key global-map (kbd "C-x C-h")   #'helm-resume)
 (define-key global-map (kbd "C-x C-r")   #'helm-mini)
-(define-key global-map (kbd "C-x C-l")   #'bm-show-all)
+(define-key global-map (kbd "C-x C-l")   #'helm-bm)
 (define-key global-map (kbd "C-x C-m")   #'bm-toggle)
 (define-key global-map (kbd "C-S-h")     #'highlight-symbol-at-point)
 
@@ -85,15 +85,6 @@
 (define-key global-map [(control ?.)]    #'goto-last-change)
 (define-key global-map [(control ?,)]    #'goto-last-change-reverse)
 (define-key global-map [(shift return)]  #'crux-smart-open-line)
-
-;; exclusively for touchbar
-(define-key global-map (kbd "<f1>")     #'magit-status)
-(define-key global-map (kbd "<f2>")     #'gnus)
-(define-key global-map (kbd "<f3>")     #'global-toggles/body)
-(define-key global-map (kbd "<f4>")     #'bookmark-set)
-(define-key global-map (kbd "<f5>")     #'neotree-toggle)
-(define-key global-map (kbd "<f6>")     #'kill-this-buffer)
-
 
 (smartrep-define-key global-map "C-x v"
   '(("]"   . git-gutter:next-hunk)
