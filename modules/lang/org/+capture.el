@@ -21,19 +21,19 @@
 
 (defvar org-capture-templates
   '(("l" "Today I learned..." entry
-     (file+headline +org-default-tils-file "Today I learned")
+     (file+headline org-default-tils-file "Today I learned")
      "** %u %?\n%i" :prepend t :kill-buffer t)
 
     ("t" "Todo" entry
-     (file+headline +org-default-todos-file "Todos")
+     (file+headline org-default-todos-file "Todos")
      "** TODO %u %?\n%i" :prepend t :kill-buffer t)
 
     ("n" "Note" entry
-     (file+headline +org-default-notes-file "Inbox")
+     (file+headline org-default-notes-file "Inbox")
      "* %u %?\n%i" :prepend t :kill-buffer t)
 
     ("c" "org-protocol-capture" entry
-     (file+headline +org-default-notes-file "Links")
+     (file+headline org-default-notes-file "Links")
      "* [[%:link][%:description]]\n\n %i" :immediate-finish t)
 
     ("w" "Worklog" entry
@@ -42,10 +42,6 @@
      :kill-buffer t)))
 
 (after! org
-  (defvaralias 'org-default-notes-file '+org-default-notes-file)
-  (defvaralias 'org-default-todos-file '+org-default-todos-file)
-  (defvaralias 'org-default-tils-file  '+org-default-tils-file)
-
   (setq org-default-notes-file (expand-file-name +org-default-notes-file +org-dir)
         org-default-todos-file (expand-file-name +org-default-todos-file +org-dir)
         org-default-tils-file  (expand-file-name +org-default-tils-file  +org-dir)

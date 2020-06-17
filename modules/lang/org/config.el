@@ -49,7 +49,7 @@
   ;; the load. This results in a broken, partially loaded state. This require
   ;; tries to set it straight.
   (require 'org)
-  (defvaralias 'org-directory '+org-dir)
+  (setq org-directory +org-dir)
 
   (+org-init-ui)
   (+org-hacks))
