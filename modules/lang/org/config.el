@@ -173,7 +173,7 @@ unfold to point on startup."
    org-startup-folded t
    org-startup-indented t
    org-startup-with-inline-images nil
-   org-tags-column -90
+   org-tags-column -100
    org-todo-keywords '((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "BLOCKED(b)" "DONE(d)"))
    org-todo-keyword-faces '(("TODO" . "green")
                             ("BLOCKED" . "red")

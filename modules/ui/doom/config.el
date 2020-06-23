@@ -89,11 +89,6 @@
     "XXX....."
     "XXXX...."))
 
-(use-package perspective
-  :commands (persp-mode persp-switch persp-rename)
-  :init
-  (persp-mode))
-
 (use-package fancy-narrow
   :commands (fancy-narrow-mode fancy-widen fancy-narrow-to-defun fancy-narrow-to-region))
 
