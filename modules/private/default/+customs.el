@@ -244,7 +244,7 @@
     ("I" github--goto-issue "goto ISSUE" :color teal))
    "Chunk"
    (("s" git-gutter:stage-hunk "stage" :color teal)
-    ("r" git-gutter:revert-hunk "revert" :color teal)
+    ("v" git-gutter:revert-hunk "revert" :color teal)
     ("=" git-gutter:popup-hunk "popup" :color teal)
     ("[" git-gutter:previous-hunk "prev ←" :toggle t)
     ("]" git-gutter:next-hunk "next →" :toggle t))
@@ -259,7 +259,7 @@
     ("k" diff-last-two-kills "diff last 2 kills" :color teal)
     ("d" deft "deft" :color teal)
     ("m" helm-filtered-bookmarks "bookmarks" :color teal)
-    ("t" powerthesaurus-lookup-word "powerthesaurus" :color teal))))
+    ("p" powerthesaurus-lookup-word "powerthesaurus" :color teal))))
 
 (pretty-hydra-define clj-actions
   (:color pink :quit-key "q" :title (with-octicon "dashboard" "Clojure Dev Kit") :separator "-")
