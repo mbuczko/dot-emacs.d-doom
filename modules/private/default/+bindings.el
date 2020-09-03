@@ -56,7 +56,6 @@
 (define-key global-map (kbd "C-c h")     #'helm-all-mark-rings)
 (define-key global-map (kbd "C-c m")     #'magit-status)
 (define-key global-map (kbd "C-c t")     #'global-toggles/body)
-(define-key global-map (kbd "C-c c")     #'clj-actions/body)
 (define-key global-map (kbd "C-c d")     #'dev-actions/body)
 (define-key global-map (kbd "C-c o")     #'helm-org-capture-templates)
 (define-key global-map (kbd "C-x d")     #'crux-duplicate-current-line-or-region)

@@ -55,7 +55,7 @@
 
 
 (use-package cider
-  :commands (cider-jack-in cider-mode cider-jack-in-clojurescript)
+  :commands (cider-jack-in cider-mode cider-refresh)
   :config
   (setq nrepl-hide-special-buffers t
         cider-prompt-for-symbol nil
@@ -67,11 +67,34 @@
     "Auto re-centers screen after jump"
     (recenter))
 
+  (pretty-hydra-define clj-actions
+    (:color pink :quit-key "q" :title (with-octicon "dashboard" "Clojure Dev Kit") :separator "-")
+    ("Code"
+     (("s" helm-cider-spec "spec..." :color teal)
+      ("n" cider-find-ns "find namespace..." :color teal)
+      ("v" cider-eval-ns-form "eval ns form" :color teal))
+     "Doc"
+     (("c" cider-doc "cider doc" :color teal)
+      ("j" cider-javadoc "cider javadoc" :color teal)
+      ("d" helm-clojuredocs-at-point "clojuredocs" :color teal)
+      ("D" dash-at-point "dash" :color teal))
+     "REPL"
+     (("i" cider-insert-region-in-repl "insert region to REPL" :color teal)
+      ("r" cider-refresh "reload code" :color teal)
+      ("h" helm-cider-repl-history "REPL history..." :color teal))
+     "Buffs"
+     (("t" cider-scratch "cider scratch" :color teal)
+      ("e" cider-selector "cider selector..." :color teal))
+     "Format"
+     (("z" zprint "zprint formatter" :color teal)
+      ("f" cider-format-edn-region "format EDN region" :color teal))))
+
   (define-key cider-repl-mode-map (kbd "C-x C-d") #'helm-clojuredocs-at-point)
   (define-key cider-repl-mode-map (kbd "C-x C-p") #'cider-repl-previous-matching-input)
   (define-key cider-repl-mode-map (kbd "M-r")     #'cider-switch-repl)
   (define-key cider-repl-mode-map (kbd "C-c n")   #'cider-find-ns)
   (define-key cider-mode-map (kbd "C-c n")        #'cider-find-ns)
+  (define-key cider-mode-map (kbd "C-c c")        #'clj-actions/body)
   (define-key cider-mode-map (kbd "C-x C-t")      #'cider-eval-and-run-test))
 
 (use-package cider-find

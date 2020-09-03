@@ -136,12 +136,7 @@ startup."
       (dolist (dir (list doom-local-dir doom-etc-dir doom-cache-dir doom-packages-dir))
         (unless (file-directory-p dir)
           (make-directory dir t)))
-      ;; Ensure package.el is initialized; we use its state
-      (setq package-activated-list nil)
-      (condition-case _ (package-initialize t)
-        ('error (package-refresh-contents)
-                (setq doom--refreshed-p t)
-                (package-initialize t)))
+
       ;; Ensure core packages are installed
       (let ((core-packages (cl-remove-if #'package-installed-p doom-core-packages)))
         (when core-packages
