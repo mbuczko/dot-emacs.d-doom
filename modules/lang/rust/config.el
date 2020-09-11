@@ -11,6 +11,7 @@
     (add-to-list 'org-src-lang-modes '("rust" . rustic)))
   :config
   (require 'helm-lsp)
+  (direnv-mode t)
   (define-key rustic-mode-map (kbd "C-x C-d") #'lsp-describe-thing-at-point)
   (define-key rustic-mode-map (kbd "C-c n")   #'helm-lsp-workspace-symbol)
   (define-key rustic-mode-map (kbd "C-c c")   #'helm-lsp-code-actions)
