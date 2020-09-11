@@ -104,7 +104,7 @@
  '(lsp-rust-all-targets nil)
  '(lsp-rust-analyzer-call-info-full nil)
  '(lsp-rust-analyzer-display-parameter-hints t)
- '(lsp-rust-analyzer-server-display-inline-hints t)
+ '(lsp-rust-analyzer-server-display-inlay-hints t)
  '(mac-command-key-is-meta t)
  '(mac-option-key-is-meta nil)
  '(mac-use-title-bar t)
