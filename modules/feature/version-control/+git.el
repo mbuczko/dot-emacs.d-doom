@@ -1,6 +1,18 @@
 ;;; feature/version-control/+git.el -*- lexical-binding: t; -*-
 ;;;###if (not (featurep! -git))
 
+(defun visit-pull-request-url ()
+  "Visit the current branch's PR on Github."
+  (interactive)
+  (browse-url
+   (format "https://github.com/%s/pull/new/%s"
+           (replace-regexp-in-string
+            "\\`.+github\\.com:\\(.+\\)\\.git\\'" "\\1"
+            (magit-get "remote"
+                       (magit-get-push-remote)
+                       "url"))
+           (magit-get-current-branch))))
+
 (use-package gitconfig-mode
   :mode "/\\.?git/?config$"
   :mode "/\\.gitmodules$")
@@ -54,6 +66,7 @@
     ad-do-it
     (delete-other-windows))
 
+  (define-key magit-mode-map "v" #'visit-pull-request-url)
   (add-hook 'magit-mode-hook (lambda ()
                                (doom-hide-modeline-mode)
                                (turn-on-magit-gitflow)
