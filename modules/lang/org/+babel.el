@@ -2,7 +2,7 @@
 
 (defvar +org-babel-languages
   '(;calc
-    css
+    ;css
     emacs-lisp
     ;haskell
     js

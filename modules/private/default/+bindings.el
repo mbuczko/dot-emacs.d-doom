@@ -45,6 +45,7 @@
 (define-key global-map (kbd "C-|")       #'whack-whitespace)
 (define-key global-map (kbd "C-z")       #'zop-to-char)
 
+(define-key global-map (kbd "M-w M-l")   #'avy-goto-char-timer)
 (define-key global-map (kbd "M-w M-e")   #'mark-from-point-to-end-of-line)
 (define-key global-map (kbd "M-w M-q")   #'er/mark-inside-quotes)
 (define-key global-map (kbd "M-w M-p")   #'er/mark-inside-pairs)
@@ -52,7 +53,6 @@
 (define-key global-map (kbd "M-w M-d")   #'er/mark-defun)
 (define-key global-map (kbd "M-w i")     #'er/mark-inner-tag)
 (define-key global-map (kbd "M-w o")     #'er/mark-outer-tag)
-(define-key global-map (kbd "M-w a")     #'avy-goto-char-2)
 (define-key global-map (kbd "C-c h")     #'helm-all-mark-rings)
 (define-key global-map (kbd "C-c m")     #'magit-status)
 (define-key global-map (kbd "C-c t")     #'global-toggles/body)

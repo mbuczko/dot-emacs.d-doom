@@ -192,7 +192,7 @@ The body of the advice is in BODY."
 ;;
 
 (use-package avy
-  :commands (avy-goto-char-2 avy-goto-line avy-goto-char-timer)
+  :commands (avy-goto-line avy-goto-char-timer)
   :config
   (setq avy-all-windows nil
         avy-background t))
@@ -231,6 +231,9 @@ The body of the advice is in BODY."
 
 (use-package paxedit
   :commands (paxedit-delete paxedit-transpose-forward paxedit-transpose-backward))
+
+(use-package paredit
+  :commands (paredit-wrap-round paredit-wrap-square paredit-wrap-curly))
 
 (use-package shackle
   :commands (shackle-display-buffer shackle-match))
