@@ -17,8 +17,8 @@
     ruby
     ;rust       ; ob-rust
     shell
-    ;sqlite
-    ;sql-mode   ; ob-sql-mode
+    sqlite
+    sql-mode   ; ob-sql-mode
     ;translate   ; ob-translate
     )
   "A list of org-babel languages to load.")

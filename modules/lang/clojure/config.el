@@ -7,6 +7,17 @@
   (smart-forward)
   (newline-and-indent))
 
+(defun jet ()
+  (interactive)
+  (shell-command-on-region
+   (region-beginning)
+   (region-end)
+   "jet --from transit --to edn --pretty --edn-reader-opts '{:default tagged-literal}'"
+   (current-buffer)
+   t
+   "*jet error buffer*"
+   t))
+
 (use-package clojure-mode
   :mode "\\.clj$"
   :mode "\\.cljc$"
@@ -75,7 +86,7 @@
       ("v" cider-eval-ns-form "eval ns form" :color teal))
      "Doc"
      (("c" cider-doc "cider doc" :color teal)
-      ("j" cider-javadoc "cider javadoc" :color teal)
+      ("v" cider-javadoc "cider javadoc" :color teal)
       ("d" helm-clojuredocs-at-point "clojuredocs" :color teal)
       ("D" dash-at-point "dash" :color teal))
      "REPL"
@@ -86,7 +97,8 @@
      (("t" cider-scratch "cider scratch" :color teal)
       ("e" cider-selector "cider selector..." :color teal))
      "Format"
-     (("z" zprint "zprint formatter" :color teal)
+     (("j" jet "Transit -> EDN")
+      ("z" zprint "zprint formatter" :color teal)
       ("f" cider-format-edn-region "format EDN region" :color teal))))
 
   (define-key cider-repl-mode-map (kbd "C-x C-d") #'helm-clojuredocs-at-point)
