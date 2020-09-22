@@ -27,7 +27,10 @@
   :commands (lsp-modeline-diagnostics-mode lsp-modeline-code-actions-mode))
 
 (use-package lsp-ui
-  :mode ("\\.rs$" . rustic-mode)
-  :commands (lsp-ui-sideline-mode)
   :config
-  (lsp-ui-sideline-mode t))
+  (setq lsp-ui-sideline-update-mode 'line
+        lsp-ui-sideline-show-code-actions t
+        lsp-ui-sideline-show-hover nil
+        lsp-ui-sideline-ignore-duplicate t
+        lsp-ui-doc-enable nil
+        lsp-ui-peek-enable nil))
