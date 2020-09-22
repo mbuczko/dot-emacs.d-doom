@@ -61,17 +61,13 @@ modes are active and the buffer is read-only.")
 (advice-add #'quit-window :around #'doom|quit-window)
 
 (defun doom|check-large-file ()
-  "Check if the buffer's file is large (see `doom-large-file-size'). If so, ask
-for confirmation to open it literally (read-only, disabled undo and in
-fundamental-mode) for performance sake."
+  "Check if the buffer's file is large (see `doom-large-file-size'). If so,
+open it literally (read-only, disabled undo and in fundamental-mode) for
+ performance sake."
   (let* ((filename (buffer-file-name))
          (size (nth 7 (file-attributes filename))))
     (when (and (not (memq major-mode doom-large-file-modes-list))
-               size (> size (* 1024 1024 doom-large-file-size))
-               (y-or-n-p
-                (format (concat "%s is a large file, open literally to "
-                                "avoid performance issues?")
-                        (file-relative-name filename))))
+               size (> size (* 1024 1024 doom-large-file-size)))
       (setq buffer-read-only t)
       (buffer-disable-undo)
       (fundamental-mode))))

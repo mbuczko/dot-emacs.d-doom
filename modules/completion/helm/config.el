@@ -140,13 +140,6 @@ With WITH-TYPES, ask for file types to search in."
                 helm-boring-file-regexp-list)))
 
 
-(use-package helm-ag
-  :defer t
-  :config
-  (define-key helm-ag-edit-map [remap doom/kill-this-buffer] #'helm-ag--edit-abort)
-  (define-key helm-ag-edit-map [remap quit-window]           #'helm-ag--edit-abort))
-
-
 (use-package helm-css-scss ; https://github.com/ShingoFukuyama/helm-css-scss
   :commands (helm-css-scss
              helm-css-scss-multi
@@ -154,16 +147,3 @@ With WITH-TYPES, ask for file types to search in."
   :config
   (setq helm-css-scss-split-direction #'split-window-vertically
         helm-css-scss-split-with-multiple-windows t))
-
-
-(use-package helm-swoop ; https://github.com/ShingoFukuyama/helm-swoop
-  :commands (helm-swoop helm-multi-swoop helm-multi-swoop-all)
-  :config
-  (setq helm-swoop-use-line-number-face t
-        helm-swoop-candidate-number-limit 200
-        helm-swoop-speed-or-color t
-        helm-swoop-pre-input-function (lambda () "")))
-
-
-(use-package helm-describe-modes
-  :commands helm-describe-modes)

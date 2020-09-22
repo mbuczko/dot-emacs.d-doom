@@ -78,6 +78,7 @@
  '(helm-completion-style 'emacs)
  '(helm-grep-ag-command
    "rg --color=always --smart-case --no-heading --line-number %s %s %s")
+ '(highlight-parentheses-colors '("#aff" "#acf" "#a9f" "#a6f"))
  '(highlight-symbol-idle-delay 1.1)
  '(history-length 100)
  '(hl-paren-colors '("#aff" "#acf" "#a9f" "#a6f"))
@@ -98,6 +99,7 @@
  '(js2-include-node-externs t)
  '(js2-mirror-mode nil)
  '(js2-missing-semi-one-line-override t)
+ '(large-file-warning-threshold nil)
  '(lsp-diagnostic-package :none)
  '(lsp-diagnostics-provider :none)
  '(lsp-keymap-prefix "M-m")
@@ -118,7 +120,7 @@
  '(org-bullets-bullet-list '("◉" "○" "★" "✽" "✿" "✸"))
  '(org-use-speed-commands t)
  '(package-selected-packages
-   '(ob-sql-mode helm-lsp helm-bm lsp-mode rustic beacon company-posframe clj-refactor posframe magit-todos magit-gitflow magit fzf zprint-mode helm-org ox-pandoc ox-gfm direnv doom-themes direx dired-k ox-rfc w3m fancy-narrow swiper toml-mode deft centaur-tabs shackle helm-cider github-stars powerthesaurus pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo org-bullets deadgrep company-auctex auctex company-tern flycheck-joker lorem-ipsum stylus-mode ripgrep helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers helm-xref helm-projectile helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist emmet-mode emacs-snippets eldoc-eval editorconfig dockerfile-mode company-web company-statistics company-shell company-dict auto-yasnippet auto-compile))
+   '(dumb-jump ob-sql-mode helm-lsp helm-bm lsp-mode rustic beacon company-posframe clj-refactor posframe magit-todos magit-gitflow magit fzf zprint-mode helm-org ox-pandoc ox-gfm direnv doom-themes direx dired-k ox-rfc w3m fancy-narrow swiper toml-mode deft centaur-tabs shackle helm-cider github-stars powerthesaurus pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo org-bullets deadgrep company-auctex auctex company-tern flycheck-joker lorem-ipsum stylus-mode ripgrep helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck golden-ratio goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package undo-tree smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers helm-xref helm-projectile helm-describe-modes helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist emmet-mode emacs-snippets eldoc-eval editorconfig dockerfile-mode company-web company-statistics company-shell company-dict auto-yasnippet auto-compile))
  '(popup-kill-ring-popup-width 50 t)
  '(rainbow-delimiters-outermost-only-face-count 2)
  '(read-process-output-max (* 1024 1024) t)
@@ -230,4 +232,5 @@
  '(mode-line-inactive ((t (:background "#1d2026" :foreground "#5B6268" :box nil :height 0.9))))
  '(org-column ((t (:background "grey18" :strike-through nil :underline nil :slant normal :weight normal))))
  '(org-column-title ((t (:background "gray18" :foreground "dim gray" :weight bold :width normal :family "Iosevka"))))
- '(org-headline-done ((t (:foreground "#5B6268" :strike-through t)))))
+ '(org-headline-done ((t (:foreground "#5B6268" :strike-through t))))
+ '(swiper-background-match-face-1 ((t nil))))
