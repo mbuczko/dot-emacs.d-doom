@@ -76,6 +76,7 @@
 (define-key global-map (kbd "C-x C-l")   #'helm-bm)
 (define-key global-map (kbd "C-x C-m")   #'bm-toggle)
 (define-key global-map (kbd "C-S-h")     #'highlight-symbol-at-point)
+(define-key global-map (kbd "M-RET")     #'smart-sexp-open-line)
 
 (define-key global-map [C-S-down]        #'highlight-symbol-next)
 (define-key global-map [C-S-up]          #'highlight-symbol-prev)

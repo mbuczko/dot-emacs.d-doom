@@ -12,10 +12,6 @@
 (package! fringe-helper)
 (package! highlight-indentation)
 (package! highlight-numbers)
-(unless (boundp 'display-line-numbers)
-  (package! nlinum)
-  (package! nlinum-hl)
-  (package! nlinum-relative))
 (package! rainbow-delimiters)
 (package! visual-fill-column)
 

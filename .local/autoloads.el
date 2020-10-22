@@ -824,40 +824,6 @@ is given, returns t if it matches the current system, and nil otherwise.
 
 \(fn &optional OS)" nil nil)
 
-(autoload 'doom-sh "../core/autoload/system" "\
-Runs a shell command and prints any output to the DOOM buffer.
-
-\(fn COMMAND &rest ARGS)" nil nil)
-
-(autoload 'doom-sudo "../core/autoload/system" "\
-Like `doom-sh', but runs as root (prompts for password).
-
-\(fn COMMAND &rest ARGS)" nil nil)
-
-(autoload 'doom-fetch "../core/autoload/system" "\
-Clone a remote version-controlled repo at REPO-URL to PATH, if it exists.
-Requires the corresponding client, e.g. git for git repos, hg for mercurial,
-etc.
-
-\(fn FETCHER LOCATION DEST)" nil nil)
-
-;;;***
-
-;;;### (autoloads nil "../core/autoload/test" "../core/autoload/test.el"
-;;;;;;  (23288 273 448049 420000))
-;;; Generated autoloads from ../core/autoload/test.el
-
-(autoload 'doom//run-tests "../core/autoload/test" "\
-Run all loaded tests, specified by MODULES (a list of module cons cells) or
-command line args following a double dash (each arg should be in the
-'module/submodule' format).
-
-If neither is available, run all tests in all enabled modules.
-
-\(fn &optional MODULES)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "../core/autoload/test" '("with-minor-mode!!" "point!!" "goto-char!!" "should-buffer!!" "def-test!")))
-
 ;;;***
 
 ;;;### (autoloads nil "../core/autoload/ui" "../core/autoload/ui.el"

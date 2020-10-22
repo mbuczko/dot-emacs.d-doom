@@ -46,6 +46,13 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; a few handy functions to make life easier
+(defun smart-sexp-open-line ()
+  (interactive)
+  (smart-backward)
+  (smart-backward)
+  (smart-forward)
+  (newline-and-indent))
+
 (defun mark-from-point-to-end-of-line ()
   "Mark everything from point to end of line."
   (interactive)

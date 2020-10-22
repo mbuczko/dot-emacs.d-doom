@@ -74,6 +74,9 @@
                                ;; fix visual glitches with tiny fringe icons
                                (setq left-fringe-width 10))))
 
+(use-package forge
+  :after magit)
+
 (use-package magit-gitflow
   :commands (turn-on-magit-gitflow))
 
