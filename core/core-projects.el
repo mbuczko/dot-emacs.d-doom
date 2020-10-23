@@ -2,6 +2,8 @@
 
 (use-package projectile
   :hook (doom-init . projectile-mode)
+  :bind (:map projectile-mode-map
+              ("C-c p" . projectile-command-map))
   :init
   (setq projectile-cache-file (concat doom-cache-dir "projectile.cache")
         projectile-completion-system 'helm
@@ -82,13 +84,6 @@ If STRICT-P, return nil if no project was found, otherwise return
     (projectile-project-root)))
 
 (defalias 'doom-project-expand #'projectile-expand-root)
-
-(defmacro doom-project-has! (files)
-  "Checks if the project has the specified FILES.
-Paths are relative to the project root, unless they start with ./ or ../ (in
-which case they're relative to `default-directory'). If they start with a slash,
-they are absolute."
-  (doom--resolve-path-forms files (doom-project-root)))
 
 (defun doom-project-find-file (dir)
   "Fuzzy-find a file under DIR."

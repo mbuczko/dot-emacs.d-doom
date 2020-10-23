@@ -57,6 +57,7 @@
 (add-hook! org-mode
   #'(org-bullets-mode           ; "prettier" bullets
      org-indent-mode            ; margin-based indentation
+     org-bullets-mode           ; fancy bullets
      toc-org-enable             ; auto-table of contents
      direnv-mode
      visual-line-mode           ; line wrapping
@@ -67,7 +68,6 @@
      +org|unfold-to-2nd-level-or-point
      +org|show-paren-mode-compatibility
      +org|colored-src-listings))
-
 
 ;;
 ;; Config hooks
@@ -126,6 +126,7 @@ unfold to point on startup."
 
 (defun +org-init-ui ()
   "Configures the UI for `org-mode'."
+  (require 'org-bullets)
   (setq-default
    org-adapt-indentation nil
    org-agenda-dim-blocked-tasks nil

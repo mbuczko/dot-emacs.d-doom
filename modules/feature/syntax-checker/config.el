@@ -1,11 +1,18 @@
 ;;; feature/syntax-checker/config.el -*- lexical-binding: t; -*-
 
-;; pkg-info doesn't get autoloaded when `flycheck-version' needs it, so we do
-;; it ourselves:
-(autoload 'pkg-info-version-info "pkg-info")
-
 (use-package flycheck
   :commands (flycheck-mode global-flycheck-mode flycheck-list-errors flycheck-buffer)
+  :hook (prog-mode . flycheck-mode)
   :config
-  ;; Emacs feels snappier without checks on idle/change
-  (setq flycheck-check-syntax-automatically '(save mode-enabled)))
+  ;; Check only when saving or opening files. Newline & idle checks are a mote
+  ;; excessive and can catch code in an incomplete state, producing false
+  ;; positives, so we removed them.
+  (setq flycheck-check-syntax-automatically '(save mode-enabled idle-buffer-switch))
+
+  ;; For the above functionality, check syntax in a buffer that you switched to
+  ;; only briefly. This allows "refreshing" the syntax check state for several
+  ;; buffers quickly after e.g. changing a config file.
+  (setq flycheck-buffer-switch-check-intermediate-buffers t)
+
+  ;; Display errors a little quicker (default is 0.9s)
+  (setq flycheck-display-errors-delay 0.25))

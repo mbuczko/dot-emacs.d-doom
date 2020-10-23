@@ -26,23 +26,28 @@
 
 (use-package cider
   :hook ((clojure-mode-local-vars . cider-mode)
-         (cider-mode . eldoc-mode))
+         (cider-mode . eldoc-mode)
+         (cider-mode . highlight-symbol-mode)
+         (cider-repl-mode . doom-hide-modeline-mode)
+         (cider-repl-mode . doom-disable-ligatures)
+         (cider-repl-mode . yas-minor-mode))
   :bind (:map clojure-mode-map
               ("M-r"     . cider-switch-repl)
-              ("C-c C-p" . cider-repl-previous-matching-input)
               ("C-c C-t" . cider-eval-and-run-test)
               ("C-c C-n" . cider-find-ns)
+              ("C-c c"   . clj-actions/body)
+         :map cider-repl-mode-map
+              ("C-c C-p" . cider-repl-previous-matching-input)
               ("C-c c"   . clj-actions/body))
   :config
   (setq nrepl-hide-special-buffers t
+        nrepl-log-messages nil
+        cider-font-lock-dynamically '(macro core function var deprecated)
+        cider-overlays-use-font-lock t
         cider-prompt-for-symbol nil
         cider-repl-display-help-banner nil
         cider-repl-display-in-current-window t
         cider-repl-pop-to-buffer-on-connect 'display-only
-
-        nrepl-log-messages nil
-        cider-font-lock-dynamically '(macro core function var deprecated)
-        cider-overlays-use-font-lock t
         cider-repl-history-display-duplicates nil
         cider-repl-history-display-style 'one-line
         cider-repl-history-highlight-current-entry t
@@ -106,32 +111,12 @@
                      ("compojure" . "compojure.core")))
     (add-to-list 'cljr-magic-require-namespaces mapping t)))
 
-
-
-
-;; (use-package cider-find
-;;   ;; :commands (cider-find-resource cider-find-ns cider-find-var)
-;;   )
-
-;; (use-package cider-scratch
-;;   ;; :commands (cider-scratch)
-;;   )
-
-;; (use-package cider-apropos
-;;   ;; :commands (cider-apropos)
-;;   )
-
-;; (use-package cider-ns
-;;   ;; :commands (cider-ns-refresh cider-refresh)
-;;   )
-
-;; (use-package cider-selector
-;;   ;; :commands (cider-selector)
-;;   )
-
-;; (use-package cider-format
-;;   ;; :commands (cider-format-edn-region)
-;;   )
+(use-package cider-find     :after cider)
+(use-package cider-scratch  :after cider)
+(use-package cider-apropos  :after cider)
+(use-package cider-ns       :after cider)
+(use-package cider-selector :after cider)
+(use-package cider-format   :after cider)
 
 (use-package cljr-helm
   :after clj-refactor
@@ -141,7 +126,9 @@
 (use-package helm-clojuredocs
   :after clojure-mode
   :bind (:map clojure-mode-map
-              ("C-c C-d" . helm-clojuredocs-at-point)))
+              ("C-c C-d C-p" . helm-clojuredocs-at-point)
+         :map cider-repl-mode-map
+              ("C-c C-d C-p" . helm-clojuredocs-at-point)))
 
 (use-package helm-cider
   :after cider)

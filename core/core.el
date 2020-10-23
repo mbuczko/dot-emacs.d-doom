@@ -98,7 +98,6 @@ melodramatic ex-vimmer disappointed with the text-editor status quo."
  pcache-directory             (concat doom-cache-dir "pcache/")
  mc/list-file                 (concat doom-etc-dir "mc-lists.el")
  server-auth-dir              (concat doom-cache-dir "server/")
- shared-game-score-directory  (concat doom-etc-dir "shared-game-score/")
  tramp-auto-save-directory    (concat doom-cache-dir "tramp-auto-save/")
  tramp-backup-directory-alist backup-directory-alist
  tramp-persistency-file-name  (concat doom-cache-dir "tramp-persistency.el")

@@ -31,7 +31,6 @@
  '(compilation-skip-to-next-location nil t)
  '(compilation-window-height 12)
  '(compile-auto-highlight t)
- '(completion-styles '(flex))
  '(confirm-kill-emacs nil)
  '(confirm-nonexistent-file-or-buffer nil)
  '(css-indent-offset 2)

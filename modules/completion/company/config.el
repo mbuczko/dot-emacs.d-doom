@@ -47,24 +47,23 @@ MODES should be one major-mode symbol or a list of them."
         company-occurrence-weight-function 'company-occurrence-prefer-closest-above
         company-search-regexp-function 'company-search-words-regexp)
 
-  (global-company-mode +1)
+  (add-hook! 'doom-init-hook #'global-company-mode)
   (define-key company-active-map "\e" 'company-abort))
 
 (use-package company-posframe
-  :after company
   :commands (company-posframe-mode)
+  :hook (company-mode . company-posframe-mode)
   :config
+  (require 'posframe)
   (setq company-posframe-show-metadata nil
         company-posframe-show-indicator nil
         company-posframe-show-params (list :internal-border-color "#444"
                                            :internal-border-width 1)))
 
 (use-package company-statistics
-  :after company
   :config
   (setq company-statistics-file (concat doom-cache-dir "company-stats-cache.el"))
   (quiet! (company-statistics-mode +1)))
-
 
 ;;
 ;; Autoloads

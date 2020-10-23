@@ -12,30 +12,38 @@ modes are active and the buffer is read-only.")
 
 (setq-default
  vc-follow-symlinks t
+ abbrev-mode t
+
  ;; Save clipboard contents into kill-ring before replacing them
  save-interprogram-paste-before-kill t
+
  ;; Bookmarks
  bookmark-default-file (concat doom-etc-dir "bookmarks")
  bookmark-save-flag t
+
  ;; Formatting
  delete-trailing-lines nil
  fill-column 80
  sentence-end-double-space nil
  word-wrap t
+
  ;; Scrolling
  hscroll-margin 1
  hscroll-step 1
  scroll-conservatively 1001
  scroll-margin 0
+
  ;; Whitespace (see `editorconfig')
  indent-tabs-mode nil
  require-final-newline t
  tab-always-indent t
  tab-width 4
  tabify-regexp "^\t* [ \t]+" ; for :retab
+
  ;; Wrapping
  truncate-lines t
  truncate-partial-width-windows 50
+
  ;; whitespace-mode
  whitespace-line-column fill-column
  whitespace-style '(face indentation tabs tab-mark spaces space-mark newline newline-mark trailing lines-tail)

@@ -2,7 +2,7 @@
 
 (load! +customs)
 (load! +bindings)
-
+(load! +hydras)
 
 ;;
 ;; Plugins
@@ -11,6 +11,11 @@
 (use-package emacs-snippets
   :after yasnippet)
 
+(use-package powerthesaurus
+  :commands (powerthesaurus-lookup-word))
+
+(use-package github-stars
+  :commands (github-stars-browse-url))
 
 ;;
 ;; Config

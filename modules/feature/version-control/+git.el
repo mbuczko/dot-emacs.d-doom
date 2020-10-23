@@ -17,10 +17,8 @@
   :mode "/\\.?git/?config$"
   :mode "/\\.gitmodules$")
 
-
 (use-package gitignore-mode
   :mode "/\\.gitignore$")
-
 
 (use-package git-gutter-fringe
   :commands git-gutter-mode
@@ -38,6 +36,7 @@
                (not (memq this-command '(git-gutter:stage-hunk
                                          git-gutter:revert-hunk))))
       (ignore (git-gutter))))
+
   ;; update git-gutter when using magit commands
   (advice-add #'magit-stage-file   :after #'+vc-gutter-update-h)
   (advice-add #'magit-unstage-file :after #'+vc-gutter-update-h))
@@ -85,3 +84,6 @@
 
 (use-package git-link
   :commands (git-link git-link-commit git-link-homepage git-link--exec))
+
+(use-package helm-git-grep
+  :commands (helm-git-grep helm-git-grep-at-point))
