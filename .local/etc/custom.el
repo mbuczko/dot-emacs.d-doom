@@ -218,6 +218,7 @@
  '(highlight-symbol-face ((t (:background "gray20" :foreground "light slate blue"))))
  '(lsp-face-highlight-read ((t (:background "gray20" :foreground "light slate blue" :weight bold))))
  '(lsp-face-highlight-textual ((t (:background "gray20" :foreground "light slate blue" :weight bold))))
+ '(lsp-face-highlight-write ((t (:background "gray20" :foreground "light slate blue" :weight bold))))
  '(magit-diff-added-highlight ((t (:background "#3e493d" :foreground "#98be65" :weight normal))))
  '(magit-diff-file-heading-selection ((t (:background "#2257A0" :foreground "#c678dd" :weight normal))))
  '(magit-diff-hunk-heading-highlight ((t (:background "#a9a1e1" :foreground "#282c34" :weight normal))))
