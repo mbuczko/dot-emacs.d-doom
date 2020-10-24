@@ -3,10 +3,10 @@
 (require 'window-numbering)
 (require 'highlight-symbol)
 (require 'highlight-parentheses)
-(require 'ws-butler)
+;;(require 'ws-butler)
 
 ;; global modes
-(ws-butler-global-mode)
+;;(ws-butler-global-mode)
 
 ;; adjust PATHs
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))

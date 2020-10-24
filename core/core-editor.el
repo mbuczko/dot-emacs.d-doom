@@ -208,6 +208,9 @@ The body of the advice is in BODY."
   (setq command-log-mode-auto-show t
         command-log-mode-open-log-turns-on-mode t))
 
+(use-package ws-butler
+  :hook (prog-mode . ws-butler-mode))
+
 (use-package multiple-cursors
   :commands (mc/mark-more-like-this-extended mc/mark-all-like-this-dwim))
 

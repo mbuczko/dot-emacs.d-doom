@@ -16,7 +16,6 @@
   :mode "\\.cljc$"
   :mode ("\\.cljs$" . clojurescript-mode)
   :config
-
   ;; get docstrings colored correctly with defn-spec
   (put 'defn-spec 'clojure-doc-string-elt 3)
 
@@ -42,9 +41,9 @@
   :config
   (setq nrepl-hide-special-buffers t
         nrepl-log-messages nil
-        cider-font-lock-dynamically '(macro core function var deprecated)
-        cider-overlays-use-font-lock t
-        cider-prompt-for-symbol nil
+        ;cider-font-lock-dynamically '(macro core function var deprecated)
+        ;cider-overlays-use-font-lock t
+        ;cider-repl-use-pretty-printing t
         cider-repl-display-help-banner nil
         cider-repl-display-in-current-window t
         cider-repl-pop-to-buffer-on-connect 'display-only
@@ -56,8 +55,8 @@
         cider-repl-history-size 1000
         cider-repl-result-prefix ";; => "
         cider-repl-use-clojure-font-lock t
-        cider-repl-use-pretty-printing t
         cider-repl-wrap-history nil
+        cider-prompt-for-symbol nil
         cider-stacktrace-default-filters '(tooling dup))
 
   (defadvice cider-jump-to (after cider-jump activate)
