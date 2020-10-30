@@ -149,15 +149,7 @@ this popup, just the specified properties. Returns the new popup window."
   (sp-local-pair '(xml-mode nxml-mode php-mode) "<!--" "-->"
                  :post-handlers '(("| " "SPC"))))
 
-;; Branching undo
-(use-package undo-tree
-  :config
-  (add-hook 'doom-init-hook #'global-undo-tree-mode)
-  ;; persistent undo history is known to cause undo history corruption, which
-  ;; can be very destructive! So disable it!
-  (setq undo-tree-auto-save-history nil
-        undo-tree-history-directory-alist
-        (list (cons "." (concat doom-cache-dir "undo-tree-hist/")))))
+(use-package undo-fu)
 
 ;; Auto-saving
 (defun doom-auto-save-command ()

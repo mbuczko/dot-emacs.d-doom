@@ -37,6 +37,7 @@
               ("C-c c"   . clj-actions/body)
          :map cider-repl-mode-map
               ("C-c C-p" . cider-repl-previous-matching-input)
+              ("C-c C-n" . cider-find-ns)
               ("C-c c"   . clj-actions/body))
   :config
   (setq nrepl-hide-special-buffers t

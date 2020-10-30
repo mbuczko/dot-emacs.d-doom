@@ -17,7 +17,8 @@
 (define-key global-map (kbd "M-c")       #'clipboard-kill-ring-save)
 (define-key global-map (kbd "M-x")       #'clipboard-cut-line-or-region)
 (define-key global-map (kbd "M-v")       #'clipboard-yank)
-(define-key global-map (kbd "M-z")       #'undo)
+(define-key global-map (kbd "M-z")       #'undo-fu-only-undo)
+(define-key global-map (kbd "M-_")       #'undo-fu-only-redo)
 
 (define-key global-map (kbd "M-l")       #'helm-buffers-list)
 (define-key global-map (kbd "M-a")       #'find-tag-without-ns)
