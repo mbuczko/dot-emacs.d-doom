@@ -246,5 +246,8 @@ The body of the advice is in BODY."
 (use-package swiper
   :commands (swiper-thing-at-point swiper-isearch))
 
+(use-package direnv
+  :commands direnv-mode)
+
 (provide 'core-editor)
 ;;; core-editor.el ends here

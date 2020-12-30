@@ -5,23 +5,21 @@
 	"Send a signal to daemon to hot reload."
 	(shell-command "kill -s SIGUSR1 (cat /tmp/flutter.pid)"))
 
-(defun flutter-hot-reload-enable ()
+(defun flutter-hook()
 	(interactive)
 	"Enable flutter hot reload on save."
 	(add-hook 'after-save-hook 'flutter-hot-reload t t))
-
-(defun flutter-hot-reload-disable ()
-	(interactive)
-	"Disable flutter hot reload on save."
-	(remove-hook 'after-save-hook 'flutter-hot-reload t))
-
 
 (after! projectile
   (add-to-list 'projectile-project-root-files "pubspec.yaml"))
 
 (use-package dart-mode
   :mode ("\\.dart$" . dart-mode)
-  :init (add-hook 'dart-mode-hook 'flutter-hot-reload-enable))
+  :init (add-hook 'dart-mode-hook 'flutter-hook)
+  :bind (:map dart-mode-map
+              ("C-c C-d" . lsp-describe-thing-at-point)
+              ("C-c C-n" . helm-lsp-workspace-symbol)
+              ("C-c C-a" . helm-lsp-code-actions)))
 
 (use-package lsp-mode :ensure t)
 (use-package lsp-dart
@@ -40,6 +38,3 @@
   ;;                                    :runtimeExecutable "/snap/bin/chromium"))
   (setq lsp-dart-sdk-dir "~/snap/flutter/common/flutter/bin/cache/dart-sdk/"
         lsp-dart-flutter-sdk-dir "~/snap/flutter/common/flutter"))
-
-(use-package lsp-ui)
-(use-package hover)

@@ -37,9 +37,6 @@
 (use-package poporg
   :commands poporg-dwim)
 
-(use-package direnv
-  :commands direnv-mode)
-
 ;;
 ;; Bootstrap
 ;;

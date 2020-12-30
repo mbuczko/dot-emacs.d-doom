@@ -147,3 +147,7 @@ With WITH-TYPES, ask for file types to search in."
   :config
   (setq helm-css-scss-split-direction #'split-window-vertically
         helm-css-scss-split-with-multiple-windows t))
+
+(use-package helm-lsp
+  :commands (helm-lsp-workspace-symbol)
+  :defer t)
