@@ -50,5 +50,6 @@
   (advice-add #'dired-k--highlight :around #'+dired*dired-k-highlight)
 
   (add-hook 'dired-initial-position-hook #'dired-k)
-  (add-hook 'dired-after-readin-hook #'dired-k-no-revert))
+  (add-hook 'dired-after-readin-hook #'dired-k-no-revert)
 
+  (add-hook 'dired-mode-hook #'hl-line-mode))

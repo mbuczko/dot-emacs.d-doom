@@ -3,10 +3,6 @@
 (require 'window-numbering)
 (require 'highlight-symbol)
 (require 'highlight-parentheses)
-;;(require 'ws-butler)
-
-;; global modes
-;;(ws-butler-global-mode)
 
 ;; adjust PATHs
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
@@ -116,44 +112,6 @@
       (clipboard-kill-region (region-beginning) (region-end) t)
     (clipboard-kill-region (line-beginning-position) (line-beginning-position 2))))
 
-(defun github--get-issue-or-pr-at-point ()
-  (if-let ((iop (car (seq-filter
-                      (lambda (s) (string-prefix-p "#" s))
-                      (split-string (thing-at-point 'line t))))))
-      (progn
-        (string-match "[0-9]+" iop)
-        (match-string 0 iop))))
-
-(defun github--goto-issue-or-pr (id type)
-  "Opens a browser with issue or PR (denoted by TYPE) of given ID."
-  (let* ((origin-url (car (git-link--exec "config" "--get" "remote.origin.url")))
-         (repo-match (string-match "^git@github.com:\\([^\\.]+\\)" origin-url))
-         (repo-url   (concat "https://github.com/" (match-string 1 origin-url)))
-         (sub-path   (cond ((eq 'issue type) "/issues")
-                           ((eq 'pr type) "/pull"))))
-
-    (message (concat repo-url sub-path "/" id))
-    (browse-url
-     (concat repo-url sub-path "/" id))))
-
-(defun github--goto-issue (id)
-  "Opens in a browser issue with given ID or with a one found at current line."
-  (interactive
-   (let* ((at-point (github--get-issue-or-pr-at-point))
-          (default (if at-point (concat "Issue (" at-point ") #") "Issue #"))
-          (str (read-string default nil nil at-point)))
-     (list str)))
-  (github--goto-issue-or-pr id 'issue))
-
-(defun github--goto-pr (id)
-  "Opens in a browser pull request with given ID or with a one found at current line."
-  (interactive
-   (let* ((at-point (github--get-issue-or-pr-at-point))
-          (default (if at-point (concat "Pull-Request (" at-point ") #") "Pull-Request #"))
-          (str (read-string default nil nil at-point)))
-     (list str)))
-  (github--goto-issue-or-pr id 'pr))
-
 (defun diff-last-two-kills ()
   "Write the last two kills to temporary files and diff them."
   (interactive)
@@ -168,5 +126,3 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.vue$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
-
-(add-hook 'dired-mode-hook #'hl-line-mode)

@@ -1,7 +1,7 @@
 ;;; feature/version-control/+git.el -*- lexical-binding: t; -*-
 ;;;###if (not (featurep! -git))
 
-(defun visit-pull-request-url ()
+(defun github--visit-pull-request-url ()
   "Visit the current branch's PR on Github."
   (interactive)
   (browse-url
@@ -12,6 +12,44 @@
                        (magit-get-push-remote)
                        "url"))
            (magit-get-current-branch))))
+
+(defun github--get-issue-or-pr-at-point ()
+  (if-let ((iop (car (seq-filter
+                      (lambda (s) (string-prefix-p "#" s))
+                      (split-string (thing-at-point 'line t))))))
+      (progn
+        (string-match "[0-9]+" iop)
+        (match-string 0 iop))))
+
+(defun github--goto-issue-or-pr (id type)
+  "Opens a browser with issue or PR (denoted by TYPE) of given ID."
+  (let* ((origin-url (car (git-link--exec "config" "--get" "remote.origin.url")))
+         (repo-url   (concat "https://github.com/" (match-string 1 origin-url)))
+         (sub-path   (cond ((eq 'issue type) "/issues")
+                           ((eq 'pr type) "/pull"))))
+
+    (message (concat repo-url sub-path "/" id))
+    (browse-url
+     (concat repo-url sub-path "/" id))))
+
+(defun github--goto-issue (id)
+  "Opens in a browser issue with given ID or with a one found at current line."
+  (interactive
+   (let* ((at-point (github--get-issue-or-pr-at-point))
+          (default (if at-point (concat "Issue (" at-point ") #") "Issue #"))
+          (str (read-string default nil nil at-point)))
+     (list str)))
+  (github--goto-issue-or-pr id 'issue))
+
+(defun github--goto-pr (id)
+  "Opens in a browser pull request with given ID or with a one found at current line."
+  (interactive
+   (let* ((at-point (github--get-issue-or-pr-at-point))
+          (default (if at-point (concat "Pull-Request (" at-point ") #") "Pull-Request #"))
+          (str (read-string default nil nil at-point)))
+     (list str)))
+  (github--goto-issue-or-pr id 'pr))
+
 
 (use-package gitconfig-mode
   :mode "/\\.?git/?config$"
@@ -65,7 +103,7 @@
     ad-do-it
     (delete-other-windows))
 
-  (define-key magit-mode-map "v" #'visit-pull-request-url)
+  (define-key magit-mode-map "v" #'github--visit-pull-request-url)
   (add-hook 'magit-mode-hook (lambda ()
                                (doom-hide-modeline-mode)
                                (turn-on-magit-gitflow)
