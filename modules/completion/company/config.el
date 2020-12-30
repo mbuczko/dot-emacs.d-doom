@@ -52,7 +52,7 @@ MODES should be one major-mode symbol or a list of them."
 
 (use-package company-posframe
   :commands (company-posframe-mode)
-  :hook (company-mode . company-posframe-mode)
+  ;:hook (company-mode . company-posframe-mode)
   :config
   (require 'posframe)
   (setq company-posframe-show-metadata nil

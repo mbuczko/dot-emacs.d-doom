@@ -121,14 +121,32 @@
        (and (string-prefix-p "magit" name)
             (not (file-name-extension name)))))))
 
-(use-package golden-ratio
-  :commands golden-ratio
+
+(use-package golden
   :config
-  (setq golden-ratio-auto-scale nil
-        golden-ratio-exclude-buffer-names '("*helm imenu*" "*helm etags*" "*Helm Swoop*" "*fzf*" "*Ediff Control Panel*" "*helm M-x*" "*transient*")
-        golden-ratio-exclude-buffer-regexp '("undo" "transient")
-        golden-ratio-exclude-modes '("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode" minimap-mode TERM)
-        golden-ratio-mode t))
+  (let ((golden-ratio-exclude-buffer-names '("*helm imenu*" "*helm etags*" "*Helm Swoop*" "*fzf*" "*Ediff Control Panel*" "*helm M-x*" "*transient*"))
+        (golden-ratio-exclude-buffer-regexp '("undo" "transient"))
+        (golden-ratio-exclude-modes '("helm-mode" "gnus-summary-mode" "gnus-group-mode" "gnus-article-mode" minimap-mode TERM)))
+
+    (defun golden-buffer-name-excluded-p ()
+      (member (buffer-name)
+              golden-ratio-exclude-buffer-names))
+
+    (defun golden-buffer-regexp-excluded-p ()
+      (and golden-ratio-exclude-buffer-regexp
+           (cl-loop for r in golden-ratio-exclude-buffer-regexp
+                    thereis (string-match r (buffer-name)))))
+
+    (defun golden-ratio-excluded-major-mode-p ()
+      (or (memq major-mode golden-ratio-exclude-modes)
+          (member (symbol-name major-mode)
+                  golden-ratio-exclude-modes)))
+
+    (setq golden-inhibit-predicates '(golden-buffer-name-excluded-p
+                                      golden-buffer-regexp-excluded-p
+                                      golden-ratio-excluded-major-mode-p)))
+  ;; enable global golden-ratio
+  (global-golden-mode))
 
 (use-package deft
   :commands deft

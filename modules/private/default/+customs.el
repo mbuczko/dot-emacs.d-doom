@@ -101,10 +101,6 @@
                                       (er/mark-defun)
                                       (crux-cleanup-buffer-or-region)))
 
-(defadvice select-window-by-number (after select-window activate)
-  "Resizing windows automatically when selected by window-numbering shortcuts."
-  (golden-ratio))
-
 (defadvice clipboard-kill-ring-save (before slick-copy activate compile)
   "When called interactively with no active region, copy a single line instead."
   (interactive
