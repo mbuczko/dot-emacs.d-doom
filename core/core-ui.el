@@ -38,7 +38,7 @@ shorter major mode name in the mode-line. See `doom|set-mode-name'.")
  bidi-display-reordering nil ; disable bidirectional text for tiny performance boost
  blink-matching-paren nil    ; don't blink--too distracting
  cursor-in-non-selected-windows nil  ; hide cursors in other windows
- display-line-numbers-width 3
+ ;display-line-numbers-width 3
  frame-inhibit-implied-resize t
  ;; remove continuation arrow on right fringe
  fringe-indicator-alist (delq (assq 'continuation fringe-indicator-alist)
@@ -284,22 +284,7 @@ local value, whether or not it's permanent-local. Therefore, we cycle
   ;; I don't need hl-line showing in other windows. This also offers a small
   ;; speed boost when buffer is displayed in multiple windows.
   (setq hl-line-sticky-flag nil
-        global-hl-line-sticky-flag nil)
-
-  ;; On Emacs 26+, when point is on the last line, hl-line highlights bleed into
-  ;; the rest of the window after eob. This is the fix.
-  (when (boundp 'display-line-numbers)
-    (defun doom--line-range ()
-      (cons (line-beginning-position)
-            (cond ((save-excursion
-                     (goto-char (line-end-position))
-                     (and (eobp) (not (bolp))))
-                   (1- (line-end-position)))
-                  ((or (eobp) (save-excursion (forward-line) (eobp)))
-                   (line-end-position))
-                  (t
-                   (line-beginning-position 2)))))
-    (setq hl-line-range-function #'doom--line-range)))
+        global-hl-line-sticky-flag nil))
 
 ;; Helps us distinguish stacked delimiter pairs. Especially in parentheses-drunk
 ;; languages like Lisp.
@@ -314,10 +299,7 @@ local value, whether or not it's permanent-local. Therefore, we cycle
   :config
   (setq-default
    visual-fill-column-center-text t
-   visual-fill-column-width
-   ;; take Emacs 26 line numbers into account
-   (+ (if (boundp 'display-line-numbers) 6 0)
-      fill-column)))
+   visual-fill-column-width fill-column))
 
 ;;
 ;; Line numbers

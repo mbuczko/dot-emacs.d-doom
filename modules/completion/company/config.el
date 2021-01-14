@@ -51,7 +51,7 @@ MODES should be one major-mode symbol or a list of them."
   (define-key company-active-map "\e" 'company-abort))
 
 (use-package company-posframe
-  :commands (company-posframe-mode)
+  ;:commands (company-posframe-mode)
   ;:hook (company-mode . company-posframe-mode)
   :config
   (require 'posframe)

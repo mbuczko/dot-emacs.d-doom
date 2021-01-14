@@ -23,7 +23,7 @@ modes are active and the buffer is read-only.")
 
  ;; Formatting
  delete-trailing-lines nil
- fill-column 80
+ fill-column 120
  sentence-end-double-space nil
  word-wrap t
 
@@ -172,7 +172,6 @@ The body of the advice is in BODY."
 (add-hook 'focus-out-hook 'doom-auto-save-command)
 
 (add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
-(add-hook 'visual-line-mode-hook (lambda () (setq fill-column 100)))
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 (add-hook 'html-mode-hook (lambda () (visual-fill-column-mode -1)))
 
