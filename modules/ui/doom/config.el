@@ -6,8 +6,7 @@
   (unless doom-theme
     (setq doom-theme 'doom-one)
     (after! solaire-mode
-      (add-hook 'doom-init-ui-hook #'solaire-mode-swap-bg t)
-      (add-hook 'doom-init-ui-hook #'centaur-tabs-headline-match)))
+      (add-hook 'doom-init-ui-hook #'solaire-mode-swap-bg t)))
 
   ;; improve integration w/ org-mode
   (add-hook 'doom-load-theme-hook #'doom-themes-org-config)
@@ -91,36 +90,6 @@
 
 (use-package fancy-narrow
   :commands (fancy-narrow-mode fancy-widen fancy-narrow-to-defun fancy-narrow-to-region))
-
-(use-package centaur-tabs
-  :init
-  (setq x-underline-at-descent-line t
-        centaur-tabs-set-modified-marker t
-        centaur-tabs-modified-marker "●"
-        centaur-tabs-cycle-scope 'tabs
-        centaur-tabs-height 24
-        centaur-tabs-style "box"
-        centaur-tabs-set-bar 'under)
-  :config
-  (centaur-tabs-change-fonts "iosevka" 120)
-  ;(centaur-tabs-headline-match)
-  ;(centaur-tabs-group-by-projectile-project)
-  (defun centaur-tabs-hide-tab (x)
-    (let ((name (format "%s" x)))
-      (or
-       (string-suffix-p "TAGS" name)
-       (string-prefix-p "*Article" name)
-       (string-prefix-p "*Summary" name)
-       (string-prefix-p "*Group" name)
-       (string-prefix-p " *Minibuf" name)
-       (string-prefix-p " *NeoTree*" name)
-       (string-prefix-p " *transient" name)
-       (string-prefix-p " *which" name)
-       (string-prefix-p "*helm" name)
-       (string-prefix-p "*cider" name)
-       (and (string-prefix-p "magit" name)
-            (not (file-name-extension name)))))))
-
 
 (use-package golden
   :config
