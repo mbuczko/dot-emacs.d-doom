@@ -38,7 +38,7 @@ shorter major mode name in the mode-line. See `doom|set-mode-name'.")
  bidi-display-reordering nil ; disable bidirectional text for tiny performance boost
  blink-matching-paren nil    ; don't blink--too distracting
  cursor-in-non-selected-windows nil  ; hide cursors in other windows
- ;display-line-numbers-width 3
+ display-line-numbers-width 3
  frame-inhibit-implied-resize t
  ;; remove continuation arrow on right fringe
  fringe-indicator-alist (delq (assq 'continuation fringe-indicator-alist)
