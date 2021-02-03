@@ -16,16 +16,15 @@
 (pretty-hydra-define global-toggles
   (:color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Global switches") :separator "-")
   ("UI"
-   (("t" centaur-tabs-mode "centaur tabs" :toggle t)
-    ("o" company-posframe-mode "posframe" :toggle t)
+   (("o" company-posframe-mode "posframe" :toggle t)
     ("l" mac-auto-operator-composition-mode "ligatures" :toggle t)
     ("b" beacon-mode "beacon" :toggle t))
    "Basic"
-   (("L" page-break-lines-mode "page break lines" :toggle t)
-    ("n" display-line-numbers-mode "line number" :toggle t)
-    ("w" whitespace-mode "whitespace" :toggle t)
-    ("W" ws-butler-mode "whitespace cleanup" :toggle t)
-    ("v" visual-line-mode "visual line" :toggle t))
+   (("n" display-line-numbers-mode "line number" :toggle t)
+    ("w" whitespace-mode "whitespaces" :toggle t)
+    ("t" ws-butler-mode "whitespace cleanup" :toggle t)
+    ("v" visual-line-mode "visual line" :toggle t)
+    ("c" visual-fill-column-mode "visual fill column" :toggle t))
    "Highlight"
    (("h" hl-line-mode "line" :toggle t)
     ("s" highlight-symbol-mode "symbol" :toggle t)
