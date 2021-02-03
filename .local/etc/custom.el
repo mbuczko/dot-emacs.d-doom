@@ -20,8 +20,6 @@
  '(comment-start "/** " t)
  '(comment-start-skip "/\\*\\*" t)
  '(company-idle-delay 0.1)
- '(company-posframe-quickhelp-delay nil)
- '(company-posframe-quickhelp-show-header nil)
  '(company-require-match 'never)
  '(company-tooltip-margin 1)
  '(company-tooltip-maximum-width 64)

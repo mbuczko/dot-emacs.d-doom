@@ -50,11 +50,11 @@ MODES should be one major-mode symbol or a list of them."
   (add-hook! 'doom-init-hook #'global-company-mode)
   (define-key company-active-map "\e" 'company-abort))
 
+(use-package posframe)
+
 (use-package company-posframe
-  ;:commands (company-posframe-mode)
-  ;:hook (company-mode . company-posframe-mode)
+  :hook (company-mode . company-posframe-mode)
   :config
-  (require 'posframe)
   (setq company-posframe-show-metadata nil
         company-posframe-show-indicator nil
         company-posframe-show-params (list :internal-border-color "#444"
@@ -68,7 +68,6 @@ MODES should be one major-mode symbol or a list of them."
 ;;
 ;; Autoloads
 ;;
-
 (autoload 'company-capf "company-capf")
 (autoload 'company-dabbrev "company-dabbrev")
 (autoload 'company-dabbrev-code "company-dabbrev-code")
