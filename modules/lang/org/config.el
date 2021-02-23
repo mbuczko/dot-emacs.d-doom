@@ -58,6 +58,8 @@
      toc-org-enable             ; auto-table of contents
      direnv-mode
      visual-line-mode           ; line wrapping
+     visual-fill-column-mode    ; distract free margins
+
      hide-ctrl-M                ; no garbage please
 
      +org|enable-auto-update-cookies

@@ -50,6 +50,11 @@
      (list str)))
   (github--goto-issue-or-pr id 'pr))
 
+(fset 'github--format-link
+      (lambda (&optional arg)
+        "Formats given link into less messy form."
+        (interactive "p")
+        (kmacro-exec-ring-item (quote ([?\M-f ?\M-b ?| ?\C-  ?\C-s ?· return left left ?\M-x ?\C-s ?# return ?\M-d ?\C-r ?| return ?\C-k ?\M-v ?\M-y ?\M-b ?\C-e ?  ?\M-v ?\M-y] 0 "%d")) arg)))
 
 (use-package gitconfig-mode
   :mode "/\\.?git/?config$"
@@ -95,6 +100,8 @@
 
 (use-package magit
   :commands (magit-status magit-blame magit-diff-buffer-file magit-file-dispatch)
+  :hook ((magit-status-mode . visual-fill-column-mode)
+         (git-commit-mode . visual-fill-column-mode))
   :config
   (setq magit-save-repository-buffers 'dontask)
   (defadvice magit-status (around magit-fullscreen activate)

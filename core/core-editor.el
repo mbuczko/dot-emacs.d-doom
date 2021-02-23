@@ -42,7 +42,7 @@ modes are active and the buffer is read-only.")
 
  ;; Wrapping
  truncate-lines t
- truncate-partial-width-windows 50
+ truncate-partial-width-windows nil
 
  ;; whitespace-mode
  whitespace-line-column fill-column
@@ -170,10 +170,7 @@ The body of the advice is in BODY."
 
 (add-hook 'mouse-leave-buffer-hook 'doom-auto-save-command)
 (add-hook 'focus-out-hook 'doom-auto-save-command)
-
-(add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-(add-hook 'html-mode-hook (lambda () (visual-fill-column-mode -1)))
 
 ;; advise all window switching functions
 (advise-commands "auto-save"

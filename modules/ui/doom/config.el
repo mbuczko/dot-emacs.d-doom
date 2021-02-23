@@ -119,6 +119,7 @@
 
 (use-package deft
   :commands deft
+  :hook (deft-mode . visual-fill-column-mode)
   :config
   (setq deft-extensions '("org" "md" "tex" "txt")
         deft-default-extension "org"

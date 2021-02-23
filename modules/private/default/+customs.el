@@ -32,6 +32,12 @@
 ;; (defengine stack-overflow "https://stackoverflow.com/search?q=%s" :keybinding "s")
 ;; (defengine twitter "https://twitter.com/search?q=%s" :keybinding "t")
 
+;; custom order on org-agenda
+(setq org-agenda-sorting-strategy '((agenda habit-down time-up deadline-up scheduled-down priority-down category-keep)
+                                    (todo priority-down category-keep)
+                                    (tags priority-down category-keep)
+                                    (search category-keep)))
+
 ;; a few handy functions to make life easier
 (defun smart-sexp-open-line ()
   (interactive)

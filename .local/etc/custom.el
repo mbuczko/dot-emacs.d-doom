@@ -110,11 +110,30 @@
  '(mouse-drag-copy-region nil)
  '(mouse-wheel-progressive-speed nil)
  '(neo-smart-open t)
+ '(org-agenda-custom-commands
+   '(("n" "Agenda and all TODOs"
+      ((agenda "" nil)
+       (alltodo "" nil))
+      nil)
+     ("1" "Agenda for priority A" agenda ""
+      ((org-agenda-skip-function
+        '(and
+          (not
+           (equal "A"
+                  (org-entry-get nil "PRIORITY")))
+          (point-at-eol)))))
+     ("2" "Agenda for priority B" agenda ""
+      ((org-agenda-skip-function
+        '(and
+          (not
+           (equal "B"
+                  (org-entry-get nil "PRIORITY")))
+          (point-at-eol)))))))
  '(org-babel-default-header-args:sql-mode '((:product . "postgres")))
- '(org-bullets-bullet-list '("◉" "○" "★" "✽" "✿" "✸"))
+ '(org-bullets-bullet-list '("◉" "○" "▪" "✽" "✿" "✸"))
  '(org-use-speed-commands t)
  '(package-selected-packages
- '(undo-fu forge gradle-mode dap-ui dap-mode hover dart-mode lsp-dart helm-projectile dumb-jump helm-lsp lsp-ui lsp-mode svelte-mode helm-bm rustic beacon company-posframe clj-refactor posframe magit-todos magit-gitflow magit fzf zprint-mode helm-org ox-pandoc ox-gfm direnv doom-themes direx dired-k ox-rfc w3m fancy-narrow swiper toml-mode deft centaur-tabs shackle helm-cider github-stars powerthesaurus pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo org-bullets deadgrep company-auctex auctex company-tern flycheck-joker lorem-ipsum ripgrep helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers helm-xref helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist emmet-mode emacs-snippets eldoc-eval editorconfig dockerfile-mode company-web company-statistics company-shell company-dict auto-yasnippet auto-compile))
+   '(org-ql undo-fu forge gradle-mode dap-ui dap-mode hover dart-mode lsp-dart helm-projectile dumb-jump helm-lsp lsp-ui lsp-mode svelte-mode helm-bm rustic beacon company-posframe clj-refactor posframe magit-todos magit-gitflow magit fzf zprint-mode helm-org ox-pandoc ox-gfm direnv doom-themes direx dired-k ox-rfc w3m fancy-narrow swiper toml-mode deft shackle helm-cider github-stars powerthesaurus pretty-hydra rfc-mode org-plus-contrib toc-org ob-restclient poporg ox-hugo org-bullets deadgrep company-auctex auctex company-tern flycheck-joker lorem-ipsum ripgrep helm-css-scss zop-to-char ws-butler bm crux dash-at-point flycheck goto-last-change helm-clojuredocs helm-git-grep highlight-parentheses highlight-symbol ibuffer-projectile mark-multiple neotree paxedit smartrep window-numbering persistent-soft yaml-mode xref-js2 which-key wgrep web-mode web-beautify visual-fill-column use-package smartparens smart-forward shrink-path sass-mode rainbow-mode rainbow-delimiters quickrun quelpa nav-flash json-mode imenu-list imenu-anywhere hl-todo highlight-quoted highlight-numbers helm-xref helm-describe-modes helm-company helm-ag gitignore-mode gitconfig-mode git-timemachine git-link git-gutter-fringe gist emmet-mode emacs-snippets eldoc-eval editorconfig dockerfile-mode company-web company-statistics company-shell company-dict auto-yasnippet auto-compile))
  '(popup-kill-ring-popup-width 50 t)
  '(rainbow-delimiters-outermost-only-face-count 2)
  '(read-process-output-max (* 1024 1024) t)

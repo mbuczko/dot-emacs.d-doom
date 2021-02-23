@@ -49,7 +49,8 @@
     ("h" git-timemachine "time machine" :color teal)
     ("l" magit-todos-list "todos list" :color teal))
    "GitHub"
-   (("S" github-stars-browse-url "stars..." :color teal)
+   (("F" github--format-link "format link" :color teal)
+    ("S" github-stars-browse-url "stars..." :color teal)
     ("L" gist-list "gists..." :color teal)
     ("P" github--goto-pr "goto PR" :color teal)
     ("I" github--goto-issue "goto ISSUE" :color teal))

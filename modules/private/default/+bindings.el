@@ -37,7 +37,6 @@
 (define-key global-map (kbd "C-}")       #'sp-backward-barf-sexp)
 (define-key global-map (kbd "C-{")       #'sp-backward-slurp-sexp)
 
-(define-key global-map (kbd "C-s")       #'swiper-isearch)
 (define-key global-map (kbd "C-f")       #'swiper-thing-at-point)
 (define-key global-map (kbd "C-o")       #'helm-semantic-or-imenu)
 (define-key global-map (kbd "C-w")       #'sp-backward-kill-word)
