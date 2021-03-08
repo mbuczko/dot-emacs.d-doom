@@ -51,7 +51,7 @@
    "GitHub"
    (("F" github--format-link "format link" :color teal)
     ("S" github-stars-browse-url "stars..." :color teal)
-    ("L" gist-list "gists..." :color teal)
+    ("G" gist-list "gists..." :color teal)
     ("P" github--goto-pr "goto PR" :color teal)
     ("I" github--goto-issue "goto ISSUE" :color teal))
    "Chunk"
@@ -62,7 +62,7 @@
     ("]" git-gutter:next-hunk "next →" :toggle t))
    "Search"
    (("g" deadgrep "deadgrep" :color teal)
-    ("G" helm-google-suggest "google" :color teal))
+    ("o" helm-google-suggest "google" :color teal))
    "Tags"
    (("e" helm-etags-select "etags select" :color teal)
     ("t" projectile-find-tag "projectile tags" :color teal))

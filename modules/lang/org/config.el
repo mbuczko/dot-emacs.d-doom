@@ -45,7 +45,7 @@
   ;; Occasionally, Emacs encounters an error loading the built-in org, aborting
   ;; the load. This results in a broken, partially loaded state. This require
   ;; tries to set it straight.
-  (require 'org)
+  ;(require 'org)
   (setq org-directory +org-dir)
 
   (+org-init-ui)

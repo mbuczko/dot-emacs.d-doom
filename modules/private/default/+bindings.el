@@ -53,7 +53,7 @@
 (define-key global-map (kbd "M-w M-d")   #'er/mark-defun)
 (define-key global-map (kbd "M-w i")     #'er/mark-inner-tag)
 (define-key global-map (kbd "M-w o")     #'er/mark-outer-tag)
-(define-key global-map (kbd "C-c h")     #'helm-all-mark-rings)
+(define-key global-map (kbd "C-c k")     #'helm-all-mark-rings)
 (define-key global-map (kbd "C-c m")     #'magit-status)
 (define-key global-map (kbd "C-c t")     #'global-toggles/body)
 (define-key global-map (kbd "C-c d")     #'dev-actions/body)

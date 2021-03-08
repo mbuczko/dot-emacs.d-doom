@@ -24,6 +24,7 @@
 (defun github--goto-issue-or-pr (id type)
   "Opens a browser with issue or PR (denoted by TYPE) of given ID."
   (let* ((origin-url (car (git-link--exec "config" "--get" "remote.origin.url")))
+         (repo-match (string-match "^git@github.com:\\([^\\.]+\\)" origin-url))
          (repo-url   (concat "https://github.com/" (match-string 1 origin-url)))
          (sub-path   (cond ((eq 'issue type) "/issues")
                            ((eq 'pr type) "/pull"))))

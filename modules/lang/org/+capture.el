@@ -36,10 +36,14 @@
      (file+headline org-default-notes-file "Links")
      "* [[%:link][%:description]]\n\n %i" :immediate-finish t)
 
-    ("w" "Worklog" entry
+    ("w" "Pitch Worklog" entry
      (file+headline "~/workspace/pitch-app/worklog.org" "Worklog")
-     "** IN-PROGRESS %u %?%(with-current-buffer (org-capture-get :original-file-nondirectory) (github--babel-codeblock (thing-at-point 'line t)))"
-     :kill-buffer t)))
+     "** TODO %?%(with-current-buffer (org-capture-get :original-file-nondirectory) (github--babel-codeblock (thing-at-point 'line t)))"
+     :kill-buffer t)
+
+    ("i" "Pitch Inbox" entry
+     (file+headline "~/workspace/pitch-app/worklog.org" "=Inbox=")
+     "** TODO %u %?\n%i" :prepend t :kill-buffer t)))
 
 (after! org
   (setq org-default-notes-file (expand-file-name +org-default-notes-file +org-dir)
